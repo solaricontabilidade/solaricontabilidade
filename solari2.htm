@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solari Contabilidade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: -1;
+        }
+
+        header {
+            background: linear-gradient(to right, #0D1B2A, #1B263B, #415A77, #778DA9, #E0E1DD);
+            color: #B0B0B0;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        header .logo {
+            width: 200px; 
+            height: 200px; 
+            object-fit: contain;
+            border-radius: 50%; 
+           
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: #B0B0B0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-section {
+            background: #fefefe;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            color: #D4A017;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            background: #1C2526;
+            color: #B0B0B0;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-item:hover {
+            background: #D4A017;
+            transform: translateY(-3px);
+            color: #1C2526;
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            color: #D4A017;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #1C2526;
+            color: #B0B0B0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 2rem;
+            z-index: 1;
+        }
+
+        @media (max-width: 600px) {
+            header .logo {
+                width: 150px; /* Ajuste para telas menores */
+                height: 150px;
+            }
+
+            .contact-item {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img src="https://i.pinimg.com/736x/be/20/72/be2072e0cf15330e3656f4c79ed47baa.jpg" alt="Solari Contabilidade Logo" class="logo">
+        <p>Clareza & Evolução Estratégica</p>
+		<p>Contabilidade | Consultoria | Legalização de Empresas</p>
+    </header>
+
+    <div class="container">
+        <section class="contact-section">
+            <h2>Entre em Contato</h2>
+            <div class="contact-links">
+                <a href="mailto:solaricontabilidade@gmail.com" class="contact-item">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="https://wa.me/5563991078032" class="contact-item" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="tel:+5563991078032" class="contact-item">
+                    <i class="fas fa-phone"></i> Telefone
+                </a>
+                <a href="https://www.instagram.com/solaricontabilidade/" class="contact-item" target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2025 Solari Contabilidade. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
