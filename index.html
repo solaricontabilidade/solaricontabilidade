@@ -13,25 +13,14 @@
         }
 
         body {
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #051221;
+            color: #fff;
             line-height: 1.6;
             position: relative;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.7);
-            z-index: -1;
-        }
-
         header {
-            background: linear-gradient(to right, #0D1B2A, #1B263B, #415A77, #778DA9, #E0E1DD);
+            background: #051221;
             color: #B0B0B0;
             text-align: center;
             padding: 3rem 1rem;
@@ -41,11 +30,25 @@
         }
 
         header .logo {
-            width: 200px; 
-            height: 200px; 
-            object-fit: contain;
-            border-radius: 50%; 
-           
+				weight: 400px;
+				height: 300px;
+				border: none;
+				box-shadow:none;
+				opacity: 0.8; 
+				padding: 0;
+				margin: 0;
+        }
+
+        header .beta {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: #D4A017;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 0.25rem 0.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
         }
 
         header p {
@@ -63,7 +66,7 @@
         }
 
         .contact-section {
-            background: #fefefe;
+            background: #051221;
             border-radius: 10px;
             padding: 2rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -84,7 +87,7 @@
         }
 
         .contact-item {
-            background: #1C2526;
+            background: #051221;
             color: #B0B0B0;
             padding: 1rem 2rem;
             border-radius: 5px;
@@ -94,12 +97,13 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            border: 2px solid #D4A017;
         }
 
         .contact-item:hover {
             background: #D4A017;
             transform: translateY(-3px);
-            color: #1C2526;
+            color: #051221;
         }
 
         .contact-item i {
@@ -110,7 +114,7 @@
         footer {
             text-align: center;
             padding: 1rem;
-            background: #1C2526;
+            background: #051221;
             color: #B0B0B0;
             position: relative;
             bottom: 0;
@@ -121,8 +125,14 @@
 
         @media (max-width: 600px) {
             header .logo {
-                width: 150px; /* Ajuste para telas menores */
+                width: 150px; 
                 height: 150px;
+            }
+
+            header .beta {
+                top: 0.5rem;
+                right: 0.5rem;
+                font-size: 0.9rem;
             }
 
             .contact-item {
@@ -135,9 +145,10 @@
 </head>
 <body>
     <header>
-        <img src="https://i.pinimg.com/736x/be/20/72/be2072e0cf15330e3656f4c79ed47baa.jpg" alt="Solari Contabilidade Logo" class="logo">
+        <img src="https://raw.githubusercontent.com/PedroHenriqueR3pos/solaricontabilidade/refs/heads/main/imagens/area.png" alt="Solari Contabilidade Logo" class="logo">
+        <span class="beta">beta</span>
         <p>Clareza & Evolução Estratégica</p>
-		<p>Contabilidade | Consultoria | Legalização de Empresas</p>
+		<p>Contabilidade | Consultoria | Legalização de Empresa</p>
     </header>
 
     <div class="container">
