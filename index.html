@@ -9,184 +9,176 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
         }
 
         body {
             background-color: #051221;
             color: #fff;
             line-height: 1.6;
-            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .beta {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: #D4A017;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border: 1px solid #D4A017;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(5, 18, 33, 0.8);
+            z-index: 100;
+        }
+
+        .main-wrapper {
+            max-width: 1100px; 
+            margin: 0 auto;
+            width: 100%;
+            padding: 100px 1.5rem; 
         }
 
         header {
-            background: #051221;
-            color: #B0B0B0;
-            text-align: center;
-            padding: 3rem 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centraliza o conjunto */
+            gap: 8rem; /* AJUSTE AQUI: espaço entre logo e texto */
+            margin-bottom: 100px;
         }
 
         header .logo {
-            width: 450px; 
-            height: 450px;
-            border: none;
-            box-shadow: none;
-            opacity: 0.8;
-            padding: 0;
-            margin: 0;
+            width: 200px; 
+            height: auto;
         }
 
-        header .beta {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
+        .header-text {
+            text-align: left;
+        }
+
+        .header-text p {
+            font-size: 1.05rem;
+            color: #cfcfcf;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap; /* Evita que o texto quebre linha precocemente */
+        }
+
+        .header-text .crc {
             color: #D4A017;
-            font-size: 1rem;
             font-weight: bold;
-            padding: 0.25rem 0.5rem;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 3px;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            color: #B0B0B0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            position: relative;
-            z-index: 1;
+            margin-top: 1rem;
+            font-size: 0.95rem;
         }
 
         .contact-section {
-            background: #051221;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             text-align: center;
         }
 
         .contact-section h2 {
             color: #D4A017;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .contact-links {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            padding: 20px;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
         }
 
         .contact-item {
-            background: #051221;
-            color: #B0B0B0;
-            padding: 1rem 2rem;
-            width: 400px;
-            min-height: 60px; 
-            border-radius: 5px;
+            background: transparent;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            width: 280px;
+            border-radius: 8px;
             text-decoration: none;
-            font-size: 1.3rem;
-            transition: transform 0.3s ease, background 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            border: 2px solid #D4A017;
-            white-space: normal; 
-            word-break: break-word; 
-            text-align: center; 
+            gap: 12px;
+            border: 1px solid rgba(212, 160, 23, 0.4);
         }
 
         .contact-item:hover {
             background: #D4A017;
-            transform: translateY(-3px);
             color: #051221;
-        }
-
-        .contact-item i {
-            font-size: 1.2rem;
-            color: #D4A017;
+            border-color: #D4A017;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 160, 23, 0.2);
         }
 
         footer {
+            margin-top: auto;
             text-align: center;
-            padding: 1rem;
-            background: #051221;
-            color: #B0B0B0;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-            margin-top: 2rem;
-            z-index: 1;
+            padding: 3rem 1rem;
+            font-size: 0.85rem;
+            color: #555;
         }
 
-        footer p {
-            margin: 0.3rem 0;
-        }
-
-        footer p:last-child {
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        @media (max-width: 600px) {
-            header .logo {
-                width: 250px;
-                height: 250px;
+        /* Responsividade */
+        @media (max-width: 850px) {
+            header {
+                gap: 3rem; /* Espaço menor em tablets */
             }
+        }
 
-            header .beta {
-                top: 0.5rem;
-                right: 0.5rem;
-                font-size: 0.9rem;
-            }
-
-            .contact-item {
-                width: 90%; 
-                min-height: 60px; 
-                padding: 0.75rem 1rem; 
-                font-size: 1rem; 
-                justify-content: center;
-                white-space: normal;
-                word-break: break-word;
+        @media (max-width: 650px) {
+            header {
+                flex-direction: column;
                 text-align: center;
+                gap: 2rem;
             }
-
-            .contact-item i {
-                font-size: 1rem; 
+            .header-text p {
+                justify-content: center;
+            }
+            .contact-item {
+                width: 100%;
             }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <img src="/imagens/area.png" alt="Solari Contabilidade Logo" class="logo">
-        <span class="beta">BETA</span>
-        <p>🌞 Clareza e evolução estratégica</p>
-        <p>📈 Planejamento Tributário & Estruturação Empresarial</p>
-        <p>🚀 Aumente seu lucro com segurança</p>
-        <p>CRC-TO 006056/O-5</p> 
-        <p>🌎 Atendimento em todo o Brasil ⬇️ </p>
-    </header>
 
-    <div class="container">
+    <span class="beta">BETA</span>
+
+    <div class="main-wrapper">
+        <header>
+            <img src="/imagens/area.png" alt="Solari Contabilidade Logo" class="logo">
+            
+            <div class="header-text">
+                <p>🌞 Clareza para evoluir</p>
+                <p>📈 Inteligência Tributária & Estruturação Empresarial</p>
+                <p>📊Contabilidade • Consultoria • Legalização</p>
+                <p style="font-size: 1.0rem; opacity: 0.6;">
+   			 <i class="fas fa-map-marker-alt"></i> Atendimento em todo o Brasil
+		</p>
+		<p class="crc">CRC-TO 006056/O-5</p>
+             
+            </div>
+        </header>
+
         <section class="contact-section">
             <h2>Entre em Contato</h2>
             <div class="contact-links">
                 <a href="https://wa.me/5563991078032" class="contact-item" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Fale com o Contador
+                    <i class="fab fa-whatsapp"></i> Fale com um especialista
                 </a>
+                
                 <a href="https://www.instagram.com/solaricontabilidade/" class="contact-item" target="_blank">
                     <i class="fab fa-instagram"></i> Conteúdos no Instagram
                 </a>
@@ -198,5 +190,6 @@
         <p>© 2025 Solari Contabilidade. Todos os direitos reservados.</p>
         <p>CNPJ: 63.085.577/0001-63</p>
     </footer>
+
 </body>
 </html>
