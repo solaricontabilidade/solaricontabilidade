@@ -318,7 +318,9 @@
         }
 
         .eyebrow {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             color: var(--gold);
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -327,10 +329,44 @@
             margin-bottom: 1.2rem;
         }
 
+        .eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 18px;
+            height: 1px;
+            background: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .section-head .eyebrow,
+        .editorial .eyebrow {
+            justify-content: center;
+        }
+
+        .editorial .eyebrow { justify-content: flex-start; }
+
+        @media (max-width: 900px) {
+            .editorial .eyebrow { justify-content: center; }
+        }
+
         .hero-title {
             font-size: clamp(2rem, 3.4vw, 2.85rem);
             line-height: 1.28;
             margin-bottom: 1.3rem;
+            color: var(--off-white);
+        }
+
+        .hero-title .gold-text {
+            color: var(--gold);
+        }
+
+        .btn .fa-chevron-right {
+            font-size: 0.75em;
+            transition: transform 0.25s ease;
+        }
+
+        .btn:hover .fa-chevron-right {
+            transform: translateX(3px);
         }
 
         .hero-subtitle {
@@ -356,11 +392,21 @@
             font-size: 0.86rem;
         }
 
+        .trust-row span:not(.dot) {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .trust-row i {
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
         .trust-row .dot {
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: rgba(245, 245, 242, 0.3);
+            width: 1px;
+            height: 14px;
+            background: rgba(245, 245, 242, 0.25);
         }
 
         .trust-row strong { color: var(--gold); font-weight: 600; }
@@ -368,13 +414,38 @@
         /* Hero visual */
         .hero-visual {
             position: relative;
-            height: 400px;
+            height: 460px;
+            padding: 20px 40px 50px;
+        }
+
+        .hero-arc {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            height: 240px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .visual-base {
+            position: absolute;
+            left: 50%;
+            bottom: 6px;
+            transform: translateX(-50%);
+            width: 62%;
+            height: 46px;
+            background: linear-gradient(160deg, #0d2136, #04101d);
+            border-radius: 10px;
+            box-shadow: 0 40px 70px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            z-index: 1;
         }
 
         .chart-card {
             position: relative;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.035);
+            z-index: 2;
+            height: 78%;
+            background: rgba(255, 255, 255, 0.045);
             border: 1px solid var(--border-gold);
             border-radius: 16px;
             backdrop-filter: blur(16px);
@@ -383,55 +454,87 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateY(-3deg) rotateX(1.5deg);
         }
 
         .chart-card svg { width: 100%; height: auto; overflow: visible; }
 
-        .chart-labels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 0.9rem;
-            font-size: 0.72rem;
-            letter-spacing: 0.4px;
-            text-transform: uppercase;
-            color: var(--muted);
+        .chart-caption {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            margin-top: 1.1rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--off-white);
         }
+
+        .chart-caption i { color: var(--gold); }
 
         .float-cards {
             position: absolute;
             inset: 0;
             pointer-events: none;
+            z-index: 3;
         }
 
         .float-card {
             position: absolute;
-            background: rgba(5, 18, 33, 0.65);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: rgba(5, 18, 33, 0.7);
             border: 1px solid var(--border-gold);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 8px;
-            padding: 0.55rem 1rem;
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            color: var(--off-white);
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            padding: 0.7rem 1rem;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
             white-space: nowrap;
         }
 
-        .fc1 { top: -14px; left: -10px; }
-        .fc2 { top: 18%; right: -26px; }
-        .fc3 { bottom: 24%; left: -34px; }
-        .fc4 { bottom: -14px; right: 8%; }
-        .fc5 { top: -10px; right: 20%; }
+        .fc-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: rgba(212, 160, 23, 0.12);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .fc-text {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--off-white);
+            line-height: 1.35;
+        }
+
+        .fc-text small {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .fc1 { top: 6%; left: -6%; }
+        .fc2 { top: 6%; right: -8%; }
+        .fc3 { bottom: 14%; left: -10%; }
+        .fc4 { bottom: 2%; right: -4%; }
 
         @media (max-width: 900px) {
             .hero-grid { grid-template-columns: 1fr; }
             .hero-subtitle { max-width: none; }
-            .hero-visual { height: auto; }
-            .chart-card { padding: 1.6rem; }
+            .hero-visual { height: auto; padding: 10px 0 0; }
+            .hero-arc { display: none; }
+            .visual-base { display: none; }
+            .chart-card { padding: 1.6rem; height: auto; transform: none; }
             .float-cards {
                 position: static;
                 display: flex;
@@ -440,7 +543,7 @@
                 margin-top: 1.2rem;
                 justify-content: center;
             }
-            .float-card { position: static !important; }
+            .float-card { position: static !important; white-space: normal; }
         }
 
         /* ---------- Section heads ---------- */
@@ -450,7 +553,7 @@
             margin: 0 auto 3.4rem;
         }
 
-        .section-head .eyebrow { display: block; }
+        .section-head .eyebrow { justify-content: center; }
 
         .section-title {
             font-size: clamp(1.6rem, 3vw, 2.15rem);
@@ -535,7 +638,6 @@
             max-width: 480px;
         }
 
-        .editorial .eyebrow { display: block; }
 
         @media (max-width: 900px) {
             .editorial { grid-template-columns: 1fr; text-align: center; }
@@ -867,6 +969,7 @@
                 <li><a href="#servicos">Serviços</a></li>
                 <li><a href="#diferencial">Soluções</a></li>
                 <li><a href="#ferramentas">Ferramentas</a></li>
+                <li><a href="#localizacao">Localização</a></li>
                 <li><a href="#sobre">Sobre a Solari</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
@@ -886,22 +989,38 @@
         <div class="container hero-grid">
             <div class="hero-copy reveal">
                 <span class="eyebrow">Clareza para evoluir</span>
-                <h1 class="hero-title">Contabilidade estratégica para empresas que querem crescer com segurança.</h1>
+                <h1 class="hero-title">Contabilidade estratégica para empresas que querem <span class="gold-text">crescer com segurança.</span></h1>
                 <p class="hero-subtitle">Inteligência tributária, estruturação empresarial e contabilidade para decisões mais seguras e resultados melhores.</p>
                 <div class="hero-actions">
-                    <a href="https://wa.me/5563991078032?text=Ol%C3%A1%2C%20quero%20agendar%20um%20diagn%C3%B3stico%20estrat%C3%A9gico%20com%20a%20Solari%20Contabilidade." class="btn btn-primary" target="_blank" rel="noopener noreferrer">Agendar diagnóstico estratégico →</a>
-                    <a href="#servicos" class="btn btn-secondary">Conheça nossas soluções →</a>
+                    <a href="https://wa.me/5563991078032?text=Ol%C3%A1%2C%20quero%20agendar%20um%20diagn%C3%B3stico%20estrat%C3%A9gico%20com%20a%20Solari%20Contabilidade." class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-calendar-days" aria-hidden="true"></i> Agendar diagnóstico estratégico <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                    <a href="#servicos" class="btn btn-secondary">Conheça nossas soluções <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
                 </div>
                 <div class="trust-row">
-                    <span><strong>Mais de 80</strong> clientes atendidos</span>
+                    <span><i class="fas fa-user-group" aria-hidden="true"></i> <strong>Mais de 80</strong> clientes atendidos</span>
                     <span class="dot" aria-hidden="true"></span>
-                    <span>Atendimento em todo o Brasil</span>
+                    <span><i class="fas fa-earth-americas" aria-hidden="true"></i> Atendimento em todo o Brasil</span>
                     <span class="dot" aria-hidden="true"></span>
-                    <span>CRC-TO 001085/O-1</span>
+                    <span><i class="fas fa-award" aria-hidden="true"></i> CRC-TO 001085/O-1</span>
                 </div>
             </div>
 
             <div class="hero-visual reveal">
+                <svg class="hero-arc" viewBox="0 0 500 240" preserveAspectRatio="none" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0" stop-color="#D4A017" stop-opacity="0"/>
+                            <stop offset="0.5" stop-color="#D4A017" stop-opacity="0.9"/>
+                            <stop offset="1" stop-color="#D4A017" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M20,230 A230,230 0 0,1 480,230" fill="none" stroke="url(#arcGrad)" stroke-width="10" opacity="0.18" style="filter:blur(6px)"/>
+                    <path d="M20,230 A230,230 0 0,1 480,230" fill="none" stroke="url(#arcGrad)" stroke-width="2"/>
+                </svg>
+
+                <div class="visual-base" aria-hidden="true"></div>
+
                 <div class="chart-card">
                     <svg viewBox="0 0 300 130" aria-hidden="true">
                         <line x1="0" y1="30" x2="300" y2="30" stroke="rgba(212,160,23,.12)" stroke-width="1"/>
@@ -913,19 +1032,28 @@
                         <circle cx="200" cy="48" r="4" fill="#D4A017"/>
                         <circle cx="294" cy="14" r="4.5" fill="#F5F5F2"/>
                     </svg>
-                    <div class="chart-labels">
-                        <span>Diagnóstico</span>
-                        <span>Estruturação</span>
-                        <span>Resultado</span>
-                    </div>
+                    <span class="chart-caption"><i class="fas fa-chart-line" aria-hidden="true"></i> Planejamento tributário</span>
                 </div>
+
                 <div class="float-cards" aria-hidden="true">
-                    <span class="float-card fc1">Resultados</span>
-                    <span class="float-card fc2">Inteligência Tributária</span>
-                    <span class="float-card fc3">Estruturação Empresarial</span>
-                    <span class="float-card fc4">Conformidade</span>
-                    <span class="float-card fc5">Crescimento</span>
+                    <span class="float-card fc1">
+                        <span class="fc-icon"><i class="fas fa-chart-simple"></i></span>
+                        <span class="fc-text">Resultados<small>Mais clareza para decidir</small></span>
+                    </span>
+                    <span class="float-card fc2">
+                        <span class="fc-icon"><i class="fas fa-sitemap"></i></span>
+                        <span class="fc-text">Estruturação Empresarial<small>Processos organizados</small></span>
+                    </span>
+                    <span class="float-card fc3">
+                        <span class="fc-icon"><i class="fas fa-building"></i></span>
+                        <span class="fc-text">Crescimento Sustentável<small>Base sólida para expandir</small></span>
+                    </span>
+                    <span class="float-card fc4">
+                        <span class="fc-icon"><i class="fas fa-shield-halved"></i></span>
+                        <span class="fc-text">Conformidade<small>Tudo dentro da lei</small></span>
+                    </span>
                 </div>
+
             </div>
         </div>
     </header>
@@ -1055,7 +1183,7 @@
                 <div class="tool-box reveal">
                     <p>Calcule holerite, rescisão, férias, pró-labore e mais direto no navegador — sem custo.</p>
                     <a href="/ferramentas/dp.html" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-calculator" aria-hidden="true"></i> Acessar ferramenta →
+                        <i class="fas fa-calculator" aria-hidden="true"></i> Acessar ferramenta <i class="fas fa-chevron-right" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
@@ -1111,7 +1239,7 @@
                 <p>Conte-nos um pouco sobre sua empresa e descubra como a Solari pode contribuir.</p>
                 <div class="cta-final-actions">
                     <a href="https://wa.me/5563991078032?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Solari%20Contabilidade." class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-whatsapp" aria-hidden="true"></i> Falar com um especialista →
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i> Falar com um especialista <i class="fas fa-chevron-right" aria-hidden="true"></i>
                     </a>
                     <a href="https://www.instagram.com/solaricontabilidade/" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
