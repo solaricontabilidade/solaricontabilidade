@@ -215,7 +215,7 @@
             gap: 1.5rem;
         }
 
-        .nav-brand img { height: 36px; }
+        .nav-brand img { height: 36px; width: auto; }
 
         .nav-links {
             display: flex;
@@ -401,6 +401,13 @@
         .trust-row i {
             color: var(--gold);
             font-size: 0.9rem;
+        }
+
+        .brazil-icon {
+            width: 14px;
+            height: 14px;
+            fill: var(--gold);
+            flex-shrink: 0;
         }
 
         .trust-row .dot {
@@ -856,12 +863,20 @@
             margin-bottom: 2.5rem;
         }
 
-        .footer-brand img { height: 34px; margin-bottom: 0.9rem; }
+        .footer-brand img { height: 34px; width: auto; margin-bottom: 0.9rem; }
 
         .footer-brand p {
             color: var(--gold);
             font-family: var(--font-serif);
             font-size: 1rem;
+        }
+
+        .footer-brand .footer-desc {
+            color: var(--muted);
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            margin-top: 0.7rem;
+            max-width: 320px;
         }
 
         .footer-col h4 {
@@ -1000,7 +1015,7 @@
                 <div class="trust-row">
                     <span><i class="fas fa-user-group" aria-hidden="true"></i> <strong>Mais de 80</strong> clientes atendidos</span>
                     <span class="dot" aria-hidden="true"></span>
-                    <span><i class="fas fa-earth-americas" aria-hidden="true"></i> Atendimento em todo o Brasil</span>
+                    <span><svg class="brazil-icon" viewBox="0 0 100 100" aria-hidden="true"><path d="M15,20 C10,35 12,55 20,70 C25,82 35,92 45,95 C55,90 60,78 58,65 C62,55 72,50 80,45 C88,38 85,25 75,15 C65,8 45,5 30,8 C22,10 17,14 15,20 Z"/></svg> Atendimento em todo o Brasil</span>
                     <span class="dot" aria-hidden="true"></span>
                     <span><i class="fas fa-award" aria-hidden="true"></i> CRC-TO 001085/O-1</span>
                 </div>
@@ -1259,6 +1274,7 @@
                 <div class="footer-brand">
                     <img src="/imagens/area.png" alt="Solari Contabilidade" width="130" height="34">
                     <p>Clareza para evoluir.</p>
+                    <p class="footer-desc">Contabilidade estratégica, inteligência tributária e estruturação empresarial para empresas em todo o Brasil.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Navegação</h4>
