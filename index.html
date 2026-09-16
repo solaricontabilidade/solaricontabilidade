@@ -208,14 +208,15 @@
         .nav-inner {
             max-width: var(--container);
             margin: 0 auto;
-            padding: 0.85rem 1.6rem;
+            padding: 0.55rem 1.6rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1.5rem;
         }
 
-        .nav-brand img { height: 54px; width: auto; }
+        .nav-brand { display: flex; align-items: center; }
+        .nav-brand img { height: 92px; width: auto; }
 
         .nav-links {
             display: flex;
@@ -294,7 +295,7 @@
         /* ---------- Hero ---------- */
         .hero {
             position: relative;
-            padding: 6.5rem 0 6rem;
+            padding: 4.5rem 0 6rem;
             overflow: hidden;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
@@ -863,7 +864,7 @@
             margin-bottom: 2.5rem;
         }
 
-        .footer-brand img { height: 52px; width: auto; margin-bottom: 0.9rem; }
+        .footer-brand img { height: 84px; width: auto; margin-bottom: 0.9rem; }
 
         .footer-brand p {
             color: var(--gold);
@@ -968,6 +969,9 @@
             .hero { padding: 4.5rem 0 4rem; }
             .hero-actions .btn { width: 100%; }
             .cta-final-actions .btn { width: 100%; }
+            .nav-inner { padding: 0.5rem 1.1rem; }
+            .nav-brand img { height: 66px; }
+            .footer-brand img { height: 64px; }
         }
     </style>
 </head>
@@ -978,7 +982,7 @@
     <nav class="navbar" id="navbar">
         <div class="nav-inner">
             <a href="#top" class="nav-brand">
-                <img src="/imagens/area.png" alt="Solari Contabilidade" width="140" height="36">
+                <img src="/imagens/logo-solari.png" alt="Solari Contabilidade" width="103" height="92">
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#servicos">Serviços</a></li>
@@ -1272,7 +1276,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="/imagens/area.png" alt="Solari Contabilidade" width="130" height="34">
+                    <img src="/imagens/logo-solari.png" alt="Solari Contabilidade" width="94" height="84">
                     <p>Clareza para evoluir.</p>
                     <p class="footer-desc">Contabilidade estratégica, inteligência tributária e estruturação empresarial para empresas em todo o Brasil.</p>
                 </div>
