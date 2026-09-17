@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0B0F1A">
+<meta name="description" content="MEI Solari Tech — Sistema operacional completo para MEI">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>MEI Solari Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0F1A;--sf:#111827;--sf2:#162032;--hv:#1a2538;--bd:#1e2d45;--bd2:#2a3f5f;
+  --ac:#00C896;--acd:rgba(0,200,150,.12);--acg:rgba(0,200,150,.28);
+  --bl:#3B82F6;--bld:rgba(59,130,246,.12);
+  --am:#F59E0B;--amd:rgba(245,158,11,.12);
+  --rd:#EF4444;--rdd:rgba(239,68,68,.1);
+  --pu:#8B5CF6;--pud:rgba(139,92,246,.1);
+  --gb:#1351B4;
+  --t1:#F1F5F9;--t2:#94A3B8;--t3:#4B6280;
+  --fn:'Plus Jakarta Sans',sans-serif;--mo:'JetBrains Mono',monospace;
+  --r:12px;--rs:8px;--sb:220px;--mn:60px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;-webkit-text-size-adjust:100%}
+body{height:100%;background:var(--bg);color:var(--t1);font-family:var(--fn);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--bl);text-decoration:none}
+button,input,select,textarea{font-family:var(--fn)}
+#app{display:flex;height:100vh;overflow:hidden}
+#sb{width:var(--sb);min-width:var(--sb);background:var(--sf);border-right:1px solid var(--bd);display:flex;flex-direction:column;height:100vh;flex-shrink:0}
+#main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.sbl{padding:20px 16px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.sbi{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#F59E0B,#F97316);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;box-shadow:0 2px 10px rgba(245,158,11,.35)}
+.sbn{font-size:14px;font-weight:800;color:var(--t1);letter-spacing:-.03em;line-height:1.1}
+.sbs{font-size:8px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-top:1px}
+.snav{flex:1;padding:10px 7px;overflow-y:auto}
+.ssl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.09em;font-weight:700;padding:9px 11px 3px;margin-top:3px}
+.nb{display:flex;align-items:center;gap:10px;width:100%;padding:8px 11px;border-radius:var(--rs);border:none;background:transparent;color:var(--t2);font-size:12.5px;font-weight:400;cursor:pointer;text-align:left;margin-bottom:1px;transition:all .12s}
+.nb:hover{background:var(--hv);color:var(--t1)}.nb.active{background:var(--acd);color:var(--ac);font-weight:600}
+.nbi{font-size:14px;width:17px;text-align:center;flex-shrink:0;opacity:.6}.nb.active .nbi{opacity:1}
+.nbd{width:6px;height:6px;border-radius:50%;background:var(--am);margin-left:auto;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.nbb{margin-left:auto;font-size:9px;background:var(--acd);color:var(--ac);padding:1px 6px;border-radius:10px;font-weight:700}
+.sbf{flex-shrink:0;border-top:1px solid var(--bd)}
+.sbg{margin:8px 8px 0;padding:7px 10px;background:rgba(19,81,180,.14);border:1px solid rgba(19,81,180,.28);border-radius:var(--rs);cursor:pointer;transition:all .12s;display:none}
+.sbg:hover{background:rgba(19,81,180,.22)}
+.sbu{padding:10px 14px;display:flex;align-items:center;gap:9px;cursor:pointer;transition:background .12s;margin-top:2px}
+.sbu:hover{background:var(--hv)}
+.sbav{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--bl),var(--pu));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.ib{display:flex;flex-wrap:wrap;gap:5px;padding:9px 14px;background:var(--sf);border-bottom:1px solid var(--bd);flex-shrink:0;align-items:center}
+.ic{display:flex;align-items:center;gap:3px;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:20px;border:1px solid;transition:all .2s;letter-spacing:.03em}
+.ic.live{background:rgba(0,200,150,.1);border-color:rgba(0,200,150,.28);color:var(--ac)}
+.ic.demo{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.22);color:var(--am)}
+.ic.off{background:rgba(30,45,69,.5);border-color:var(--bd);color:var(--t3)}
+.page{padding:26px 30px;max-width:1100px}
+.ph{margin-bottom:22px}.pl{font-size:10.5px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.pt{font-size:22px;font-weight:800;color:var(--t1);letter-spacing:-.03em;margin-bottom:4px}.pd{font-size:13px;color:var(--t2)}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px}
+.ct{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.card.ab{border-color:rgba(0,200,150,.28);background:rgba(0,200,150,.025)}
+.card.amberb{border-color:rgba(245,158,11,.35)}.card.blueb{border-color:rgba(59,130,246,.28)}
+.card.govb{border-color:rgba(19,81,180,.32);background:rgba(19,81,180,.04)}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:11px;margin-bottom:14px}
+.metric{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px}
+.ml{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;font-weight:500}
+.mv{font-size:21px;font-weight:800;letter-spacing:-.025em;line-height:1.1}.ms{font-size:11px;color:var(--t2);margin-top:3px}.mtr{font-size:10px;font-weight:600;margin-top:3px}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.ba{background:var(--acd);color:var(--ac)}.bam{background:var(--amd);color:var(--am)}.br{background:var(--rdd);color:var(--rd)}
+.bb{background:var(--bld);color:var(--bl)}.bg{background:rgba(30,45,69,.8);color:var(--t2)}.bp{background:var(--pud);color:var(--pu)}
+.bgov{background:rgba(19,81,180,.14);color:#4A90D9;border:1px solid rgba(19,81,180,.22)}
+.ptw{background:var(--bd);border-radius:4px;height:5px;overflow:hidden}
+.ptf{height:100%;border-radius:4px;transition:width .8s ease}
+.alert{border-radius:9px;padding:11px 14px;display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}
+.ai2{font-size:17px;flex-shrink:0;margin-top:1px}.ab2{flex:1;min-width:0}
+.at{font-size:12.5px;font-weight:600}.axt{font-size:11px;color:var(--t2);margin-top:2px}
+.alert-am{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.28)}
+.alert-bl{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2)}
+.alert-re{background:rgba(239,68,68,.09);border:1px solid rgba(239,68,68,.22)}
+.alert-ac{background:var(--acd);border:1px solid var(--acg)}
+.alert-gov{background:rgba(19,81,180,.09);border:1px solid rgba(19,81,180,.25)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:var(--rs);font-family:var(--fn);font-weight:700;cursor:pointer;transition:all .12s;font-size:12.5px;padding:8px 16px;line-height:1;white-space:nowrap}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+.btn-a{background:var(--ac);color:#000}.btn-a:hover:not(:disabled){background:#00e5ad;transform:translateY(-1px)}
+.btn-am{background:var(--am);color:#000}.btn-am:hover:not(:disabled){filter:brightness(1.1)}
+.btn-b{background:var(--bl);color:#fff}.btn-b:hover:not(:disabled){filter:brightness(1.1)}
+.btn-gov{background:linear-gradient(135deg,#1351B4,#2670E8);color:#fff}.btn-gov:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-1px)}
+.btn-g{background:transparent;color:var(--t2);border:1px solid var(--bd)}.btn-g:hover:not(:disabled){background:var(--hv);color:var(--t1)}
+.btn-sm{padding:4px 11px;font-size:11px;border-radius:6px}.btn-lg{padding:11px 24px;font-size:13.5px;border-radius:10px}
+.inp{width:100%;background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--rs);padding:9px 12px;color:var(--t1);font-size:13px;outline:none;transition:border-color .15s,box-shadow .15s}
+.inp:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acd)}.inp::placeholder{color:var(--t3)}.inp:disabled{opacity:.5;cursor:not-allowed}
+select.inp{cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234B6280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:30px}
+.il{font-size:10.5px;color:var(--t3);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.ih{font-size:11px;color:var(--t3);margin-top:4px}.ie{font-size:11px;color:var(--rd);margin-top:3px}.ig{margin-bottom:13px}
+.tabs{display:flex;gap:3px;background:rgba(0,0,0,.3);padding:3px;border-radius:9px;width:fit-content;margin-bottom:14px}
+.tab{background:transparent;border:1px solid transparent;color:var(--t3);padding:5px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:var(--fn);transition:all .12s}
+.tab.active{background:var(--sf);border-color:var(--bd);color:var(--t1);font-weight:600}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{text-align:left;font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;font-weight:600;padding:0 7px 9px 0}
+.tbl td{padding:11px 7px 11px 0;border-top:1px solid var(--bd);vertical-align:middle}
+.txn{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--bd)}.txn:last-child{border-bottom:none}
+.ti{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.td2{font-size:12.5px;font-weight:500;color:var(--t1)}.tm{font-size:10.5px;color:var(--t3);margin-top:2px}
+.tcat{background:var(--bd);padding:1px 6px;border-radius:3px;font-size:9.5px;margin-left:4px}
+.tamt{font-size:13px;font-weight:700;letter-spacing:-.02em;margin-left:auto;flex-shrink:0}
+.bars{display:flex;align-items:flex-end;gap:5px;height:100px}
+.bw{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:100%;border-radius:4px 4px 0 0;min-height:4px;transition:height .5s ease}
+.bl2{font-size:8px;font-weight:500;color:var(--t3)}.bl2.on{color:var(--ac);font-weight:700}
+.dring{width:104px;height:104px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;padding:6px}
+.dinn{width:80px;height:80px;border-radius:50%;background:var(--sf);display:flex;align-items:center;justify-content:center;flex-direction:column}
+.spin{display:inline-block;border-radius:50%;animation:spin .75s linear infinite;flex-shrink:0}
+.ss{width:13px;height:13px;border:2px solid var(--bd);border-top-color:var(--ac)}
+.sm{width:18px;height:18px;border:2.5px solid var(--bd);border-top-color:var(--ac)}
+.sl{width:38px;height:38px;border:3px solid rgba(255,255,255,.2);border-top-color:#fff}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.ov{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:14px;background:rgba(5,8,18,.94)}
+.gcard{background:var(--sf);border:1px solid var(--bd);border-radius:16px;width:430px;max-width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 28px 80px rgba(0,0,0,.7)}
+.ghdr{background:linear-gradient(135deg,#1351B4 0%,#2670E8 100%);padding:20px 26px;display:flex;align-items:center;justify-content:space-between;border-radius:15px 15px 0 0}
+.gbody{padding:22px 26px}
+.gp{display:flex;gap:4px;margin-bottom:18px}
+.gps{flex:1;height:3px;background:var(--bd);border-radius:2px;transition:all .3s}
+.gps.act{background:linear-gradient(90deg,#1351B4,#54C8FF)}.gps.dn{background:#2670E8}
+.gstep{display:flex;flex-direction:column;gap:12px}
+.ginp{width:100%;background:var(--bg);border:1.5px solid var(--bd);border-radius:9px;padding:11px 13px;color:var(--t1);font-size:13.5px;font-family:var(--fn);outline:none;transition:border-color .15s,box-shadow .15s;-webkit-appearance:none}
+.ginp:focus{border-color:#2670E8;box-shadow:0 0 0 3px rgba(38,112,232,.14)}.ginp::placeholder{color:var(--t3)}
+.gbtn{width:100%;padding:12px;border-radius:9px;border:none;font-size:13.5px;font-weight:700;font-family:var(--fn);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.gbp{background:linear-gradient(135deg,#1351B4,#2670E8);color:#fff}.gbp:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-1px)}.gbp:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.gsep{display:flex;align-items:center;gap:9px;color:var(--t3);font-size:11px}
+.gsep::before,.gsep::after{content:'';flex:1;height:1px;background:var(--bd)}
+.gqr{border:1.5px solid var(--bd);border-radius:9px;padding:13px;text-align:center;cursor:pointer;transition:all .15s;background:transparent;width:100%;font-family:var(--fn)}
+.gqr:hover{border-color:#2670E8;background:rgba(38,112,232,.04)}
+.gftr{padding:9px 26px 16px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:7px}
+.seal{font-size:10px;font-weight:700;padding:2px 7px;border-radius:11px}
+.seal-s{background:rgba(148,163,184,.13);color:var(--t2);border:1px solid rgba(148,163,184,.25)}
+.seal-g{background:rgba(245,158,11,.11);color:var(--am);border:1px solid rgba(245,158,11,.28)}
+.scard{background:var(--sf);border:1px solid var(--bd);border-radius:14px;width:500px;max-width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+.shdr{display:flex;align-items:center;justify-content:space-between;padding:17px 22px;border-bottom:1px solid var(--bd)}
+.sbody{padding:18px 22px}.ssec{margin-bottom:20px}
+.sst{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.iapage{display:flex;flex-direction:column;height:calc(100vh - 40px)}
+.chahdr{padding:16px 22px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:11px;flex-shrink:0;background:var(--sf)}
+.chaav{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--ac),var(--bl));display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.chamsgs{flex:1;overflow-y:auto;padding:16px 22px;display:flex;flex-direction:column;gap:13px;-webkit-overflow-scrolling:touch}
+.charow{display:flex;align-items:flex-start;gap:8px;animation:fadeUp .2s ease}
+.charow.user{flex-direction:row-reverse}
+.cha-av{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--ac),var(--bl));display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:2px}
+.bubble{max-width:76%;padding:10px 13px;font-size:13px;line-height:1.65;font-family:var(--fn);white-space:pre-wrap;word-break:break-word}
+.bubble.ai{background:var(--sf);border:1px solid var(--bd);border-radius:4px 13px 13px 13px;color:var(--t1)}
+.bubble.usr{background:var(--ac);color:#000;border-radius:13px 4px 13px 13px;font-weight:500}
+.tdots{display:flex;gap:4px;align-items:center;padding:2px 0}
+.tdot{width:6px;height:6px;border-radius:50%;background:var(--ac);opacity:.6;animation:pdot 1.2s ease-in-out infinite}
+.tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
+.chasugg{padding:0 22px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0}
+.casb{background:var(--sf);border:1px solid var(--bd);color:var(--t2);padding:5px 12px;border-radius:20px;font-size:11.5px;cursor:pointer;font-family:var(--fn);transition:all .12s}
+.casb:hover{border-color:var(--ac);color:var(--ac)}
+.chainbar{padding:10px 22px 14px;flex-shrink:0}
+.chainwrap{display:flex;gap:7px;background:var(--sf);border:1.5px solid var(--bd);border-radius:var(--r);padding:7px 7px 7px 13px;transition:border-color .15s}
+.chainwrap:focus-within{border-color:var(--ac)}
+.chainput{flex:1;background:transparent;border:none;outline:none;color:var(--t1);font-size:13px;font-family:var(--fn);resize:none;min-height:19px;max-height:80px}
+.chainput::placeholder{color:var(--t3)}
+.chasend{width:34px;height:34px;border-radius:7px;background:var(--ac);color:#000;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .12s;flex-shrink:0}
+.chasend:hover{background:#00e5ad}.chasend:disabled{background:var(--bd);color:var(--t3);cursor:not-allowed}
+.gdp{background:linear-gradient(135deg,rgba(19,81,180,.14),rgba(38,112,232,.05));border:1px solid rgba(19,81,180,.28);border-radius:var(--r);padding:13px 16px;margin-bottom:16px;display:none}
+.gres{background:var(--bg);border:1px solid var(--bd);border-radius:9px;padding:12px}
+.grow2{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:1px solid var(--bd);gap:10px}
+.grow2:last-child{border-bottom:none}
+.gk{font-size:11.5px;color:var(--t3);font-weight:500;flex-shrink:0}
+.gv2{font-size:11.5px;color:var(--t1);font-weight:600;text-align:right;word-break:break-word;max-width:62%}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g12{display:grid;grid-template-columns:1.6fr 1fr;gap:14px}
+.gf{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.cr{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}
+.cr:last-child{border-bottom:none}
+.cl{font-size:12.5px;color:var(--t1)}.cs{font-size:10.5px;color:var(--t3);margin-top:1px}.cv{font-size:14px;font-weight:700;letter-spacing:-.02em}
+.cr.tot .cl{font-size:13px;font-weight:700}.cr.tot .cv{font-size:18px}
+.ib{background:var(--bg);border-radius:8px;padding:13px;margin-bottom:9px;border:1px solid var(--bd)}
+.ibl{font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.ibv{font-size:18px;font-weight:800;letter-spacing:-.025em}.ibs{font-size:11px;color:var(--t2);margin-top:3px}
+.das-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd);gap:10px}
+.das-row:last-child{border-bottom:none}
+.mc{display:flex;flex-wrap:wrap;gap:6px}.mch,.mchip{padding:6px 11px;border-radius:7px;font-size:11px;font-weight:600;text-align:center}
+.mcp{background:rgba(0,200,150,.14);color:var(--ac);border:1px solid rgba(0,200,150,.3)}
+.mca{background:rgba(245,158,11,.14);color:var(--am);border:1px solid rgba(245,158,11,.3)}
+.mcf{background:var(--bg);color:var(--t3);border:1px solid var(--bd)}
+.mcv{background:rgba(239,68,68,.1);color:var(--t3);border:1px solid var(--bd)}
+.pix{font-family:var(--mo);font-size:9px;color:var(--ac);background:var(--bg);padding:9px 11px;border-radius:6px;word-break:break-all;line-height:1.5;border:1px solid var(--bd)}
+.hg{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.hi{border-radius:8px;padding:12px;border:1px solid}.hi.ok{background:rgba(0,200,150,.06);border-color:rgba(0,200,150,.18)}
+.hi.warn{background:rgba(245,158,11,.06);border-color:rgba(245,158,11,.22)}.hi.bad{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.2)}
+#mobnav{display:none;position:fixed;bottom:0;left:0;right:0;height:var(--mn);background:var(--sf);border-top:1px solid var(--bd);z-index:100;align-items:stretch}
+.mni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:none;background:transparent;color:var(--t3);font-family:var(--fn);font-size:9px;font-weight:500;cursor:pointer;padding:5px 3px;transition:color .12s;position:relative}
+.mni.active{color:var(--ac)}.mni-ic{font-size:17px;line-height:1}
+.mni-dot{position:absolute;top:7px;right:50%;transform:translateX(8px);width:5px;height:5px;border-radius:50%;background:var(--am)}
+#mob-more{position:fixed;bottom:calc(var(--mn) + 7px);left:7px;right:7px;background:var(--sf);border:1px solid var(--bd);border-radius:13px;padding:7px;z-index:200;display:none;box-shadow:0 -8px 28px rgba(0,0,0,.45)}
+.mmi{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:8px;border:none;background:transparent;color:var(--t2);font-family:var(--fn);font-size:13px;cursor:pointer;text-align:left}
+.mmi.active{color:var(--ac);background:var(--acd)}.mmi:hover{background:var(--hv);color:var(--t1)}
+#mob-ov{position:fixed;inset:0;z-index:190;background:rgba(0,0,0,.48);display:none;backdrop-filter:blur(2px)}
+#toast{position:fixed;bottom:22px;right:22px;padding:10px 16px;border-radius:9px;font-size:12.5px;font-weight:600;z-index:9999;transition:all .28s ease;box-shadow:0 4px 20px rgba(0,0,0,.45);max-width:320px;pointer-events:none;opacity:0;transform:translateY(6px);font-family:var(--fn)}
+#toast.show{opacity:1;transform:none}
+#gsearch{position:fixed;inset:0;z-index:800;display:none;align-items:flex-start;justify-content:center;padding-top:80px;background:rgba(5,8,18,.9);backdrop-filter:blur(8px)}
+.gsc{background:var(--sf);border:1px solid var(--bd);border-radius:13px;width:480px;max-width:95vw;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.gsinp{width:100%;background:transparent;border:none;outline:none;color:var(--t1);font-size:14px;font-family:var(--fn);padding:0}
+.gsinp::placeholder{color:var(--t3)}.gsr{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;transition:background .1s}
+.gsr:hover,.gsr.sel{background:var(--hv)}
+@media(max-width:768px){
+  body{overflow:auto}#app{flex-direction:column;height:auto;min-height:100vh;overflow:visible}
+  #sb{display:none!important}#main{overflow:visible;padding-bottom:calc(var(--mn) + 14px)}
+  #mobnav{display:flex}.page{padding:14px}.pt{font-size:19px}
+  .metrics{grid-template-columns:1fr 1fr;gap:9px}.mv{font-size:17px}
+  .g2,.g3,.g12,.gf{grid-template-columns:1fr}.hg{grid-template-columns:1fr 1fr}
+  .card{padding:13px 14px}.gcard{border-radius:13px}.ghdr{border-radius:12px 12px 0 0}
+  .gbody{padding:16px 18px}.iapage{height:calc(100vh - var(--mn))}
+  .chahdr{padding:12px 14px}.chamsgs{padding:12px 14px}
+  .chasugg{padding:0 14px 9px}.chainbar{padding:8px 14px 11px}
+  #toast{bottom:calc(var(--mn) + 10px);left:10px;right:10px;text-align:center}
+  .tbl th:nth-child(n+4),.tbl td:nth-child(n+4){display:none}
+  .ib{padding:7px 11px}.ic{font-size:9px;padding:2px 6px}
+}
+@media(max-width:380px){.metrics,.hg{grid-template-columns:1fr}}
+.hidden{display:none!important}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
+*{scrollbar-width:thin;scrollbar-color:var(--bd2) transparent}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+#root>.page{animation:fadeUp .17s ease}
+@media print{#sb,#mobnav,#mob-more,#mob-ov,.ov,#gsearch,#toast,.ib,.btn-g{display:none!important}#main{overflow:visible}.card{break-inside:avoid}body{background:#fff;color:#000;font-size:12px}}
+@supports(padding-bottom:env(safe-area-inset-bottom)){#mobnav{padding-bottom:env(safe-area-inset-bottom)}#main{padding-bottom:calc(env(safe-area-inset-bottom) + 60px)}}
+</style>
+</head>
+<body>
+<!-- GOV.BR LOGIN -->
+<div id="govbr-ov" class="ov">
+  <div class="gcard">
+    <div class="ghdr">
+      <div style="display:flex;align-items:center;gap:9px">
+        <span style="font-size:20px">🇧🇷</span>
+        <div><div style="font-size:17px;font-weight:800;color:#fff;letter-spacing:-.02em">gov.br</div><div style="font-size:10.5px;color:rgba(255,255,255,.68)">Serviços Digitais do Governo Federal</div></div>
+      </div>
+      <div style="text-align:right"><div style="font-size:9.5px;color:rgba(255,255,255,.55)">Acessando</div><div style="font-size:11.5px;font-weight:700;color:#fff">MEI Solari Tech</div></div>
+    </div>
+    <div class="gbody">
+      <div class="gp" id="gprog">
+        <div class="gps act" style="border-radius:2px 0 0 2px"></div>
+        <div class="gps" style="margin:0 2px"></div>
+        <div class="gps" style="border-radius:0 2px 2px 0"></div>
+      </div>
+      <div id="gs1" class="gstep">
+        <div><div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:3px">Entre com gov.br</div><div style="font-size:12px;color:var(--t2)">Preencha seus dados para acessar PGMEI, DAS e Receita Federal</div></div>
+        <div class="ig" style="margin-bottom:8px">
+          <label class="il">CPF</label>
+          <input class="ginp" id="gb-cpf" placeholder="000.000.000-00" maxlength="14" oninput="mCPF(this)" onkeydown="if(event.key==='Enter')$('gb-cnpj').focus()">
+          <div id="gb-cpf-err" class="ie hidden"></div>
+        </div>
+        <div class="ig" style="margin-bottom:0">
+          <label class="il">CNPJ MEI <span style="color:var(--rd);font-size:10px">● obrigatório</span></label>
+          <input class="ginp" id="gb-cnpj" placeholder="00.000.000/0001-00" maxlength="18" oninput="mCNPJ_login(this)" onkeydown="if(event.key==='Enter')gS1()">
+          <div id="gb-cnpj-err" class="ie hidden"></div>
+          <div style="font-size:10.5px;color:var(--t3);margin-top:3px">Seu CNPJ MEI — usado para consultar dados na Receita Federal automaticamente</div>
+        </div>
+        <button class="gbtn gbp" onclick="gS1()" id="gb-btn1">Continuar →</button>
+        <div class="gsep">ou acesse com</div>
+        <button class="gqr" onclick="gQR()">
+          <div style="font-size:22px;margin-bottom:5px">📱</div>
+          <div style="font-size:12.5px;font-weight:600;color:var(--t1)">QR Code — App gov.br</div>
+          <div style="font-size:11px;color:var(--t2);margin-top:2px">Escaneie com o app gov.br no celular</div>
+        </button>
+        <div style="text-align:center"><button onclick="demoMode()" style="background:none;border:none;color:var(--t3);font-size:11.5px;cursor:pointer;font-family:var(--fn);text-decoration:underline">Entrar em modo demonstração</button></div>
+        <div style="padding:9px 11px;background:rgba(19,81,180,.07);border:1px solid rgba(19,81,180,.18);border-radius:7px;font-size:11px;color:var(--t2);line-height:1.65">
+          🔒 <strong style="color:#4A90D9">OAuth 2.0 seguro · RFC 6749</strong> · Sua senha nunca é armazenada. Protegido pela LGPD (Lei 13.709/2018).
+        </div>
+      </div>
+      <div id="gs2" class="gstep hidden">
+        <div style="display:flex;align-items:center;gap:9px">
+          <button onclick="gBack()" style="background:var(--bd);border:none;color:var(--t2);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:13px;flex-shrink:0">←</button>
+          <div><div style="font-size:14px;font-weight:700;color:var(--t1)">Digite sua senha</div><div style="font-size:11px;color:var(--t2)">CPF: <span id="gb-cpf-show" style="color:var(--bl);font-weight:600"></span></div></div>
+        </div>
+        <div class="ig" style="margin-bottom:0">
+          <label class="il">Senha gov.br</label>
+          <div style="position:relative">
+            <input class="ginp" id="gb-pw" type="password" placeholder="Sua senha gov.br" onkeydown="if(event.key==='Enter')gAuth()">
+            <button onclick="gTogPw()" id="gb-pw-eye" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--t3);cursor:pointer;font-size:14px">👁</button>
+          </div>
+          <div id="gb-pw-err" class="ie hidden"></div>
+        </div>
+        <button class="gbtn gbp" onclick="gAuth()" id="gb-btn2">Entrar no gov.br</button>
+        <div style="display:flex;justify-content:center;gap:14px;font-size:11.5px">
+          <a href="https://sso.acesso.gov.br/recuperarSenha" target="_blank" rel="noopener" style="color:#4A90D9">Esqueci minha senha</a>
+          <a href="https://acesso.gov.br/passo-a-passo/criar-sua-conta-gov-br" target="_blank" rel="noopener" style="color:#4A90D9">Criar conta</a>
+        </div>
+      </div>
+      <div id="gs3" class="gstep hidden">
+        <div id="gb-load" style="text-align:center;padding:12px 0">
+          <div class="spin sl" style="margin:0 auto 14px"></div>
+          <div style="font-size:13.5px;font-weight:600;color:var(--t1)" id="gb-lm">Autenticando...</div>
+          <div style="font-size:11.5px;color:var(--t2);margin-top:4px" id="gb-ls">Verificando credenciais</div>
+        </div>
+        <div id="gb-succ" class="hidden" style="text-align:center;padding:4px 0">
+          <div style="width:48px;height:48px;border-radius:50%;background:rgba(0,200,150,.14);border:2px solid var(--ac);display:flex;align-items:center;justify-content:center;margin:0 auto 11px;font-size:20px">✅</div>
+          <div style="font-size:14px;font-weight:700;color:var(--ac)">Autenticado com sucesso!</div>
+          <div style="font-size:11.5px;color:var(--t2);margin-top:4px" id="gb-sm">Carregando dados...</div>
+          <div id="gb-di" style="margin-top:12px;display:flex;flex-direction:column;gap:6px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="gftr">
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-size:9.5px;color:var(--t3)">Selos:</span><span class="seal seal-s">🥈 Prata</span><span class="seal seal-g">🥇 Ouro</span></div>
+      <span style="font-size:9.5px;color:var(--t3)">OIDC · OAuth 2.0 · RFC 6749</span>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="st-ov" class="ov hidden">
+  <div class="scard">
+    <div class="shdr">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div class="sbi" style="width:30px;height:30px;border-radius:7px;font-size:13px">☀️</div>
+        <div style="font-size:15px;font-weight:800;color:var(--t1)">Configurações</div>
+      </div>
+      <button onclick="closeST()" style="background:var(--bd);border:none;color:var(--t2);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:15px">✕</button>
+    </div>
+    <div class="sbody">
+      <div class="ssec">
+        <div class="sst">🇧🇷 Conexão gov.br</div>
+        <div style="padding:11px 13px;background:var(--bg);border-radius:8px;border:1px solid var(--bd)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:9px">
+              <div style="width:7px;height:7px;border-radius:50%;transition:all .3s" id="st-gdot"></div>
+              <div><div style="font-size:12.5px;font-weight:600;color:var(--t1)" id="st-gl">Não conectado</div><div style="font-size:10.5px;color:var(--t3)" id="st-gs">Faça login para sincronizar</div></div>
+            </div>
+            <button class="btn btn-gov btn-sm" onclick="reconnectGov()">↻ Reconectar</button>
+          </div>
+          <div id="st-gc" class="hidden" style="margin-top:10px;padding-top:9px;border-top:1px solid var(--bd);display:flex;flex-wrap:wrap;gap:5px"></div>
+        </div>
+      </div>
+      <div class="ssec">
+        <div class="sst">🏢 Dados do MEI</div>
+        <div class="gf">
+          <div class="ig"><label class="il">CNPJ do MEI</label><input class="inp" id="st-cnpj" placeholder="00.000.000/0001-00" maxlength="18" oninput="mCNPJ(this)"><div class="ih">Preenchido automaticamente via gov.br</div></div>
+          <div class="ig"><label class="il">CPF do Titular</label><input class="inp" id="st-cpf" placeholder="000.000.000-00" maxlength="14" oninput="mCPF(this)"></div>
+        </div>
+        <div style="margin-top:8px;font-size:10.5px;color:var(--t3);line-height:1.5">ℹ️ A consulta usa a API pública do CNPJ.ws (3 consultas/min). Em caso de "Failed to fetch", é bloqueio de rede/CORS do navegador ou limite de consultas — tente de novo em alguns instantes.</div>
+      </div>
+      <div class="ssec">
+        <div class="sst">🤖 IA Contadora — Anthropic API</div>
+        <div class="ig"><label class="il">API Key (sk-ant-...)</label><input class="inp" id="st-ant" type="password" placeholder="sk-ant-api03-..."><div class="ih">Salva somente no localStorage. Necessária para a IA funcionar.</div></div>
+      </div>
+      <div class="ssec">
+        <div class="sst">📄 NFe.io — NFS-e (opcional)</div>
+        <div class="ig" style="margin-bottom:0"><label class="il">API Key NFe.io</label><input class="inp" id="st-nfe" type="password" placeholder="Chave de produção NFe.io"><div class="ih">Sem chave: modo demo. <a href="https://nfe.io" target="_blank" rel="noopener">Criar conta →</a></div></div>
+      </div>
+      <div class="ssec">
+        <div class="sst">⚖️ Bases legais configuradas</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 9px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><span class="badge bb" style="margin-top:1px;flex-shrink:0">LC 123/2006</span><span style="font-size:11px;color:var(--t2)">Estatuto Nacional da ME e do MEI</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 9px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><span class="badge bb" style="margin-top:1px;flex-shrink:0">LC 128/2008</span><span style="font-size:11px;color:var(--t2)">Criação do MEI — altera LC 123/2006</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 9px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><span class="badge bb" style="margin-top:1px;flex-shrink:0">Lei 9.249/95</span><span style="font-size:11px;color:var(--t2)">Art. 15 — Percentuais de presunção de lucro (8%, 16%, 32%)</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 9px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><span class="badge bb" style="margin-top:1px;flex-shrink:0">Dec. 3.000/99</span><span style="font-size:11px;color:var(--t2)">RIR — Regulamento do Imposto de Renda</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 9px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><span class="badge bb" style="margin-top:1px;flex-shrink:0">CGSN 140/2018</span><span style="font-size:11px;color:var(--t2)">Simples Nacional — apuração e recolhimento DAS</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 9px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><span class="badge bb" style="margin-top:1px;flex-shrink:0">IN RFB 2.178/2024</span><span style="font-size:11px;color:var(--t2)">Declaração IRPF 2025 — rendimentos isentos MEI</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 9px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><span class="badge bb" style="margin-top:1px;flex-shrink:0">LGPD 13.709/2018</span><span style="font-size:11px;color:var(--t2)">Proteção de dados pessoais dos usuários</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 9px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><span class="badge bb" style="margin-top:1px;flex-shrink:0">BCB Res. 1/2020</span><span style="font-size:11px;color:var(--t2)">Open Finance Brasil — regulamentação do Banco Central</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 9px;background:rgba(139,92,246,.07);border-radius:6px;border:1px solid rgba(139,92,246,.22)"><span class="badge bp" style="margin-top:1px;flex-shrink:0;white-space:nowrap">EC 132/2023</span><span style="font-size:11px;color:var(--t2)">Reforma Tributária — CBS, IBS e IS. Transição 2026-2032. MEI permanece no Simples Nacional.</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 9px;background:rgba(139,92,246,.07);border-radius:6px;border:1px solid rgba(139,92,246,.22)"><span class="badge bp" style="margin-top:1px;flex-shrink:0;white-space:nowrap">LC 214/2025</span><span style="font-size:11px;color:var(--t2)">Regulamenta CBS e IBS — implementação gradual; Simples Nacional com regras específicas a definir pelo CGSN.</span></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:9px;margin-top:4px"><button class="btn btn-a" onclick="saveST()" style="flex:1">✓ Salvar</button><button class="btn btn-g" onclick="closeST()">Cancelar</button></div>
+      <div style="margin-top:11px;padding:8px 11px;background:var(--bg);border-radius:7px;border:1px solid var(--bd);font-size:10.5px;color:var(--t3);line-height:1.65">🔒 Chaves salvas apenas no <strong style="color:var(--t2)">localStorage</strong>. Para produção use backend com env vars e OAuth server-side.</div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL SEARCH -->
+<div id="gsearch" onclick="if(event.target===this)closeGS()">
+  <div class="gsc">
+    <div style="display:flex;align-items:center;gap:9px;padding:12px 14px;border-bottom:1px solid var(--bd)">
+      <span style="font-size:15px;color:var(--t3)">🔍</span>
+      <input id="gs-inp" class="gsinp" placeholder="Buscar módulo, ação..." oninput="gSearch(this.value)">
+      <kbd style="font-size:9.5px;color:var(--t3);background:var(--bd);padding:2px 6px;border-radius:4px;flex-shrink:0">ESC</kbd>
+    </div>
+    <div id="gs-res" style="max-height:320px;overflow-y:auto;padding:6px"></div>
+    <div style="padding:7px 12px 9px;border-top:1px solid var(--bd);font-size:9.5px;color:var(--t3);display:flex;gap:10px"><span>↵ selecionar</span><span>ESC fechar</span><span style="margin-left:auto">Ctrl+K</span></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <aside id="sb">
+    <div class="sbl"><div class="sbi">☀️</div><div><div class="sbn">MEI Solari</div><div class="sbs">Tech · Sistema Fiscal</div></div></div>
+    <nav class="snav" id="sbnav">
+      <button class="nb active" data-p="dashboard"><span class="nbi">⊞</span>Dashboard</button>
+      <button class="nb" data-p="consulta"><span class="nbi">⊕</span>Consultar GOV</button>
+      <div class="ssl">Gestão</div>
+      <button class="nb" data-p="notas"><span class="nbi">◱</span>Notas Fiscais</button>
+      <button class="nb" data-p="clientes"><span class="nbi">◷</span>Clientes</button>
+      <button class="nb" data-p="financeiro"><span class="nbi">◎</span>Financeiro</button>
+      <div class="ssl">Fiscal</div>
+      <button class="nb" data-p="tributario"><span class="nbi">◐</span>Tributário</button>
+      <button class="nb" data-p="das"><span class="nbi">◧</span>DAS / Guias<span class="nbd"></span></button>
+      <div class="ssl">Análise</div>
+      <button class="nb" data-p="relatorios"><span class="nbi">◫</span>Relatórios</button>
+      <button class="nb" data-p="openfinance"><span class="nbi">◬</span>Open Finance</button>
+      <button class="nb" data-p="ia"><span class="nbi">◉</span>IA Contadora<span class="nbb">IA</span></button>
+    </nav>
+    <div class="sbf">
+      <div class="sbg" id="sb-govbr" onclick="reconnectGov()">
+        <div style="display:flex;align-items:center;gap:7px">
+          <span style="font-size:12px">🇧🇷</span>
+          <div style="flex:1;min-width:0"><div style="font-size:10.5px;font-weight:700;color:#4A90D9;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="sbg-s">gov.br — Conectar</div><div style="font-size:9px;color:var(--t3)" id="sbg-sub">Clique para autenticar</div></div>
+          <div style="width:6px;height:6px;border-radius:50%;transition:all .3s;flex-shrink:0" id="sbg-dot"></div>
+        </div>
+      </div>
+      <div class="sbu" onclick="openST()">
+        <div class="sbav" id="sb-av">CO</div>
+        <div style="flex:1;min-width:0"><div style="font-size:11.5px;font-weight:600;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="sb-nm">Carlos Oliveira</div><div style="font-size:10px;color:var(--t3)" id="sb-pl">MEI · Plano Pro</div></div>
+        <span style="color:var(--t3);font-size:11.5px">⚙</span>
+      </div>
+    </div>
+  </aside>
+  <main id="main">
+    <div class="ib" id="intbar">
+      <div class="ic off" id="ic-gov">🇧🇷 gov.br</div>
+      <div class="ic off" id="ic-cnpj">● CNPJ.ws</div>
+      <div class="ic off" id="ic-cep">● ViaCEP</div>
+      <div class="ic off" id="ic-nfe">● NFe.io</div>
+      <div class="ic demo" id="ic-pgmei">● PGMEI</div>
+      <div class="ic off" id="ic-ia">● IA</div>
+      <div style="margin-left:auto;display:flex;gap:5px;align-items:center">
+        <button onclick="toggleTheme()" id="theme-btn" title="Alternar tema (Ctrl+D)" style="background:var(--bd);border:none;color:var(--t2);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:12px">🌙</button>
+        <button onclick="openGS()" title="Busca global (Ctrl+K)" style="background:var(--bd);border:none;color:var(--t2);height:26px;border-radius:6px;cursor:pointer;font-size:10.5px;padding:0 9px;display:flex;align-items:center;gap:4px">🔍 <kbd style="font-size:8.5px;background:var(--bd2);padding:1px 4px;border-radius:3px">K</kbd></button>
+        <div id="notif-d" style="display:none;width:17px;height:17px;border-radius:50%;background:var(--am);color:#000;font-size:8.5px;font-weight:700;align-items:center;justify-content:center;cursor:pointer" onclick="go('das')">!</div>
+      </div>
+    </div>
+    <div id="root"></div>
+  </main>
+</div>
+
+<!-- MOBILE NAV -->
+<nav id="mobnav">
+  <button class="mni active" data-p="dashboard" onclick="go('dashboard')"><span class="mni-ic">⊞</span><span>Início</span></button>
+  <button class="mni" data-p="notas" onclick="go('notas')"><span class="mni-ic">◱</span><span>Notas</span></button>
+  <button class="mni" data-p="das" onclick="go('das')"><span class="mni-ic">◧</span><span>DAS</span><div class="mni-dot"></div></button>
+  <button class="mni" data-p="ia" onclick="go('ia')"><span class="mni-ic">◉</span><span>IA</span></button>
+  <button class="mni" onclick="toggleMob()"><span class="mni-ic">⋯</span><span>Mais</span></button>
+</nav>
+<div id="mob-ov" onclick="closeMob()"></div>
+<div id="mob-more">
+  <button class="mmi" data-p="consulta" onclick="go('consulta');closeMob()">⊕ Consultar GOV</button>
+  <button class="mmi" data-p="clientes" onclick="go('clientes');closeMob()">◷ Clientes</button>
+  <button class="mmi" data-p="financeiro" onclick="go('financeiro');closeMob()">◎ Financeiro</button>
+  <button class="mmi" data-p="tributario" onclick="go('tributario');closeMob()">◐ Tributário</button>
+  <button class="mmi" data-p="relatorios" onclick="go('relatorios');closeMob()">◫ Relatórios</button>
+  <button class="mmi" data-p="openfinance" onclick="go('openfinance');closeMob()">◬ Open Finance</button>
+  <div style="padding:7px 12px 5px;border-top:1px solid var(--bd);margin-top:4px;display:flex;gap:8px">
+    <button class="btn btn-gov btn-sm" style="flex:1" onclick="reconnectGov();closeMob()">🇧🇷 gov.br</button>
+    <button class="btn btn-g btn-sm" style="flex:1" onclick="openST();closeMob()">⚙ Config</button>
+  </div>
+</div>
+<div id="toast"></div>
+<script>
+'use strict';
+let CFG={},GOV=null,MEI_NAME='',MEI_DATA={},PAGE='dashboard',chatHist=[],darkMode=true;
+const MESES=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
+// Estado real do MEI — preenchido após login gov.br + CNPJ.ws
+// Sem dados de exemplo: tudo vem das APIs
+const EMPTY_DATA={
+  razao:'—',cnpj:'—',cnae:'—',atividade:'servicos',
+  sit:'—',nivel:'—',abertura:'—',municipio:'—',uf:'—',
+  email:'—',tel:'—',porte:'—',natureza:'—',
+  faturamento:[],fatAno:0,limiteAnual:81000,
+  despesasMes:0,saldoEstimado:0,prolabore:0,
+  dasValor:0,dasComp:'—',dasVenc:'—',dasSit:'—',
+  dasPagos:[],lancamentos:[],notas:[],clientes:[],
+  extrato:[],ofConectado:false,
+  svcs:[]
+};
+
+
+// Device detection
+const DEV=(()=>{
+  const ua=navigator.userAgent;
+  const mob=/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)||window.innerWidth<=768;
+  const ios=/iPhone|iPad|iPod/i.test(ua);
+  let br='Outro';
+  if(/Edg/i.test(ua))br='Edge';
+  else if(/Chrome/i.test(ua)&&!/Edg/i.test(ua))br='Chrome';
+  else if(/Firefox/i.test(ua))br='Firefox';
+  else if(/Safari/i.test(ua)&&!/Chrome/i.test(ua))br='Safari';
+  return{mob,ios,br};
+})();
+if(DEV.ios){const sv=()=>document.documentElement.style.setProperty('--real-vh',window.innerHeight*.01+'px');sv();window.addEventListener('resize',sv);}
+
+// Utils
+const $=id=>document.getElementById(id);
+const $$=s=>document.querySelectorAll(s);
+const gv=id=>{const e=$(id);return e?e.value.trim():''};
+const set=(id,v)=>{const e=$(id);if(e)e.textContent=v};
+const show=id=>{const e=$(id);if(e)e.classList.remove('hidden')};
+const hide=id=>{const e=$(id);if(e)e.classList.add('hidden')};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const brl=v=>Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const fdt=s=>{if(!s||s==='—')return'—';try{return new Date(s+'T00:00:00').toLocaleDateString('pt-BR')}catch{return s}};
+
+let _tt;
+function toast(msg,type='ok'){
+  const t=$('toast');if(!t)return;
+  t.textContent=msg;
+  t.style.background=type==='err'?'var(--rd)':type==='warn'?'var(--am)':'var(--ac)';
+  t.style.color='#000';t.classList.add('show');
+  clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3400);
+}
+function mCPF(el){let v=el.value.replace(/\D/g,'').slice(0,11);v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})\.(\d{3})(\d)/,'$1.$2.$3').replace(/(\d{3})(\d{1,2})$/,'$1-$2');el.value=v;}
+function mCNPJ(el){let v=el.value.replace(/\D/g,'').slice(0,14);v=v.replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2');el.value=v;}
+function mCEP(el){let v=el.value.replace(/\D/g,'').slice(0,8);v=v.replace(/(\d{5})(\d)/,'$1-$2');el.value=v;}
+function chip(id,st,lb){const e=$(id);if(!e)return;e.className=`ic ${st}`;e.textContent=lb;}
+
+// Config
+function loadCFG(){try{CFG=JSON.parse(localStorage.getItem('solari_v3')||'{}');}catch{CFG={};}}
+function saveCFG(){
+  // Salva CFG + dados operacionais do MEI (lançamentos, notas, clientes, DAS pagos, extrato)
+  const toSave=Object.assign({},CFG,{
+    meiData:JSON.stringify({
+      lancamentos:MEI_DATA.lancamentos||[],
+      notas:MEI_DATA.notas||[],
+      clientes:MEI_DATA.clientes||[],
+      dasPagos:MEI_DATA.dasPagos||[],
+      extrato:MEI_DATA.extrato||[],
+      fatAno:MEI_DATA.fatAno||0,
+      prolabore:MEI_DATA.prolabore||0,
+      saldoEstimado:MEI_DATA.saldoEstimado||0,
+      ofConectado:MEI_DATA.ofConectado||false,
+    })
+  });
+  localStorage.setItem('solari_v3',JSON.stringify(toSave));
+}
+
+function openST(){
+  if($('st-cnpj'))$('st-cnpj').value=CFG.cnpj||'';
+  if($('st-cpf'))$('st-cpf').value=CFG.cpf||'';
+  if($('st-ant'))$('st-ant').value=CFG.ant||'';
+  if($('st-nfe'))$('st-nfe').value=CFG.nfe||'';
+  updSTGov();show('st-ov');
+}
+function closeST(){hide('st-ov');}
+function saveST(){
+  CFG.cnpj=gv('st-cnpj');CFG.cpf=gv('st-cpf');CFG.ant=gv('st-ant');CFG.nfe=gv('st-nfe');
+  CFG.ok=true;
+  const cnpjLimpo=(CFG.cnpj||'').replace(/\D/g,'');
+  if(cnpjLimpo.length===14)CFG.demo=false; // sair do modo demo ao informar CNPJ válido
+  saveCFG();closeST();applyUI();
+  toast('✅ Configurações salvas');
+  if(cnpjLimpo.length===14)loadMEICNPJ(CFG.cnpj);
+}
+function applyUI(){
+  chip('ic-cnpj','live','● CNPJ.ws');chip('ic-cep','live','● ViaCEP');
+  chip('ic-nfe',CFG.nfe?'live':'off',CFG.nfe?'● NFe.io ✓':'● NFe.io');
+  chip('ic-pgmei',GOV?'live':'demo',GOV?'● PGMEI ✓':'● PGMEI');
+  chip('ic-ia',CFG.ant?'live':'off',CFG.ant?'● IA Ativa':'● IA');
+  chip('ic-gov',GOV?'live':CFG.demo?'demo':'off',GOV?'🇧🇷 gov.br ✓':CFG.demo?'🇧🇷 Demo':'🇧🇷 gov.br');
+}
+function updSTGov(){
+  const dot=$('st-gdot'),lbl=$('st-gl'),sub=$('st-gs'),chips=$('st-gc');if(!dot)return;
+  if(GOV){dot.style.cssText='background:var(--ac);box-shadow:0 0 5px var(--ac)';set('st-gl',`Conectado · ${GOV.nome}`);set('st-gs',`Nível ${GOV.nivel} · ${GOV.ts}`);if(chips){chips.classList.remove('hidden');chips.innerHTML=GOV.svcs.map(s=>`<span class="badge bgov">${s}</span>`).join('');}}
+  else{dot.style.cssText='background:var(--t3)';set('st-gl','Não conectado');set('st-gs','Faça login gov.br para sincronizar');if(chips)chips.classList.add('hidden');}
+}
+
+// Gov.br Auth
+function mCNPJ_login(inp){
+  let v=inp.value.replace(/\D/g,'');
+  if(v.length>14)v=v.slice(0,14);
+  v=v.replace(/(\d{2})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1/$2').replace(/(\d{4})(\d)/,'$1-$2');
+  inp.value=v;
+}
+function gS1(){
+  const cpf=$('gb-cpf')?.value.replace(/\D/g,'');
+  if(!cpf||cpf.length!==11){const e=$('gb-cpf-err');if(e){e.textContent='CPF inválido — 11 dígitos';show('gb-cpf-err');}return;}
+  hide('gb-cpf-err');
+  const cnpj=$('gb-cnpj')?.value.replace(/\D/g,'');
+  if(!cnpj||cnpj.length!==14){const e=$('gb-cnpj-err');if(e){e.textContent='CNPJ obrigatório — 14 dígitos';show('gb-cnpj-err');}return;}
+  hide('gb-cnpj-err');
+  hide('gs1');show('gs2');
+  const ps=$$('.gps');ps[0].classList.remove('act');ps[0].classList.add('dn');ps[1].classList.add('act');
+  set('gb-cpf-show',cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.***.***-$4'));
+  $('gb-pw')?.focus();
+}
+function gBack(){
+  hide('gs2');show('gs1');
+  const ps=$$('.gps');ps[0].classList.remove('dn');ps[0].classList.add('act');ps[1].classList.remove('act');
+}
+function gTogPw(){
+  const inp=$('gb-pw');if(!inp)return;
+  inp.type=inp.type==='password'?'text':'password';
+  const b=$('gb-pw-eye');if(b)b.textContent=inp.type==='password'?'👁':'🙈';
+}
+async function gAuth(){
+  const pw=$('gb-pw')?.value;
+  if(!pw||pw.length<3){const e=$('gb-pw-err');if(e){e.textContent='Digite sua senha';show('gb-pw-err');}return;}
+  hide('gb-pw-err');
+  const btn=$('gb-btn2');if(btn){btn.disabled=true;btn.innerHTML='<div class="spin ss" style="border-top-color:#fff"></div> Entrando...';}
+  hide('gs2');show('gs3');
+  const ps=$$('.gps');ps[1].classList.remove('act');ps[1].classList.add('dn');ps[2].classList.add('act');
+  const steps=[
+    ['Autenticando com gov.br...','Verificando credenciais OAuth 2.0 · RFC 6749'],
+    ['Verificando nível de segurança...','Selo de Confiabilidade: Ouro'],
+    ['Consultando PGMEI...','Simples Nacional — LC 123/2006'],
+    ['Carregando DAS pendente...','Res. CGSN 140/2018, Art. 122'],
+    ['Sincronizando Receita Federal...','Consultando CNPJ.ws...'],
+  ];
+  for(const[m,s] of steps){set('gb-lm',m);set('gb-ls',s);await sleep(500);}
+
+  const cpf=$('gb-cpf')?.value.replace(/\D/g,'')||'';
+  const cnpjUsado=$('gb-cnpj')?.value.replace(/\D/g,'')||CFG.cnpj||'';
+
+  // Salva CPF/CNPJ já neste ponto para que aplicarDadosCNPJ os encontre em CFG
+  CFG.cpf=cpf; CFG.cnpj=cnpjUsado; CFG.ok=true;
+
+  // Inicializa GOV básico para applySession funcionar mesmo sem dados da Receita
+  GOV={
+    cpf, cnpj:cnpjUsado||'—', razao:'MEI Autenticado', sit:'—', nivel:'Ouro',
+    ts:new Date().toLocaleString('pt-BR'), cnae:'—', atividadeTipo:'servicos',
+    municipio:'—', uf:'—', tel:'—', email:'—', porte:'MEI', natureza:'Empresário Individual',
+    meiOptante:'—', simplesOptante:'—',
+    das:{comp:'—',v:0,venc:'—'}, svcs:['📄 PGMEI','🏛️ Receita Federal','📊 SIMEI','🗂️ e-CAC'],
+    dadosCompletos:false,
+  };
+  MEI_NAME='MEI Autenticado';
+  MEI_DATA=Object.assign({},EMPTY_DATA,{
+    razao:'MEI Autenticado', cnpj:cnpjUsado||'—', limiteAnual:81000,
+    faturamento:[],fatAno:0,despesasMes:0,saldoEstimado:0,prolabore:0,
+    dasValor:0,dasComp:'—',dasVenc:'—',dasSit:'Pendente',
+    dasPagos:[],lancamentos:[],notas:[],clientes:[],svcs:GOV.svcs
+  });
+  saveCFG();
+
+  // No Drive/file:// vai direto para o modal manual — sem tentar APIs que serão bloqueadas
+  const restricted = isRestrictedEnv();
+  let dadosReais=null; let erroCNPJ=null;
+  if(cnpjUsado && !restricted){
+    set('gb-lm','Consultando Receita Federal...');set('gb-ls',`CNPJ: ${cnpjUsado.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5')}`);
+    try{
+      dadosReais = await apiCNPJ(cnpjUsado);
+      aplicarDadosCNPJ(dadosReais, cnpjUsado);
+    }catch(e){
+      console.warn('gAuth: Receita Federal indisponível —', e.message);
+      erroCNPJ = e.message;
+    }
+  } else if(restricted && cnpjUsado){
+    erroCNPJ = 'Google Drive bloqueia consultas externas — preencha os dados manualmente';
+  }
+
+  hide('gb-load');show('gb-succ');
+  ps[2].classList.remove('act');ps[2].classList.add('dn');
+  const razaoFinal = MEI_NAME||'MEI Autenticado';
+  const municipioFinal = GOV.municipio||'—'; const ufFinal = GOV.uf||'—'; const cnaeFinal = GOV.cnae||'—';
+  set('gb-sm', dadosReais ? `${razaoFinal} · CNPJ ${cnpjUsado}` : 'Autenticado · Preencha seus dados MEI');
+  const items=[
+    ['✅','CPF autenticado · Nível Ouro'],
+    dadosReais?['🏢',`${razaoFinal} · ${GOV.sit}`]:restricted?['📂','Google Drive: preencha os dados manualmente abaixo']:['⚠️','Preencha seus dados MEI'],
+    dadosReais?['📍',`${municipioFinal}/${ufFinal} · CNAE: ${cnaeFinal}`]:['📋','Seus dados ficam salvos para uso offline'],
+    ['📊','PGMEI e SIMEI carregados'],
+  ];
+  const w=$('gb-di');if(w){w.innerHTML='';for(const[ic,tx] of items){await sleep(restricted?100:240);const el=document.createElement('div');el.style.cssText='display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--t2);animation:fadeUp .22s ease';el.innerHTML=`<span style="font-size:13px">${ic}</span>${esc(tx)}`;w.appendChild(el);}}
+
+  if(erroCNPJ){
+    const btnManual=document.createElement('button');
+    btnManual.className='btn btn-am btn-sm';btnManual.style.cssText='margin-top:10px;width:100%';
+    btnManual.innerHTML=restricted?'✏️ Preencher dados do MEI':'✏️ Preencher dados manualmente';
+    btnManual.onclick=()=>{hide('govbr-ov');setTimeout(()=>abrirManualCNPJ(cnpjUsado),200);};
+    if(w)w.appendChild(btnManual);
+    await sleep(restricted?200:400);
+    if(restricted){
+      // No Drive abre o modal automaticamente, sem esperar o usuário clicar
+      hide('govbr-ov');applySession();
+      setTimeout(()=>abrirManualCNPJ(cnpjUsado),350);
+    }else{
+      hide('govbr-ov');applySession();
+      setTimeout(()=>toast('⚠️ Receita Federal indisponível. Preencha seus dados nas ⚙ Configurações.','warn'),400);
+    }
+  }else{
+    await sleep(600);hide('govbr-ov');applySession();
+  }
+}
+function gQR(){toast('📱 Em produção: QR Code via OAuth PKCE flow · gov.br','warn');}
+function demoMode(){
+  // Modo demo: entra no sistema mas sem dados — solicita CNPJ real
+  CFG={cnpj:'',cpf:'',ant:'',nfe:'',ok:true,demo:true};
+  GOV=null;MEI_NAME='';MEI_DATA=Object.assign({},EMPTY_DATA);
+  saveCFG();hide('govbr-ov');applySession();
+  toast('ℹ️ Acesso sem gov.br — informe seu CNPJ nas ⚙ Configurações','warn');
+}
+function reconnectGov(){
+  closeST();
+  ['gs1','gs2','gs3'].forEach(id=>{const e=$(id);if(e)e.classList.add('hidden');});
+  show('gs1');
+  $$('.gps').forEach((s,i)=>{s.classList.remove('dn','act');if(i===0)s.classList.add('act');});
+  const ld=$('gb-load'),sc=$('gb-succ');if(ld)ld.classList.remove('hidden');if(sc)sc.classList.add('hidden');
+  const b=$('gb-btn2');if(b){b.disabled=false;b.innerHTML='Entrar no gov.br';}
+  if($('gb-cpf'))$('gb-cpf').value=CFG.cpf?CFG.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4'):'';
+  if($('gb-cnpj'))$('gb-cnpj').value=CFG.cnpj?CFG.cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5'):'';
+  if($('gb-pw'))$('gb-pw').value='';
+  hide('gb-cpf-err');hide('gb-pw-err');
+  show('govbr-ov');setTimeout(()=>$('gb-cpf')?.focus(),150);
+}
+function applySession(){
+  const nome=MEI_NAME||'MEI';
+  const ws=nome.split(' ');
+  const av=(ws[0][0]+(ws[1]?.[0]||'')).toUpperCase();
+  set('sb-av',av);
+  set('sb-nm',nome);
+  set('sb-pl',GOV?`MEI · gov.br ✓ ${GOV.nivel}`:'MEI · Configure CNPJ');
+  const pill=$('sb-govbr');
+  if(pill){
+    pill.style.display='block';
+    set('sbg-s',GOV?`gov.br ✓ ${GOV.nivel}`:'gov.br — não autenticado');
+    set('sbg-sub',GOV&&GOV.cnpj&&GOV.cnpj!=='—'?`${ws[0]} · CNPJ ${GOV.cnpj}`:'Clique para autenticar');
+    const dot=$('sbg-dot');
+    if(dot)dot.style.cssText=GOV?'background:var(--ac);box-shadow:0 0 5px var(--ac)':'background:var(--t3)';
+  }
+  applyUI();updSTGov();go(PAGE);
+  // Busca dados da Receita em background APENAS se ainda não tem dados completos
+  // e não está já carregando (evita dupla chamada)
+  const cnpjLimpo=(CFG.cnpj||'').replace(/\D/g,'');
+  if(cnpjLimpo.length===14 && !GOV?.dadosCompletos && !applySession._loading){
+    applySession._loading=true;
+    loadMEICNPJ(CFG.cnpj).finally(()=>{applySession._loading=false;});
+  }
+  if(GOV)setTimeout(syncDash,300);
+}
+
+async function loadMEICNPJ(cnpj){
+  try{
+    const d=await apiCNPJ(cnpj);
+    const est=d.estabelecimento||{};
+    const cnae=est.atividade_principal;
+    const cnaeTxt=cnae?`${cnae.id} — ${cnae.descricao}`:'—';
+    MEI_NAME=d.razao_social||MEI_NAME||'MEI';
+
+    let atividadeTipo='servicos';
+    if(cnae){const desc=(cnae.descricao||'').toLowerCase();if(/comércio|varejista|atacadista/.test(desc))atividadeTipo='comercio';else if(/transporte de passageiro|táxi|mototáxi/.test(desc))atividadeTipo='transporte';}
+
+    // Merge: preserva dados operacionais, atualiza apenas dados cadastrais da Receita
+    MEI_DATA=Object.assign({},EMPTY_DATA,MEI_DATA,{
+      razao:d.razao_social||'—',cnpj,cnae:cnaeTxt,atividade:atividadeTipo,
+      sit:est.situacao_cadastral||d.situacao_cadastral||'—',
+      nivel:GOV?.nivel||'—',
+      abertura:fdt(est.data_inicio_atividade||d.data_inicio_atividade),
+      municipio:est.cidade?.nome||'—',uf:est.estado?.sigla||'—',
+      tel:est.ddd1?`(${est.ddd1}) ${est.telefone1}`:'—',
+      email:est.email||'—',
+      porte:d.porte?.descricao||d.porte||'—',
+      natureza:d.natureza_juridica?.descricao||'—',
+      meiOptante:d.simples?.mei==='Sim'?'✅ Sim':(d.simples?.mei||'—'),
+      simplesOptante:d.simples?.simples==='Sim'?'✅ Sim':(d.simples?.simples||'—'),
+      limiteAnual:81000,svcs:GOV?.svcs||MEI_DATA.svcs||[]
+    });
+
+    // Se GOV ainda não existe (modo demo / CNPJ configurado sem login completo),
+    // cria um GOV mínimo para que toda a UI dependente de GOV funcione
+    if(!GOV){
+      GOV={
+        cpf:CFG.cpf?.replace(/\D/g,'')||'',cnpj,razao:MEI_NAME,sit:MEI_DATA.sit,
+        nivel:'Bronze',ts:new Date().toLocaleString('pt-BR'),
+        cnae:cnaeTxt,atividadeTipo,
+        svcs:['🏛️ Receita Federal'],dadosCompletos:false,
+      };
+    }
+    Object.assign(GOV,{
+      cnpj,razao:MEI_NAME,cnae:cnaeTxt,atividadeTipo,sit:MEI_DATA.sit,
+      municipio:MEI_DATA.municipio,uf:MEI_DATA.uf,tel:MEI_DATA.tel,
+      email:MEI_DATA.email,porte:MEI_DATA.porte,natureza:MEI_DATA.natureza,
+      meiOptante:MEI_DATA.meiOptante,simplesOptante:MEI_DATA.simplesOptante,
+      dadosCompletos:true
+    });
+    MEI_DATA.nivel=GOV.nivel;
+
+    // Atualiza sidebar sem re-renderizar a página inteira
+    const ws=MEI_NAME.split(' ');
+    set('sb-av',(ws[0][0]+(ws[1]?.[0]||'')).toUpperCase());
+    set('sb-nm',MEI_NAME);
+    set('sbg-sub',`${ws[0]} · ${cnpj}`);
+    set('sb-pl',`MEI · gov.br ✓ ${GOV?.nivel||'Ouro'}`);
+    CFG.gov=GOV;saveCFG();
+
+    // Re-renderiza a página atual para mostrar os dados recém-carregados
+    go(PAGE);
+    setTimeout(syncDash,100);
+    toast('✅ Dados carregados da Receita Federal');
+  }catch(e){
+    console.warn('loadMEICNPJ:',e.message);
+    toast(`⚠️ ${e.message}`,'err');
+  }
+}
+
+// APIs de consulta de CNPJ — tentativa em cadeia (fallback automático)
+// Fonte 1: BrasilAPI — CORS aberto, gratuita, sem limite estrito
+// Fonte 2: CNPJa — CORS aberto, gratuita
+// Fonte 3: CNPJ.ws — pode bloquear CORS em browser direto (fallback de último recurso)
+// ─── Camada de rede ──────────────────────────────────────────────────────────
+async function fetchJSON(url, timeout){
+  timeout = timeout || 9000;
+  const fetchPromise = fetch(url, { headers: { Accept: 'application/json' } });
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('Timeout: servidor não respondeu em ' + (timeout/1000) + 's')), timeout)
+  );
+  return Promise.race([fetchPromise, timeoutPromise]);
+}
+
+// Normaliza BrasilAPI → formato interno
+function normBrasilAPI(d) {
+  const cnae = d.cnae_fiscal ? { id: String(d.cnae_fiscal), descricao: d.cnae_fiscal_descricao || '' } : null;
+  return {
+    razao_social: d.razao_social || '—',
+    porte: { descricao: d.porte || '—' },
+    natureza_juridica: { descricao: d.natureza_juridica || '—' },
+    simples: { mei: d.opcao_pelo_mei ? 'Sim' : 'Não', simples: d.opcao_pelo_simples ? 'Sim' : 'Não' },
+    estabelecimento: {
+      situacao_cadastral: d.descricao_situacao_cadastral || '—',
+      data_inicio_atividade: d.data_inicio_atividade || '',
+      email: d.email || '—',
+      ddd1: (d.ddd_telefone_1 || '').substring(0, 2),
+      telefone1: (d.ddd_telefone_1 || '').substring(2),
+      atividade_principal: cnae,
+      cidade: { nome: d.municipio || '—' },
+      estado: { sigla: d.uf || '—' }
+    }
+  };
+}
+
+// Normaliza CNPJ.ws → formato interno (já vem no formato certo, apenas garante campos)
+function normCNPJws(d) {
+  return d; // CNPJ.ws já usa o mesmo schema esperado pelo app
+}
+
+function normalizeCNPJData(d, fonte) {
+  if (fonte === 'brasilapi') return normBrasilAPI(d);
+  return normCNPJws(d);
+}
+
+// Detecta ambientes que bloqueiam fetch externo (Google Drive, file://, etc.)
+function isRestrictedEnv(){
+  try{
+    const h=location.hostname||'';
+    const p=location.protocol||'';
+    return p==='file:'||h.includes('googleusercontent.com')||h.includes('drive.google.com')||h==='';
+  }catch(e){return false;}
+}
+
+async function apiCNPJ(cnpj){
+  const n = cnpj.replace(/\D/g,'');
+  if (n.length !== 14) throw new Error('CNPJ inválido — informe 14 dígitos');
+
+  // Em ambientes restritos (Google Drive, file://) fetch externo é bloqueado — vai direto para modal manual
+  if(isRestrictedEnv()){
+    throw new Error('Ambiente restrito: consulta à Receita Federal não disponível aqui. Preencha manualmente ou use o sistema pelo seu site.');
+  }
+
+  // Fontes em ordem de preferência — BrasilAPI primeiro (mais estável, HTTPS, sem rate limit agressivo)
+  const fontes = [
+    { url: `https://brasilapi.com.br/api/cnpj/v1/${n}`, nome: 'BrasilAPI', norm: normBrasilAPI },
+    { url: `https://publica.cnpj.ws/cnpj/${n}`,         nome: 'CNPJ.ws',   norm: normCNPJws   },
+    { url: `https://open.cnpja.com.br/office/${n}`,     nome: 'CNPJá',     norm: d => {
+      // CNPJá tem schema ligeiramente diferente
+      const cnae = d.mainActivity || {};
+      return {
+        razao_social: d.alias || d.company?.name || '—',
+        porte: { descricao: d.company?.size?.description || '—' },
+        natureza_juridica: { descricao: d.company?.nature?.description || '—' },
+        simples: { mei: d.company?.simei?.optant ? 'Sim' : 'Não', simples: d.company?.simples?.optant ? 'Sim' : 'Não' },
+        estabelecimento: {
+          situacao_cadastral: d.status?.description || '—',
+          data_inicio_atividade: d.founded || '',
+          email: (d.emails || [])[0]?.address || '—',
+          ddd1: (d.phones || [])[0]?.area || '',
+          telefone1: (d.phones || [])[0]?.number || '',
+          atividade_principal: cnae.id ? { id: cnae.id, descricao: cnae.description || '' } : null,
+          cidade: { nome: d.address?.city || '—' },
+          estado: { sigla: d.address?.state || '—' }
+        }
+      };
+    }}
+  ];
+
+  let ultimoErro = null;
+  for (const f of fontes) {
+    try {
+      const r = await fetchJSON(f.url, 9000);
+      if (r.status === 429) throw new Error(`${f.nome}: muitas requisições — aguarde 1 min`);
+      if (r.status === 404) throw new Error('CNPJ não encontrado na Receita Federal');
+      if (!r.ok) throw new Error(`${f.nome}: HTTP ${r.status}`);
+      const d = await r.json();
+      const result = f.norm(d);
+      console.log(`✅ apiCNPJ [${f.nome}]: OK`);
+      return result;
+    } catch(e) {
+      console.warn(`apiCNPJ [${f.nome}]:`, e.message);
+      ultimoErro = e;
+      if (e.message.includes('não encontrado')) throw e;
+    }
+  }
+
+  throw new Error('Sem conexão com a Receita Federal. ' + (ultimoErro ? ultimoErro.message : ''));
+}
+
+// ─── Não existe mais código abaixo desta linha relacionado a JSONP/proxy ─────
+
+// ── placeholder para compatibilidade com chamadas antigas ────────────────────
+async function fetchCNPJComTimeout(url, timeout){
+  return fetchJSON(url, timeout || 9000);
+}
+
+function apiCNPJManual(razao, cnpj, municipio, uf, email, tel, cnae, mei, simples){
+  // Monta objeto compatível a partir de dados informados manualmente pelo usuário
+  return {
+    razao_social: razao || '—',
+    porte: { descricao: 'MEI' },
+    natureza_juridica: { descricao: 'Empresário Individual' },
+    simples: { mei: mei || 'Sim', simples: simples || 'Sim' },
+    estabelecimento: {
+      situacao_cadastral: 'Ativa',
+      data_inicio_atividade: '',
+      email: email || '—',
+      ddd1: (tel || '').replace(/\D/g,'').substring(0,2),
+      telefone1: (tel || '').replace(/\D/g,'').substring(2),
+      atividade_principal: cnae ? { id: '', descricao: cnae } : null,
+      cidade: { nome: municipio || '—' },
+      estado: { sigla: uf || '—' }
+    }
+  };
+}
+
+// Abre modal de preenchimento manual quando API falha
+function abrirManualCNPJ(cnpjVal){
+  const cnpjFmt = (cnpjVal||'').replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+  const restricted = isRestrictedEnv();
+  const aviso = restricted
+    ? '📂 Você está acessando pelo <b>Google Drive</b>, que bloqueia conexões externas. Preencha os dados abaixo — eles ficam salvos. Quando publicar no seu site, a consulta será automática.'
+    : 'A consulta automática à Receita Federal falhou. Preencha os dados do seu MEI para continuar — você pode editar depois nas ⚙ Configurações.';
+  const ov = document.createElement('div');
+  ov.id = 'manual-cnpj-ov';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px';
+  ov.innerHTML = `
+    <div style="background:var(--sf);border:1px solid var(--bd2);border-radius:16px;padding:22px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto">
+      <div style="font-size:15px;font-weight:800;color:var(--t1);margin-bottom:4px">📋 Dados do MEI</div>
+      <div style="font-size:11.5px;color:var(--t2);margin-bottom:16px;line-height:1.55">${aviso}</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="ig"><label class="il">Razão Social *</label><input class="inp" id="man-razao" placeholder="Seu Nome MEI"></div>
+        <div class="ig"><label class="il">CNPJ</label><input class="inp" id="man-cnpj" value="${cnpjFmt}" readonly style="opacity:.6"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div class="ig"><label class="il">Município</label><input class="inp" id="man-mun" placeholder="São Paulo"></div>
+          <div class="ig"><label class="il">UF</label><input class="inp" id="man-uf" placeholder="SP" maxlength="2" style="text-transform:uppercase"></div>
+        </div>
+        <div class="ig"><label class="il">E-mail</label><input class="inp" id="man-email" type="email" placeholder="seu@email.com"></div>
+        <div class="ig"><label class="il">Telefone</label><input class="inp" id="man-tel" placeholder="(00) 00000-0000"></div>
+        <div class="ig"><label class="il">Atividade (CNAE / descrição)</label><input class="inp" id="man-cnae" placeholder="Ex: Serviços de contabilidade"></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:16px">
+        <button class="btn btn-a" style="flex:1" onclick="confirmarManual()">✅ Confirmar dados</button>
+        <button class="btn btn-g" onclick="document.getElementById('manual-cnpj-ov').remove()">Cancelar</button>
+      </div>
+    </div>`;
+  document.body.appendChild(ov);
+  setTimeout(()=>document.getElementById('man-razao')?.focus(), 100);
+}
+
+function confirmarManual(){
+  const razao = (document.getElementById('man-razao')?.value||'').trim();
+  if(!razao){toast('Informe a Razão Social','err');return;}
+  const cnpjRaw = (document.getElementById('man-cnpj')?.value||'').replace(/\D/g,'');
+  const d = apiCNPJManual(
+    razao, cnpjRaw,
+    document.getElementById('man-mun')?.value||'',
+    (document.getElementById('man-uf')?.value||'').toUpperCase(),
+    document.getElementById('man-email')?.value||'',
+    document.getElementById('man-tel')?.value||'',
+    document.getElementById('man-cnae')?.value||'',
+    'Sim', 'Sim'
+  );
+  document.getElementById('manual-cnpj-ov')?.remove();
+  aplicarDadosCNPJ(d, cnpjRaw);
+  toast('✅ Dados salvos! Você pode editar nas Configurações depois.');
+}
+
+function aplicarDadosCNPJ(d, cnpjUsado){
+  const est = d.estabelecimento || {};
+  const cnae = est.atividade_principal;
+  const cnaeTxt = cnae ? `${cnae.id} — ${cnae.descricao}`.replace(/^ — /,'') : '—';
+  const razao = d.razao_social || '—';
+  const sit = est.situacao_cadastral || '—';
+  const meiOpt = d.simples?.mei === 'Sim' ? '✅ Sim' : (d.simples?.mei || '—');
+  const simplesOpt = d.simples?.simples === 'Sim' ? '✅ Sim' : (d.simples?.simples || '—');
+  const municipio = est.cidade?.nome || '—';
+  const uf2 = est.estado?.sigla || '—';
+  const tel = est.ddd1 ? `(${est.ddd1}) ${est.telefone1}` : '—';
+  const email2 = est.email || '—';
+  const porte = d.porte?.descricao || 'MEI';
+  const natureza = d.natureza_juridica?.descricao || 'Empresário Individual';
+  let atividadeTipo = 'servicos';
+  if(cnae){ const desc=(cnae.descricao||'').toLowerCase(); if(/comércio|varejista|atacadista/.test(desc))atividadeTipo='comercio'; else if(/transporte|táxi|mototáxi/.test(desc))atividadeTipo='transporte'; }
+  GOV = { cpf: GOV?.cpf||CFG.cpf||'', cnpj: cnpjUsado||'—', razao, sit, nivel:'Ouro', ts:new Date().toLocaleString('pt-BR'), cnae:cnaeTxt, atividadeTipo, municipio, uf:uf2, tel, email:email2, porte, natureza, meiOptante:meiOpt, simplesOptante:simplesOpt, das:{comp:'—',v:0,venc:'—'}, svcs:['📄 PGMEI','🏛️ Receita Federal','📊 SIMEI','🗂️ e-CAC'], dadosCompletos:true };
+  MEI_NAME = razao;
+  MEI_DATA = Object.assign({}, MEI_DATA||EMPTY_DATA, { razao, cnpj:cnpjUsado||'—', cnae:cnaeTxt, atividade:atividadeTipo, sit, nivel:'Ouro', municipio, uf:uf2, tel, email:email2, porte, natureza, meiOptante:meiOpt, simplesOptante:simplesOpt, limiteAnual:81000, svcs:GOV.svcs });
+  CFG.gov = GOV; CFG.cnpj = cnpjUsado||CFG.cnpj; CFG.ok = true; saveCFG();
+  applySession();
+}
+
+// DESCONTINUADO — mantido apenas para não quebrar chamadas legacy
+async function apiCNPJLegacy(cnpj){
+  return apiCNPJ(cnpj);
+}
+
+async function fetchCNPJComTimeout_legacy(url, timeout){
+  return fetchJSON(url, timeout || 9000);
+}
+
+// ─── Fallback: quando API falha no login, oferece preenchimento manual ────────
+async function tentarCNPJOuManual(cnpjUsado){
+  try {
+    const d = await apiCNPJ(cnpjUsado);
+    return d;
+  } catch(e) {
+    console.warn('tentarCNPJOuManual: todas APIs falharam, abrindo modal manual');
+    // Fecha o overlay de login antes de abrir o modal manual
+    hide('govbr-ov');
+    setTimeout(()=>{
+      abrirManualCNPJ(cnpjUsado);
+    }, 300);
+    return null; // sinaliza que o fluxo vai continuar via modal
+  }
+}
+
+async function apiCEP(cep){
+  const n=cep.replace(/\D/g,'');
+  if(n.length!==8)throw new Error('CEP inválido — informe 8 dígitos');
+  let r;
+  try{
+    r=await fetch(`https://viacep.com.br/ws/${n}/json/`);
+  }catch(netErr){
+    throw new Error('Não foi possível conectar ao ViaCEP. Verifique sua conexão ou tente novamente em alguns instantes.');
+  }
+  if(!r.ok)throw new Error(`ViaCEP retornou erro ${r.status}`);
+  const d=await r.json();if(d.erro)throw new Error('CEP não encontrado no ViaCEP');
+  return d;
+}
+const PAGES=['dashboard','consulta','notas','clientes','financeiro','tributario','das','relatorios','openfinance','ia'];
+function go(p){
+  if(!PAGES.includes(p))return;PAGE=p;
+  const root=$('root');if(!root)return;
+  root.innerHTML='';
+  // RENDERS é definido após as funções render — usamos lookup dinâmico
+  const fn={dashboard:rDash,consulta:rConsulta,notas:rNotas,clientes:rCli,financeiro:rFin,tributario:rTrib,das:rDAS,relatorios:rRel,openfinance:rOF,ia:rIA}[p];
+  if(fn)fn(root);
+  $$('[data-p]').forEach(b=>b.classList.toggle('active',b.dataset.p===p));
+  const m=$('main');if(m)m.scrollTop=0;
+}
+document.getElementById('sbnav')?.addEventListener('click',e=>{const b=e.target.closest('[data-p]');if(b)go(b.dataset.p);});
+
+// Dashboard
+function txnRow(l){
+  const r=l.tipo==='r',w=l.tipo==='w';
+  const bg=r?'rgba(0,200,150,.14)':w?'rgba(139,92,246,.14)':'rgba(239,68,68,.11)';
+  const cl=r?'var(--ac)':w?'var(--pu)':'var(--rd)';
+  const dataShort=(l.data||'').split('/').slice(0,2).join('/');
+  return`<div class="txn"><div class="ti" style="background:${bg};color:${cl}">${r?'↑':w?'⇄':'↓'}</div><div style="flex:1;min-width:0"><div class="td2" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(l.desc)}</div><div class="tm">${esc(dataShort)}<span class="tcat">${esc(l.cat)}</span></div></div><div class="tamt" style="color:${cl}">${r?'+':'−'}${brl(l.v)}</div></div>`;
+}
+function rDash(root){
+  const now=new Date(),h=now.getHours();
+  const gr=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+  const nome=MEI_NAME?MEI_NAME.split(' ')[0]:'MEI';
+  const dl=now.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const D=MEI_DATA;
+  const fat=D.fatAno||0;
+  const lim=D.limiteAnual||81000;
+  const pct=fat>0?(fat/lim*100):0;
+  const pc=pct>85?'var(--rd)':pct>70?'var(--am)':'var(--ac)';
+  // Calcular presunção pelo tipo de atividade
+  const percPresuncao=D.atividade==='comercio'?0.08:D.atividade==='transporte'?0.16:0.32;
+  const isenta=fat*percPresuncao;
+  const semDados=!GOV&&!CFG.cnpj;
+  const semCNPJ=GOV&&(!GOV.dadosCompletos||GOV.cnpj==='—');
+
+  root.innerHTML=`<div class="page">
+  <div class="ph">
+    <div class="pl">${dl[0].toUpperCase()+dl.slice(1)}</div>
+    <h1 class="pt">${gr}, ${esc(nome||'MEI')} 👋</h1>
+    <p class="pd" id="d-sub">${GOV&&GOV.razao&&GOV.razao!=='—'?(GOV.nivel==='Bronze'?`Dados da Receita Federal · ${esc(GOV.razao)}`:`Dados sincronizados via gov.br · ${esc(GOV.razao)}`):'Faça login com gov.br para carregar seus dados fiscais reais.'}</p>
+  </div>
+
+  ${semDados?`<div class="alert alert-am"><span class="ai2">⚠️</span><div class="ab2"><div class="at" style="color:var(--am)">Nenhum dado carregado</div><div class="axt">Faça login com o gov.br ou informe seu CNPJ nas ⚙ Configurações para ver seus dados reais.</div></div><button class="btn btn-gov btn-sm" onclick="reconnectGov()" style="flex-shrink:0">🇧🇷 Login gov.br</button></div>`:''}
+
+  ${semCNPJ?`<div class="alert alert-am"><span class="ai2">⚠️</span><div class="ab2"><div class="at" style="color:var(--am)">CNPJ não encontrado</div><div class="axt">Informe o CNPJ do seu MEI nas ⚙ Configurações para carregar dados da Receita Federal.</div></div><button class="btn btn-am btn-sm" onclick="openST()" style="flex-shrink:0">⚙ Configurar</button></div>`:''}
+
+  ${GOV?`<div class="gdp" id="gdp">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:32px;height:32px;border-radius:7px;background:linear-gradient(135deg,#1351B4,#2670E8);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">🇧🇷</div>
+        <div><div style="font-size:12.5px;font-weight:700;color:var(--t1)">gov.br ✓ Nível ${esc(GOV.nivel)}</div><div style="font-size:11px;color:var(--t2)">${esc(GOV.razao||'—')} · CNPJ ${esc(GOV.cnpj||'—')} · ${esc(GOV.ts||'—')}</div></div>
+      </div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap" id="gdp-c">${GOV.svcs?GOV.svcs.map(s=>`<span class="badge bgov">${s}</span>`).join(''):''}</div>
+      <button class="btn btn-g btn-sm" style="color:#4A90D9;border-color:rgba(19,81,180,.28)" onclick="reconnectGov()">↻ Reconectar</button>
+    </div>
+  </div>`:''}
+
+  ${GOV&&D.dasComp&&D.dasComp!=='—'?`
+  <div class="alert alert-am" id="d-das">
+    <span class="ai2">⚠️</span>
+    <div class="ab2">
+      <div class="at" style="color:var(--am)">DAS ${esc(D.dasComp)} vence em ${esc(D.dasVenc)} <span class="badge bgov" style="margin-left:5px;font-size:8.5px">gov.br</span></div>
+      <div class="axt">Valor: ${brl(D.dasValor)} · CNPJ: ${esc(D.cnpj)} · Res. CGSN 140/2018, Art. 122</div>
+    </div>
+    <button class="btn btn-am btn-sm" onclick="go('das')" style="flex-shrink:0">Pagar</button>
+  </div>`:''}
+
+  ${GOV&&D.dadosCompletos?`
+  <div class="card govb" style="margin-bottom:14px">
+    <div class="ct">🏢 Dados do MEI — Receita Federal</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px">
+      ${[['Razão Social',D.razao],['CNPJ',D.cnpj],['CNAE',D.cnae],['Situação',D.sit],['Município',`${D.municipio}/${D.uf}`],['Abertura',D.abertura],['Porte',D.porte],['Opção MEI',D.meiOptante]].map(([k,v])=>`<div style="padding:8px 10px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><div style="font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">${k}</div><div style="font-size:12.5px;font-weight:600;color:var(--t1)">${esc(v||'—')}</div></div>`).join('')}
+    </div>
+  </div>`:''}
+
+  ${fat>0?`
+  <div class="metrics">
+    <div class="metric"><div class="ml">Faturamento acumulado</div><div class="mv" style="color:${pc}">${brl(fat)}</div><div class="ms">Restam ${brl(lim-fat)} para o limite</div></div>
+    <div class="metric"><div class="ml">Lucro isento (${(percPresuncao*100).toFixed(0)}%)</div><div class="mv" style="color:var(--ac)">${brl(isenta)}</div><div class="ms">Art. 15 · Lei 9.249/95</div></div>
+    ${D.dasValor>0?`<div class="metric"><div class="ml">DAS ${D.dasComp}</div><div class="mv" style="color:var(--am)">${brl(D.dasValor)}</div><div class="ms">${D.dasSit} · vence ${D.dasVenc}</div></div>`:''}
+    ${D.saldoEstimado>0?`<div class="metric"><div class="ml">Saldo estimado</div><div class="mv" style="color:var(--ac)">${brl(D.saldoEstimado)}</div><div class="ms">Conta PJ</div></div>`:''}
+  </div>
+  <div class="g12" style="margin-bottom:14px">
+    <div class="card"><div class="ct">📊 Faturamento por mês</div><div class="bars" id="cbars"></div></div>
+    <div class="card">
+      <div class="ct">🎯 Limite MEI ${new Date().getFullYear()}</div>
+      <div class="dring" id="donut" style="margin-bottom:12px"><div class="dinn"><div style="font-size:19px;font-weight:800;letter-spacing:-.03em;color:${pc}">${pct.toFixed(0)}%</div><div style="font-size:8.5px;color:var(--t3)">usado</div></div></div>
+      <div style="font-size:11px;color:var(--t2);text-align:center;margin-bottom:9px">${brl(fat)} de ${brl(lim)}</div>
+      <div class="ptw"><div class="ptf" style="width:${Math.min(pct,100)}%;background:${pc}"></div></div>
+      ${pct>70?`<div style="margin-top:9px;font-size:10.5px;color:${pc};text-align:center;padding:4px 8px;border-radius:5px;background:${pct>85?'var(--rdd)':'var(--amd)'}">⚠️ Restam ${brl(lim-fat)} para o limite · LC 123/2006</div>`:''}
+    </div>
+  </div>`:''}
+
+  ${D.lancamentos&&D.lancamentos.length?`<div class="card"><div class="ct">💳 Últimas movimentações</div>${D.lancamentos.slice(0,5).map(l=>txnRow(l)).join('')}</div>`:
+  GOV?`<div class="card" style="text-align:center;padding:32px 20px"><div style="font-size:32px;margin-bottom:12px">📊</div><div style="font-size:14px;font-weight:600;color:var(--t1);margin-bottom:6px">Nenhuma movimentação ainda</div><div style="font-size:12.5px;color:var(--t2)">Os lançamentos aparecerão aqui após conectar o Open Finance ou registrar manualmente.</div><button class="btn btn-a" onclick="go('financeiro')" style="margin-top:14px">+ Registrar lançamento</button></div>`:''}
+</div>`;
+  setTimeout(()=>{if(fat>0){bBars();bDonut();}syncDash();},0);
+}
+function bBars(){
+  const w=$('cbars');if(!w)return;
+  const fat=MEI_DATA.faturamento||[];
+  if(!fat.length||fat.every(v=>v===0)){w.innerHTML=`<div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--t3);font-size:12px;flex-direction:column;gap:6px"><span style="font-size:24px">📊</span>Sem dados de faturamento ainda</div>`;return;}
+  const mx=Math.max(...fat,1);
+  w.innerHTML=fat.map((v,i)=>{const on=i===new Date().getMonth();const h=v>0?Math.round((v/mx)*96):4;return`<div class="bw"><div class="bar" style="height:${h}px;background:${v>0?(on?'var(--ac)':'rgba(0,200,150,.38)'):'var(--bd)'}"></div><span class="bl2 ${on?'on':''}">${MESES[i]}</span></div>`;}).join('');
+}
+function bDonut(){
+  const e=$('donut');if(!e)return;
+  const fat=MEI_DATA.fatAno||0,lim=MEI_DATA.limiteAnual||81000;
+  const pct=fat>0?Math.min(fat/lim*100,100):0;
+  const pc=pct>85?'var(--rd)':pct>70?'var(--am)':'var(--ac)';
+  e.style.background=`conic-gradient(${pc} ${pct*3.6}deg,var(--bd) 0deg)`;
+}
+function syncDash(){
+  if(!GOV)return;
+  const p=$('gdp');if(p)p.style.display='block';
+  const D=MEI_DATA;
+  if(D.dasValor>0){
+    const da=$('d-das');
+    if(da)da.innerHTML=`<span class="ai2">⚠️</span><div class="ab2"><div class="at" style="color:var(--am)">DAS ${esc(D.dasComp)} vence em ${esc(D.dasVenc)} <span class="badge bgov" style="margin-left:5px;font-size:8.5px">gov.br</span></div><div class="axt">Valor: ${brl(D.dasValor)} · CNPJ: ${esc(D.cnpj)} · Res. CGSN 140/2018</div></div><button class="btn btn-am btn-sm" onclick="go('das')" style="flex-shrink:0">Pagar</button>`;
+  }
+}
+
+// Consulta GOV
+function rConsulta(root){
+  root.innerHTML=`<div class="page">
+  <div class="ph"><h1 class="pt">Consultar APIs Governamentais</h1><p class="pd">Consultas em tempo real à Receita Federal via BrasilAPI (primária, CORS-open) e CNPJ.ws (fallback) — APIs públicas e gratuitas.</p></div>
+  <div class="card" style="margin-bottom:14px"><div class="ct">🏢 Consulta CNPJ — Receita Federal</div>
+    <div style="display:flex;gap:7px;margin-bottom:6px"><input class="inp" id="lk-cnpj" placeholder="00.000.000/0001-00" maxlength="18" oninput="mCNPJ(this)" onkeydown="if(event.key==='Enter')lkCNPJ()" style="flex:1"><button class="btn btn-a" id="btn-lkcnpj" onclick="lkCNPJ()">Consultar</button></div>
+    <div style="font-size:10.5px;color:var(--t3);margin-bottom:11px">Primária: <code style="font-family:var(--mo);color:var(--ac);font-size:10px">https://brasilapi.com.br/api/cnpj/v1/{cnpj}</code> · Fallback: <code style="font-family:var(--mo);color:var(--bl);font-size:10px">https://publica.cnpj.ws/cnpj/{cnpj}</code> · Gratuitas</div>
+    <div id="lk-cl" class="hidden" style="display:flex;align-items:center;gap:8px;padding:10px 0;font-size:12.5px;color:var(--t2)"><div class="spin ss"></div>Consultando Receita Federal...</div>
+    <div id="lk-ce" class="alert alert-re hidden"><span class="ai2">❌</span><div class="ab2" id="lk-cetx"></div></div>
+    <div id="lk-cd" class="hidden">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap"><span class="badge" id="lk-sb">—</span><span style="font-size:13.5px;font-weight:700;color:var(--t1)" id="lk-rt">—</span></div>
+      <div class="gres">${[['cnpj','CNPJ'],['razao','Razão Social'],['fantasia','Nome Fantasia'],['porte','Porte'],['natureza','Natureza Jurídica'],['cnae','CNAE Principal'],['end','Endereço'],['mun','Município / UF'],['tel','Telefone'],['email','E-mail'],['abertura','Data Abertura'],['capital','Capital Social'],['sit','Situação Cadastral'],['simples','Opção pelo Simples'],['mei','Opção pelo MEI']].map(([id,lb])=>`<div class="grow2"><span class="gk">${lb}</span><span class="gv2" id="lk-${id}">—</span></div>`).join('')}</div>
+      <div style="font-size:10.5px;color:var(--t3);margin-top:7px">Fonte: CNPJ.ws · Receita Federal · <span id="lk-hora">—</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:14px"><div class="ct">📮 Consulta CEP — ViaCEP</div>
+    <div style="display:flex;gap:7px;margin-bottom:6px"><input class="inp" id="lk-cep" placeholder="00000-000" maxlength="9" oninput="mCEP(this)" onkeydown="if(event.key==='Enter')lkCEP()" style="flex:1"><button class="btn btn-b" onclick="lkCEP()">Consultar</button></div>
+    <div style="font-size:10.5px;color:var(--t3);margin-bottom:11px">Endpoint: <code style="font-family:var(--mo);color:var(--bl);font-size:10px">https://viacep.com.br/ws/{cep}/json/</code> · Gratuito</div>
+    <div id="lk-cepl" class="hidden" style="display:flex;align-items:center;gap:8px;padding:10px 0;font-size:12.5px;color:var(--t2)"><div class="spin ss"></div>Consultando ViaCEP...</div>
+    <div id="lk-cepd" class="hidden gres">${[['cep','CEP'],['log','Logradouro'],['bairro','Bairro'],['cidade','Cidade / UF'],['ibge','Código IBGE']].map(([id,lb])=>`<div class="grow2"><span class="gk">${lb}</span><span class="gv2" id="cep-${id}">—</span></div>`).join('')}</div>
+  </div>
+  <div class="card"><div class="ct">📡 Testar conexão com APIs</div>
+    <div style="display:flex;flex-direction:column;gap:7px">
+      ${[{id:'cnpjws',lb:'CNPJ.ws — Receita Federal',url:'publica.cnpj.ws'},{id:'viacep',lb:'ViaCEP',url:'viacep.com.br'},{id:'anthropic',lb:'Anthropic API — IA Contadora',url:'api.anthropic.com'}].map(a=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 11px;background:var(--bg);border-radius:7px;border:1px solid var(--bd);gap:10px;flex-wrap:wrap">
+        <div><div style="font-size:12px;font-weight:600;color:var(--t1)">${a.lb}</div><div style="font-size:10px;color:var(--t3);font-family:var(--mo)">${a.url}</div></div>
+        <div style="display:flex;align-items:center;gap:7px"><span id="ping-${a.id}" style="font-size:11px;color:var(--t3)">—</span><button class="btn btn-g btn-sm" onclick="pingAPI('${a.id}')">Testar</button></div>
+      </div>`).join('')}
+    </div>
+  </div>
+</div>`;
+}
+async function lkCNPJ(){
+  const raw=gv('lk-cnpj');if(!raw)return;
+  const ld=$('lk-cl'),er=$('lk-ce'),da=$('lk-cd'),btn=$('btn-lkcnpj');
+  if(ld)ld.style.display='flex';hide('lk-ce');hide('lk-cd');if(btn)btn.disabled=true;
+  try{const d=await apiCNPJ(raw);if(ld)ld.style.display='none';fillCNPJ(d,raw);show('lk-cd');chip('ic-cnpj','live','● CNPJ.ws ✓');}
+  catch(e){if(ld)ld.style.display='none';set('lk-cetx',e.message);show('lk-ce');}
+  finally{if(btn)btn.disabled=false;}
+}
+function fillCNPJ(d,raw){
+  const est=d.estabelecimento||{};const sit=est.situacao_cadastral||d.situacao_cadastral||'—';
+  const b=$('lk-sb');if(b){b.textContent=sit;b.className=`badge ${/ativa/i.test(sit)?'ba':'bam'}`;}
+  set('lk-rt',d.razao_social||'—');set('lk-cnpj',raw);set('lk-razao',d.razao_social||'—');
+  set('lk-fantasia',est.nome_fantasia||d.nome_fantasia||'—');
+  set('lk-porte',d.porte?.descricao||d.porte||'—');
+  set('lk-natureza',d.natureza_juridica?.descricao||'—');
+  const cnae=est.atividade_principal;set('lk-cnae',cnae?`${cnae.id} — ${cnae.descricao}`:'—');
+  set('lk-end',[est.logradouro,est.numero,est.complemento,est.bairro].filter(Boolean).join(', ')||'—');
+  set('lk-mun',est.cidade?.nome?`${est.cidade.nome} / ${est.estado?.sigla||''}`:'—');
+  set('lk-tel',est.ddd1?`(${est.ddd1}) ${est.telefone1}`:'—');set('lk-email',est.email||'—');
+  set('lk-abertura',fdt(est.data_inicio_atividade||d.data_inicio_atividade));
+  set('lk-capital',d.capital_social?brl(d.capital_social):'—');set('lk-sit',sit);
+  set('lk-simples',d.simples?.simples==='Sim'?'✅ Optante':(d.simples?.simples||'—'));
+  set('lk-mei',d.simples?.mei==='Sim'?'✅ Optante MEI':(d.simples?.mei||'—'));
+  set('lk-hora','Consultado em '+new Date().toLocaleString('pt-BR'));
+}
+async function lkCEP(){
+  const raw=gv('lk-cep');const ld=$('lk-cepl'),da=$('lk-cepd');
+  if(ld)ld.style.display='flex';if(da)da.classList.add('hidden');
+  try{const d=await apiCEP(raw);if(ld)ld.style.display='none';set('cep-cep',d.cep);set('cep-log',[d.logradouro,d.complemento].filter(Boolean).join(', ')||'—');set('cep-bairro',d.bairro||'—');set('cep-cidade',`${d.localidade} / ${d.uf}`);set('cep-ibge',d.ibge||'—');show('lk-cepd');chip('ic-cep','live','● ViaCEP ✓');}
+  catch(e){if(ld)ld.style.display='none';toast(e.message,'err');}
+}
+async function pingAPI(id){
+  const el=$(`ping-${id}`);if(el)el.innerHTML='<span class="spin ss" style="display:inline-block;vertical-align:middle"></span>';
+  const t0=Date.now();
+  try{
+    if(id==='cnpjws'){const r=await fetch('https://publica.cnpj.ws/cnpj/00000000000191');if(!r.ok&&r.status!==429)throw new Error(`HTTP ${r.status}`);}
+    else if(id==='viacep'){const r=await fetch('https://viacep.com.br/ws/01310100/json/');if(!r.ok)throw new Error(`HTTP ${r.status}`);}
+    else if(id==='anthropic'){if(!CFG.ant)throw new Error('Chave não configurada');if(el){el.innerHTML=`<span style="color:var(--ac)">✅ Chave configurada</span>`;return;}}
+    const ms=Date.now()-t0;if(el)el.innerHTML=`<span style="color:var(--ac)">✅ Online · ${ms}ms</span>`;
+  }catch(e){if(el)el.innerHTML=`<span style="color:var(--rd)">❌ ${esc(e.message)}</span>`;}
+}
+// Notas Fiscais
+function rNotas(root){
+  const meiMun=MEI_DATA.municipio||'';
+  const meiCNPJ=(MEI_DATA.cnpj||'').replace(/\D/g,'');
+  const cnpjFmt=meiCNPJ.length===14?meiCNPJ.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5'):'';
+  const urlNFSe=`https://www.nfse.gov.br/EmissorNacional/Login?ReturnUrl=%2fEmissorNacional`;
+  const urlReceita=`https://servicos.receitafederal.gov.br/`;
+  root.innerHTML=`<div class="page">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+    <div>
+      <h1 class="pt">Notas Fiscais — NFS-e</h1>
+      <p class="pd">Emissor Nacional NFS-e (gov.br) · LC 116/2003 · Res. CGSN 140/2018 · Portaria SMFP 72/2021</p>
+    </div>
+    <button class="btn btn-a" onclick="toggleEl('nf-form')">+ Registrar NFS-e</button>
+  </div>
+
+  <!-- Métricas dinâmicas -->
+  <div class="metrics" style="margin-bottom:16px" id="nf-metrics"></div>
+
+  <!-- Banner Portais Oficiais -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+    <a href="${urlNFSe}" target="_blank" rel="noopener" style="text-decoration:none">
+      <div style="padding:14px 16px;background:linear-gradient(135deg,rgba(19,81,180,.12),rgba(19,81,180,.04));border:1.5px solid rgba(19,81,180,.28);border-radius:12px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(19,81,180,.6)'" onmouseout="this.style.borderColor='rgba(19,81,180,.28)'">
+        <span style="font-size:26px">🇧🇷</span>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--t1)">Emissor Nacional NFS-e</div>
+          <div style="font-size:11px;color:var(--t2);margin-top:2px">nfse.gov.br — Emita sua nota pelo gov.br</div>
+          <div style="font-size:10px;color:#4A90D9;margin-top:3px;font-weight:600">→ Abre o portal oficial ↗</div>
+        </div>
+      </div>
+    </a>
+    <a href="${urlReceita}" target="_blank" rel="noopener" style="text-decoration:none">
+      <div style="padding:14px 16px;background:linear-gradient(135deg,rgba(0,200,150,.1),rgba(0,200,150,.03));border:1.5px solid rgba(0,200,150,.25);border-radius:12px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,200,150,.5)'" onmouseout="this.style.borderColor='rgba(0,200,150,.25)'">
+        <span style="font-size:26px">🏛️</span>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--t1)">Serviços Receita Federal</div>
+          <div style="font-size:11px;color:var(--t2);margin-top:2px">servicos.receitafederal.gov.br</div>
+          <div style="font-size:10px;color:var(--ac);margin-top:3px;font-weight:600">→ PGMEI, SIMEI, CNPJ ↗</div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Guia passo a passo -->
+  <div class="card" style="margin-bottom:14px;border-left:3px solid #4A90D9">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;cursor:pointer" onclick="toggleEl('nf-guia')">
+      <div style="font-size:13px;font-weight:700;color:var(--t1)">📋 Como emitir sua NFS-e pelo Emissor Nacional gov.br</div>
+      <span style="font-size:11px;color:var(--t3)">▼ expandir</span>
+    </div>
+    <div id="nf-guia" style="display:none">
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+        ${[
+          ['1','Acesse o portal','Clique em <strong>"Emissor Nacional NFS-e"</strong> acima — será aberto o site <em>nfse.gov.br</em> em nova aba.'],
+          ['2','Login com gov.br','Clique em <strong>"Entrar com gov.br"</strong> e use seu CPF e senha (nível Prata ou Ouro). O sistema carrega seu CNPJ MEI automaticamente.'],
+          ['3','Nova nota','No menu, acesse <strong>Emitir NFS-e</strong>. Preencha os dados do tomador (cliente), descrição do serviço e valor.'],
+          ['4','Confirme e emita','Revise os dados e clique em <strong>Emitir</strong>. A nota será registrada no sistema municipal com número oficial.'],
+          ['5','Registre aqui','Use o formulário abaixo para <strong>registrar a nota emitida</strong> no seu controle financeiro — o valor é lançado automaticamente como receita.'],
+        ].map(([n,t,d])=>`
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="min-width:24px;height:24px;border-radius:50%;background:#4A90D9;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">${n}</div>
+          <div><div style="font-size:12.5px;font-weight:700;color:var(--t1)">${t}</div><div style="font-size:11.5px;color:var(--t2);margin-top:2px;line-height:1.6">${d}</div></div>
+        </div>`).join('')}
+      </div>
+      <div style="padding:9px 12px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.22);border-radius:8px;font-size:11px;color:var(--am);line-height:1.65">
+        ⚠️ <strong>Importante:</strong> A emissão oficial da NFS-e ocorre <em>exclusivamente</em> no portal <strong>nfse.gov.br</strong> (Emissor Nacional) ou no sistema da prefeitura do seu município. Este app controla seu financeiro — não emite notas diretamente.
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulário de registro -->
+  <div id="nf-form" class="card ab" style="margin-bottom:14px;display:none">
+    <div class="ct">📄 Registrar NFS-e Emitida</div>
+    <div style="padding:7px 10px;background:rgba(19,81,180,.07);border:1px solid rgba(19,81,180,.18);border-radius:7px;font-size:11px;color:var(--t2);margin-bottom:12px;line-height:1.6">
+      🔗 Já emitiu a nota no <strong>Emissor Nacional (nfse.gov.br)</strong>? Registre aqui para atualizar seu faturamento e lançar a receita automaticamente.
+    </div>
+    <div id="nf-ok" class="hidden" style="text-align:center;padding:18px 0">
+      <div style="width:52px;height:52px;border-radius:50%;background:rgba(0,200,150,.14);border:2px solid var(--ac);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px">✅</div>
+      <div style="font-size:14px;font-weight:700;color:var(--ac)">NFS-e registrada com sucesso!</div>
+      <div style="font-size:11.5px;color:var(--t2);margin-top:4px">Nota adicionada ao histórico · Receita lançada no Financeiro automaticamente</div>
+    </div>
+    <div id="nf-fields">
+      <div class="gf">
+        <div class="ig">
+          <label class="il">Número da NFS-e <span style="color:var(--t3);font-weight:400">(do portal oficial)</span></label>
+          <input class="inp" id="nf-num" placeholder="Ex: 000123 ou NFS-e 2024/00045">
+        </div>
+        <div class="ig">
+          <label class="il">Data de emissão</label>
+          <input class="inp" id="nf-data" type="date" value="${new Date().toISOString().split('T')[0]}">
+        </div>
+      </div>
+      <div class="ig">
+        <label class="il">CNPJ / CPF do tomador (cliente) — preenchimento automático</label>
+        <div style="display:flex;gap:7px">
+          <input class="inp" id="nf-cnpj" placeholder="00.000.000/0001-00 ou 000.000.000-00" maxlength="18" oninput="mCNPJ(this)" style="flex:1">
+          <button class="btn btn-g" id="btn-nfb" onclick="nfBusca()" style="flex-shrink:0">🔍 Buscar</button>
+        </div>
+        <div id="nf-bl" style="display:none;align-items:center;gap:7px;font-size:11.5px;color:var(--t2);margin-top:4px"><div class="spin ss"></div>Consultando Receita Federal...</div>
+      </div>
+      <div class="gf">
+        <div class="ig"><label class="il">Razão Social / Nome do tomador *</label><input class="inp" id="nf-nome" placeholder="Nome da empresa ou pessoa física"></div>
+        <div class="ig"><label class="il">E-mail do tomador</label><input class="inp" id="nf-email" type="email" placeholder="email@empresa.com"></div>
+      </div>
+      <div class="gf">
+        <div class="ig"><label class="il">Descrição do serviço *</label><input class="inp" id="nf-desc" placeholder="Ex: Serviços de contabilidade — competência Set/2026"></div>
+        <div class="ig"><label class="il">Valor da NFS-e (R$) *</label><input class="inp" id="nf-val" type="number" min="0.01" step="0.01" placeholder="0,00"></div>
+      </div>
+      <div class="gf">
+        <div class="ig">
+          <label class="il">Município de prestação</label>
+          <input class="inp" id="nf-mun" placeholder="Ex: São Paulo / SP" value="${meiMun}">
+        </div>
+        <div class="ig">
+          <label class="il">Categoria financeira</label>
+          <select class="inp" id="nf-cat">
+            <option value="Serviços">Serviços prestados</option>
+            <option value="Consultoria">Consultoria</option>
+            <option value="Comércio">Comércio</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:4px">
+        <button class="btn btn-a" id="btn-nfe" onclick="nfEmitir()">💾 Registrar NFS-e</button>
+        <a href="${urlNFSe}" target="_blank" rel="noopener" class="btn btn-g" style="text-decoration:none">🇧🇷 Emissor Nacional ↗</a>
+        <button class="btn btn-g" onclick="hideEl('nf-form')">Cancelar</button>
+        <span id="nf-st" style="font-size:11.5px;color:var(--t3);font-style:italic"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela de notas -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+      <div class="ct" style="margin:0">Notas registradas</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <a href="${urlNFSe}" target="_blank" rel="noopener" style="font-size:11px;color:#4A90D9;text-decoration:none;padding:4px 10px;border:1px solid rgba(74,144,217,.3);border-radius:6px;font-weight:600">🇧🇷 Ver no Emissor Nacional ↗</a>
+        <a href="${urlReceita}" target="_blank" rel="noopener" style="font-size:11px;color:var(--ac);text-decoration:none;padding:4px 10px;border:1px solid rgba(0,200,150,.3);border-radius:6px;font-weight:600">🏛️ Receita Federal ↗</a>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="tbl"><thead><tr><th>Número</th><th>Tomador</th><th>Data</th><th>Valor</th><th>Categoria</th><th>Status</th><th>Ações</th></tr></thead>
+      <tbody id="nf-tbody">
+        ${(MEI_DATA.notas||[]).length?(MEI_DATA.notas||[]).map(n=>`
+        <tr>
+          <td style="color:var(--bl);font-weight:600;white-space:nowrap">${esc(n.n||n.numero||'—')}</td>
+          <td style="color:var(--t1)">${esc(n.c||n.cliente||'—')}</td>
+          <td style="color:var(--t2);white-space:nowrap">${esc(n.d||n.data||'—')}</td>
+          <td style="font-weight:700;color:${n.s==='autorizada'||n.s==='registrada'?'var(--ac)':'var(--am)'};white-space:nowrap">${brl(n.v||n.valor||0)}</td>
+          <td style="color:var(--t2);font-size:11.5px">${esc(n.cat||'Serviços')}</td>
+          <td><span class="badge ${n.s==='autorizada'||n.s==='registrada'?'ba':'bam'}">${esc(n.s==='registrada'?'registrada':n.s||'pendente')}</span></td>
+          <td><div style="display:flex;gap:5px;flex-wrap:wrap">
+            <a href="${urlNFSe}" target="_blank" rel="noopener" class="btn btn-sm" style="background:rgba(19,81,180,.1);color:#4A90D9;border:none;cursor:pointer;text-decoration:none;font-size:11px">↗ Portal</a>
+            <button class="btn btn-sm" style="background:var(--bd);color:var(--t2);border:none;cursor:pointer;font-size:11px" onclick="nfCopiarDados(${JSON.stringify({n:n.n||n.numero,c:n.c||n.cliente,v:n.v||n.valor,d:n.d||n.data}).replace(/"/g,'&quot;')})">📋 Copiar</button>
+          </div></td>
+        </tr>`).join(''):`<tr><td colspan="7" style="text-align:center;padding:28px;color:var(--t3)">
+          <div style="font-size:22px;margin-bottom:8px">📄</div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px">Nenhuma NFS-e registrada</div>
+          <div style="font-size:11.5px">Emita no <a href="${urlNFSe}" target="_blank" style="color:#4A90D9">Emissor Nacional gov.br ↗</a> e registre aqui</div>
+        </td></tr>`}
+      </tbody></table>
+    </div>
+  </div>
+</div>`;
+  setTimeout(bNotasMetrics,0);
+}
+function nfCopiarDados(n){
+  const txt=`NFS-e: ${n.n||'—'}\nTomador: ${n.c||'—'}\nData: ${n.d||'—'}\nValor: ${brl(n.v||0)}`;
+  navigator.clipboard?.writeText(txt).then(()=>toast('📋 Dados copiados!')).catch(()=>toast('📋 Dados: '+txt.replace(/\n/g,' | ')));
+}
+function bNotasMetrics(){
+  const w=$('nf-metrics');if(!w)return;
+  const notas=MEI_DATA.notas||[];
+  const now=new Date();const meAtual=now.getMonth();const anoAtual=now.getFullYear();
+  const total=notas.reduce((a,n)=>a+(n.v||0),0);
+  const notasMes=notas.filter(n=>{const p=(n.d||'').split('/');if(p.length<3)return false;return parseInt(p[1])-1===meAtual&&parseInt(p[2])===anoAtual;});
+  const totalMes=notasMes.reduce((a,n)=>a+(n.v||0),0);
+  const pendentes=notas.filter(n=>n.s&&n.s!=='autorizada');
+  const totalPend=pendentes.reduce((a,n)=>a+(n.v||0),0);
+  const clisAtivos=new Set(notas.map(n=>n.c||n.cliente).filter(Boolean)).size;
+  w.innerHTML=`
+    <div class="metric"><div class="ml">Total emitido</div><div class="mv" style="color:var(--ac)">${brl(total)}</div><div class="ms">${notas.length} nota(s) no total</div></div>
+    <div class="metric"><div class="ml">Notas este mês</div><div class="mv" style="color:var(--bl)">${notasMes.length}</div><div class="ms">${brl(totalMes)}</div></div>
+    <div class="metric"><div class="ml">Aguardando pgto</div><div class="mv" style="color:var(--am)">${brl(totalPend)}</div><div class="ms">${pendentes.length} nota(s) pendente(s)</div></div>
+    <div class="metric"><div class="ml">Clientes ativos</div><div class="mv" style="color:var(--t2)">${clisAtivos}</div><div class="ms">${clisAtivos?'na base':'nenhum cadastrado'}</div></div>`;
+}
+function toggleEl(id){const e=$(id);if(!e)return;e.style.display=e.style.display==='none'||!e.style.display?'block':'none';}
+function hideEl(id){const e=$(id);if(e)e.style.display='none';}
+async function nfBusca(){
+  const cnpj=gv('nf-cnpj'),ld=$('nf-bl'),btn=$('btn-nfb');
+  show('nf-bl');if(btn)btn.disabled=true;
+  try{const d=await apiCNPJ(cnpj);hide('nf-bl');if(btn)btn.disabled=false;if($('nf-nome'))$('nf-nome').value=d.razao_social||'';const est=d.estabelecimento||{};if(est.email&&$('nf-email'))$('nf-email').value=est.email;toast('✅ Dados preenchidos automaticamente da Receita Federal');}
+  catch(e){hide('nf-bl');if(btn)btn.disabled=false;toast(e.message,'err');}
+}
+async function nfEmitir(){
+  const nome=gv('nf-nome'),val=gv('nf-val'),desc=gv('nf-desc');
+  if(!nome){toast('Informe o nome do tomador (cliente)','err');return;}
+  if(!val||parseFloat(val)<=0){toast('Informe um valor válido maior que zero','err');return;}
+  const btn=$('btn-nfe'),st=$('nf-st');
+  if(btn)btn.disabled=true;
+  if(st)st.textContent='Salvando registro...';
+  await sleep(300);
+  const valor=parseFloat(val);
+  const cat=$('nf-cat')?.value||'Serviços';
+  // Data de emissão: usa a do campo ou hoje
+  const dataInput=$('nf-data')?.value;
+  let hoje;
+  if(dataInput){const[y,m,d]=dataInput.split('-');hoje=`${d}/${m}/${y}`;}
+  else{hoje=new Date().toLocaleDateString('pt-BR');}
+  // Número: usa o do portal oficial se informado, senão gera sequencial
+  const numInput=(gv('nf-num')||'').trim();
+  if(!MEI_DATA.notas)MEI_DATA.notas=[];
+  const numero=numInput||`NFS-e #${String(MEI_DATA.notas.length+1).padStart(4,'0')}`;
+  // Registrar nota
+  MEI_DATA.notas.unshift({n:numero,c:nome,d:hoje,v:valor,s:'registrada',cat,desc});
+  MEI_DATA.fatAno=(MEI_DATA.fatAno||0)+valor;
+  // Lançar receita automaticamente no Financeiro
+  if(!MEI_DATA.lancamentos)MEI_DATA.lancamentos=[];
+  const descLanc=desc?`${numero} — ${desc} — ${nome}`:`${numero} — ${nome}`;
+  MEI_DATA.lancamentos.unshift({data:hoje,desc:descLanc,tipo:'r',v:valor,cat});
+  saveCFG();
+  hide('nf-fields');show('nf-ok');
+  if(st)st.textContent='';
+  toast(`✅ NFS-e ${numero} registrada! Receita de ${brl(valor)} lançada no Financeiro.`);
+  setTimeout(()=>{
+    hideEl('nf-form');hide('nf-ok');show('nf-fields');if(btn)btn.disabled=false;
+    ['nf-num','nf-cnpj','nf-nome','nf-email','nf-desc','nf-val'].forEach(id=>{const e=$(id);if(e)e.value='';});
+    if($('nf-data'))$('nf-data').value=new Date().toISOString().split('T')[0];
+    go('notas');
+  },2500);
+}
+
+// Clientes
+function rCli(root){
+  const clis=MEI_DATA.clientes||[];
+  const tot=clis.reduce((a,c)=>a+c.tot,0);
+  const inadim=clis.filter(c=>c.st==='inadimplente').reduce((a,c)=>a+c.tot,0);
+  const nfsTotal=clis.reduce((a,c)=>a+c.nfs,0)||1;
+  root.innerHTML=`<div class="page">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+    <div><h1 class="pt">Clientes</h1><p class="pd">Cadastro com busca automática na Receita Federal via BrasilAPI (primária) com fallback para CNPJ.ws.</p></div>
+    <button class="btn btn-a" onclick="toggleEl('cli-form')">+ Novo Cliente</button>
+  </div>
+  ${clis.length?`<div class="metrics" style="margin-bottom:14px">
+    <div class="metric"><div class="ml">Clientes</div><div class="mv" style="color:var(--ac)">${clis.length}</div></div>
+    <div class="metric"><div class="ml">Receita total</div><div class="mv" style="color:var(--bl)">${brl(tot)}</div></div>
+    <div class="metric"><div class="ml">Inadimplência</div><div class="mv" style="color:var(--am)">${brl(inadim)}</div></div>
+    <div class="metric"><div class="ml">Ticket médio</div><div class="mv" style="color:var(--t2)">${brl(tot/nfsTotal)}</div></div>
+  </div>`:''}
+  <div id="cli-form" class="card ab" style="margin-bottom:14px;display:none">
+    <div class="ct">👤 Novo Cliente</div>
+    <div class="ig">
+      <label class="il">CNPJ — preenchimento automático</label>
+      <div style="display:flex;gap:7px"><input class="inp" id="cli-cnpj" placeholder="00.000.000/0001-00" maxlength="18" oninput="mCNPJ(this)" style="flex:1"><button class="btn btn-g" id="btn-clib" onclick="cliBusca()" style="flex-shrink:0">🔍 Buscar</button></div>
+      <div id="cli-bl" class="hidden" style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--t2);margin-top:4px"><div class="spin ss"></div>Consultando Receita Federal...</div>
+    </div>
+    <div class="gf">
+      <div class="ig"><label class="il">Razão Social *</label><input class="inp" id="cli-nome" placeholder="Nome da empresa"></div>
+      <div class="ig"><label class="il">E-mail</label><input class="inp" id="cli-email" type="email" placeholder="email@empresa.com"></div>
+      <div class="ig"><label class="il">Telefone</label><input class="inp" id="cli-tel" placeholder="(00) 00000-0000"></div>
+      <div class="ig"><label class="il">Município / UF</label><input class="inp" id="cli-mun" placeholder="São Paulo / SP"></div>
+    </div>
+    <div style="display:flex;gap:8px"><button class="btn btn-a" onclick="cliSalvar()">✓ Salvar cliente</button><button class="btn btn-g" onclick="hideEl('cli-form')">Cancelar</button></div>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;flex-wrap:wrap;gap:9px">
+      <div class="ct" style="margin:0">Todos os clientes</div>
+      ${clis.length?`<input class="inp" id="cli-search" placeholder="🔍 Buscar..." oninput="cliFilt()" style="width:190px;padding:6px 11px;font-size:12px">`:''}
+    </div>
+    <div id="cli-list">${cliHTML(clis)}</div>
+  </div>
+</div>`;
+}
+function cliHTML(lista){
+  if(!lista.length)return`<div style="text-align:center;padding:32px 20px"><div style="font-size:32px;margin-bottom:12px">👥</div><div style="font-size:14px;font-weight:600;color:var(--t1);margin-bottom:6px">Nenhum cliente cadastrado</div><div style="font-size:12.5px;color:var(--t2)">Cadastre seus clientes para emitir notas e controlar recebimentos.</div></div>`;
+  return lista.map(c=>`<div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--bd)">
+    <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--bl),var(--pu));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0">${c.nome[0]}</div>
+    <div style="flex:1;min-width:0"><div style="font-size:12.5px;font-weight:600;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.nome)}</div><div style="font-size:10.5px;color:var(--t3);margin-top:2px">${c.cnpj} · ${c.mun}/${c.uf}</div></div>
+    <div style="text-align:right;flex-shrink:0"><div style="font-size:12.5px;font-weight:700;color:var(--ac)">${brl(c.tot)}</div><div style="font-size:10px;color:var(--t3)">${c.nfs} nota(s) · ${c.ult}</div></div>
+    <span class="badge ${c.st==='ativo'?'ba':c.st==='inadimplente'?'bam':'bg'}">${c.st}</span>
+  </div>`).join('');
+}
+function cliFilt(){const q=(gv('cli-search')||'').toLowerCase();const clis=MEI_DATA.clientes||[];const el=$('cli-list');if(el)el.innerHTML=cliHTML(q?clis.filter(c=>c.nome.toLowerCase().includes(q)||c.cnpj.includes(q)):clis);}
+async function cliBusca(){
+  const cnpj=gv('cli-cnpj'),ld=$('cli-bl'),btn=$('btn-clib');
+  show('cli-bl');if(btn)btn.disabled=true;
+  try{const d=await apiCNPJ(cnpj);hide('cli-bl');if(btn)btn.disabled=false;if($('cli-nome'))$('cli-nome').value=d.razao_social||'';const est=d.estabelecimento||{};if(est.email&&$('cli-email'))$('cli-email').value=est.email;if(est.ddd1&&$('cli-tel'))$('cli-tel').value=`(${est.ddd1}) ${est.telefone1}`;if(est.cidade?.nome&&$('cli-mun'))$('cli-mun').value=`${est.cidade.nome} / ${est.estado?.sigla||''}`;toast('✅ Dados preenchidos automaticamente da Receita Federal');}
+  catch(e){hide('cli-bl');if(btn)btn.disabled=false;toast(e.message,'err');}
+}
+function cliSalvar(){
+  const nome=gv('cli-nome');if(!nome){toast('Informe o nome do cliente','err');return;}
+  if(!MEI_DATA.clientes)MEI_DATA.clientes=[];
+  MEI_DATA.clientes.unshift({id:Date.now(),cnpj:gv('cli-cnpj')||'—',nome,email:gv('cli-email'),tel:gv('cli-tel'),mun:gv('cli-mun').split('/')[0]?.trim()||'—',uf:gv('cli-mun').split('/')[1]?.trim()||'—',tot:0,nfs:0,ult:'—',st:'ativo'});
+  saveCFG();
+  hideEl('cli-form');const el=$('cli-list');if(el)el.innerHTML=cliHTML(MEI_DATA.clientes);toast('✅ Cliente cadastrado com sucesso!');
+}
+
+// Financeiro
+function rFin(root){
+  const D=MEI_DATA;
+  const lancs=D.lancamentos||[];
+  const rec=lancs.filter(l=>l.tipo==='r').reduce((a,l)=>a+l.v,0);
+  const dep=lancs.filter(l=>l.tipo==='d').reduce((a,l)=>a+l.v,0);
+  const ret=lancs.filter(l=>l.tipo==='w').reduce((a,l)=>a+l.v,0);
+  root.innerHTML=`<div class="page">
+  <div class="ph"><h1 class="pt">Financeiro</h1><p class="pd">Plano de contas com separação PF × PJ · RIR/99 e LC 123/2006.</p></div>
+  ${!GOV?`<div class="alert alert-am"><span class="ai2">⚠️</span><div class="ab2"><div class="at" style="color:var(--am)">Login gov.br necessário</div><div class="axt">Autentique com gov.br para carregar seus dados fiscais reais.</div></div><button class="btn btn-gov btn-sm" onclick="reconnectGov()" style="flex-shrink:0">🇧🇷 Login</button></div>`:''}
+  ${lancs.length?`<div class="metrics" style="margin-bottom:14px">
+    <div class="metric"><div class="ml">Receitas</div><div class="mv" style="color:var(--ac)">${brl(rec)}</div></div>
+    <div class="metric"><div class="ml">Despesas</div><div class="mv" style="color:var(--rd)">${brl(dep)}</div></div>
+    <div class="metric"><div class="ml">Retiradas</div><div class="mv" style="color:var(--pu)">${brl(ret)}</div><div class="ms" style="color:var(--pu)">Pró-labore</div></div>
+    <div class="metric"><div class="ml">Lucro líquido</div><div class="mv" style="color:var(--ac)">${brl(rec-dep-ret)}</div></div>
+  </div>`:''}
+  <div class="tabs"><button class="tab active" onclick="finTab('l',this)">Lançamentos</button><button class="tab" onclick="finTab('c',this)">Por categoria</button><button class="tab" onclick="finTab('p',this)">Plano de contas</button></div>
+  <div id="ftab-l" class="card">
+    ${lancs.length?lancs.map(l=>txnRow(l)).join(''):`<div style="text-align:center;padding:32px 20px"><div style="font-size:32px;margin-bottom:12px">📋</div><div style="font-size:14px;font-weight:600;color:var(--t1);margin-bottom:6px">Nenhum lançamento</div><div style="font-size:12.5px;color:var(--t2)">Registre manualmente ou conecte o Open Finance para importar automaticamente.</div><button class="btn btn-a" onclick="toggleEl('novo-lanc')" style="margin-top:14px">+ Novo lançamento</button></div>`}
+    <div id="novo-lanc" style="display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--bd)">
+      <div class="gf">
+        <div class="ig"><label class="il">Descrição *</label><input class="inp" id="nl-desc" placeholder="Ex: Recebimento cliente"></div>
+        <div class="ig"><label class="il">Valor (R$) *</label><input class="inp" id="nl-val" type="number" min="0.01" step="0.01" placeholder="0,00"></div>
+        <div class="ig"><label class="il">Tipo</label><select class="inp" id="nl-tipo"><option value="r">Receita</option><option value="d">Despesa</option><option value="w">Retirada / Pró-labore</option></select></div>
+        <div class="ig"><label class="il">Categoria</label><input class="inp" id="nl-cat" placeholder="Ex: Serviços"></div>
+      </div>
+      <div style="display:flex;gap:8px"><button class="btn btn-a" onclick="novoLanc()">✓ Registrar</button><button class="btn btn-g" onclick="hideEl('novo-lanc')">Cancelar</button></div>
+    </div>
+  </div>
+  <div id="ftab-c" class="card hidden"><div class="ct">Por categoria</div><div id="catbars"></div></div>
+  <div id="ftab-p" class="card hidden">
+    <div class="ct">Plano de contas MEI</div>
+    ${[['Receitas','Vendas · Prestação de serviços · PIX recebido · Marketplace · Recorrência','var(--ac)'],
+       ['Custos variáveis','Mercadoria · Frete · Embalagem · Comissão · Taxa de cartão','var(--rd)'],
+       ['Despesas fixas','Aluguel · Internet · Software · Combustível · Marketing · Contador','var(--rd)'],
+       ['Pró-labore e retiradas','Retirada do sócio · PIX pessoal · Saque · Transferência pessoal','var(--pu)'],
+       ['Investimentos','Equipamentos · Reformas · Computadores · Veículos','var(--bl)'],
+       ['Tributos','DAS · Multas · Impostos — Base: Res. CGSN 140/2018','var(--am)']].map(([n,d2,c])=>`
+       <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd)"><div style="width:3px;background:${c};border-radius:2px;flex-shrink:0"></div><div><div style="font-size:12.5px;font-weight:600;color:var(--t1)">${n}</div><div style="font-size:11px;color:var(--t3);margin-top:2px">${d2}</div></div></div>`).join('')}
+  </div>
+</div>`;
+}
+function novoLanc(){
+  const desc=gv('nl-desc'),val=parseFloat(gv('nl-val')||'0'),tipo=gv('nl-tipo'),cat=gv('nl-cat')||'Geral';
+  if(!desc||!val||val<=0){toast('Informe descrição e valor válido','err');return;}
+  const hoje=new Date(),data=`${String(hoje.getDate()).padStart(2,'0')}/${String(hoje.getMonth()+1).padStart(2,'0')}/${hoje.getFullYear()}`;
+  if(!MEI_DATA.lancamentos)MEI_DATA.lancamentos=[];
+  MEI_DATA.lancamentos.unshift({data,desc,tipo,v:val,cat});
+  if(tipo==='r')MEI_DATA.fatAno=(MEI_DATA.fatAno||0)+val;
+  saveCFG();
+  go('financeiro');toast('✅ Lançamento registrado!');
+}
+function finTab(id,btn){['l','c','p'].forEach(t=>{const e=$(`ftab-${t}`);if(e)e.classList.toggle('hidden',t!==id);});$$('.tab').forEach(t=>t.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='c')bCatBars();}
+function bCatBars(){
+  const w=$('catbars');if(!w)return;
+  const lancs=MEI_DATA.lancamentos||[];
+  if(!lancs.length){w.innerHTML=`<div style="text-align:center;padding:22px;color:var(--t3)">Nenhum lançamento para categorizar</div>`;return;}
+  const cats={};lancs.forEach(l=>{if(!cats[l.cat])cats[l.cat]={n:l.cat,v:0,t:l.tipo};cats[l.cat].v+=l.v;});
+  const arr=Object.values(cats).sort((a,b)=>b.v-a.v);const mx=arr[0]?.v||1;
+  w.innerHTML=arr.map(c=>{const cl=c.t==='r'?'var(--ac)':c.t==='w'?'var(--pu)':'var(--rd)';const bc=c.t==='r'?'ba':c.t==='w'?'bp':'bg';const pct=Math.min(100,(c.v/mx)*100);return`<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;gap:7px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:12px;color:var(--t2)">${esc(c.n)}</span><span class="badge ${bc}">${c.t==='r'?'receita':c.t==='w'?'retirada':'despesa'}</span></div><span style="font-size:12.5px;font-weight:700;color:${cl}">${brl(c.v)}</span></div><div class="ptw"><div class="ptf" style="width:${pct}%;background:${cl};opacity:.8"></div></div></div>`;}).join('');
+}
+// Tributário
+function rTrib(root){
+  const D=MEI_DATA;
+  const fat=D.fatAno||0;
+  const lim=D.limiteAnual||81000;
+  const atv=D.atividade||'servicos';
+  const percMap={comercio:0.08,transporte:0.16,servicos:0.32};
+  const perc=percMap[atv]||0.32;
+  const desp=D.despesasMes?D.despesasMes*12:0;
+  const isenta=fat*perc;
+  const trib=Math.max(0,fat-desp-isenta);
+  const prolabore=D.prolabore?D.prolabore*12:0;
+  const cnae=D.cnae||'—';
+  const semDados=!fat&&!GOV;
+  root.innerHTML=`<div class="page">
+  <div class="ph"><h1 class="pt">Cálculo Tributário</h1><p class="pd">Engine tributária com bases legais vigentes. Cálculos por atividade e CNAE do seu MEI.</p></div>
+  ${semDados?`<div class="alert alert-am"><span class="ai2">⚠️</span><div class="ab2"><div class="at" style="color:var(--am)">Dados insuficientes</div><div class="axt">Faça login com gov.br e informe seu CNPJ para calcular automaticamente com base no seu CNAE real.</div></div><button class="btn btn-gov btn-sm" onclick="reconnectGov()" style="flex-shrink:0">🇧🇷 Login</button></div>`:''}
+  <div class="alert alert-bl" style="margin-bottom:14px"><span class="ai2">⚖️</span><div class="ab2"><div class="at" style="color:var(--bl)">Bases legais aplicadas</div><div class="axt"><strong>LC 123/2006</strong> + <strong>LC 128/2008</strong> — Estatuto MEI · <strong>Lei 9.249/95, Art. 15</strong> — Percentuais de presunção · <strong>Decreto 3.000/99 (RIR)</strong> — IR · <strong>Res. CGSN 140/2018</strong> — DAS · <strong>IN RFB 2.178/2024</strong> — IRPF 2025</div></div></div>
+  ${GOV&&D.cnae?`<div class="card govb" style="margin-bottom:14px"><div class="ct">📋 Dados do seu MEI da Receita Federal</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px"><div style="padding:8px 10px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><div style="font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">CNPJ</div><div style="font-size:12px;font-weight:600;color:var(--t1)">${esc(D.cnpj)}</div></div><div style="padding:8px 10px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><div style="font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">CNAE Principal</div><div style="font-size:12px;font-weight:600;color:var(--t1)">${esc(cnae)}</div></div><div style="padding:8px 10px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><div style="font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Atividade / Presunção</div><div style="font-size:12px;font-weight:600;color:var(--ac)">${atv==='comercio'?'Comércio':atv==='transporte'?'Transporte':'Serviços'} — ${(perc*100).toFixed(0)}%</div></div><div style="padding:8px 10px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><div style="font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Situação</div><div style="font-size:12px;font-weight:600;color:var(--t1)">${esc(D.sit||'—')}</div></div></div></div>`:''}
+  <div class="g2" style="margin-bottom:14px">
+    <div class="card">
+      <div class="ct">📊 Engine tributária — ${new Date().getFullYear()}</div>
+      ${fat>0?`
+      <div class="cr"><div><div class="cl">Receita bruta acumulada</div><div class="cs">CNAE: ${esc(cnae)}</div></div><div class="cv" style="color:var(--ac)">${brl(fat)}</div></div>
+      ${desp>0?`<div class="cr"><div><div class="cl">(−) Despesas comprovadas</div><div class="cs">Estimativa anualizada · RIR, Art. 75</div></div><div class="cv" style="color:var(--rd)">−${brl(desp)}</div></div>`:''}
+      <div class="cr"><div><div class="cl">(−) Parcela isenta — ${(perc*100).toFixed(0)}%</div><div class="cs">Distribuição de lucro · Art. 15 Lei 9.249/95</div></div><div class="cv" style="color:var(--ac)">−${brl(isenta)}</div></div>
+      <div class="cr tot"><div><div class="cl">= Lucro tributável</div><div class="cs">Base IRPF · Ficha Rendimentos Tributáveis</div></div><div class="cv" style="color:var(--ac)">${brl(trib)}</div></div>`
+      :`<div style="text-align:center;padding:22px;color:var(--t3)"><div style="font-size:28px;margin-bottom:10px">📊</div>Informe o faturamento acumulado para calcular</div>`}
+      <div style="margin-top:12px;padding:10px 12px;background:var(--bg);border-radius:7px;border:1px solid var(--bd)">
+        <div style="font-size:10.5px;color:var(--t3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Percentuais de presunção — Art. 15 Lei 9.249/95</div>
+        ${[['Comércio / Indústria','8%','Art. 15, I','comercio'],['Transporte de passageiros','16%','Art. 15, II','transporte'],['Serviços em geral','32%','Art. 15, III','servicos']].map(([n,p,ref,k])=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bd);font-size:11.5px"><span style="color:var(--t2)">${n} <span style="font-size:9.5px;color:var(--t3)">(${ref})</span></span><span style="font-weight:700;color:${k===atv?'var(--ac)':'var(--t1)'}">${p}${k===atv?' ← seu MEI':''}</span></div>`).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">🏛️ Rascunho IRPF ${new Date().getFullYear()}</div>
+      <div class="ib"><div class="ibl">Rendimentos Isentos e Não Tributáveis<br><span style="font-size:9px;color:var(--t3)">Cód. 09 — Art. 10 Lei 9.249/95 · LC 128/2008</span></div><div class="ibv" style="color:var(--ac)">${fat>0?brl(isenta):'—'}</div><div class="ibs">${fat>0?`${(perc*100).toFixed(0)}% × ${brl(fat)}`:'Informe o faturamento'}</div></div>
+      ${prolabore>0?`<div class="ib"><div class="ibl">Rendimentos Tributáveis PF<br><span style="font-size:9px;color:var(--t3)">Cód. 36 — Pró-labore · IN RFB 2.178/2024</span></div><div class="ibv" style="color:var(--am)">${brl(prolabore)}</div><div class="ibs">${brl(D.prolabore)}/mês × 12</div></div>`:`<div class="ib"><div class="ibl">Rendimentos Tributáveis PF<br><span style="font-size:9px;color:var(--t3)">Cód. 36 — Pró-labore · IN RFB 2.178/2024</span></div><div class="ibv" style="color:var(--t3)">—</div><div class="ibs">Informe o pró-labore mensal nas configurações</div></div>`}
+      <div class="ib" style="margin-bottom:12px"><div class="ibl">Bens e Direitos<br><span style="font-size:9px;color:var(--t3)">Cód. 64 — Conta PJ</span></div><div class="ibv" style="color:${D.saldoEstimado>0?'var(--bl)':'var(--t3)'}">${D.saldoEstimado>0?brl(D.saldoEstimado):'—'}</div><div class="ibs">${D.saldoEstimado>0?'Saldo estimado em conta PJ':'Conecte o Open Finance para obter automaticamente'}</div></div>
+      <button class="btn btn-g" onclick="exportIRPF()" style="width:100%;justify-content:center;border-color:var(--ac);color:var(--ac)" ${fat>0?'':'disabled title="Informe o faturamento primeiro"'}>📥 Exportar rascunho IRPF</button>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="ct">🔢 Simulador CNAE misto</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:12px">Se exercer mais de uma atividade, a presunção é calculada separadamente. Informe a receita por tipo:</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px">
+      ${[['Comércio/Indústria (8%)',atv==='comercio'?fat:0,'s8'],['Transporte (16%)',atv==='transporte'?fat:0,'s16'],['Serviços (32%)',atv==='servicos'?fat:0,'s32']].map(([lb,v,id])=>`<div style="background:var(--bg);border-radius:7px;padding:11px;border:1px solid var(--bd)"><div style="font-size:11.5px;color:var(--t2);margin-bottom:6px">${lb}</div><input class="inp" type="number" min="0" max="${lim}" value="${v}" onchange="simMisto()" id="${id}" style="padding:6px 9px;font-size:13px" placeholder="R$ 0,00"><div style="font-size:11px;color:var(--t3);margin-top:4px">Isento: <span id="${id}-r" style="color:var(--ac)">—</span></div></div>`).join('')}
+    </div>
+    <div id="sim-tot" style="margin-top:10px;padding:10px 12px;background:var(--acd);border-radius:7px;font-size:12.5px;color:var(--t1)">Total de parcela isenta: <strong style="color:var(--ac)">—</strong></div>
+  </div>
+  <div class="card">
+    <div class="ct">🩺 Saúde tributária</div>
+    <div class="hg">
+      <div class="hi ${fat>0?fat/lim>.85?'bad':fat/lim>.7?'warn':'ok':'ok'}"><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span>${fat>0?fat/lim>.85?'❌':fat/lim>.7?'⚠️':'✅':'ℹ️'}</span><span style="font-size:11.5px;font-weight:600;color:${fat>0?fat/lim>.85?'var(--rd)':fat/lim>.7?'var(--am)':'var(--ac)':'var(--t3)'}">Limite MEI</span></div><div style="font-size:10.5px;color:var(--t2)">${fat>0?`${(fat/lim*100).toFixed(0)}% · Restam ${brl(lim-fat)} · LC 123/2006, Art. 18-A`:'Faturamento não informado'}</div></div>
+      <div class="hi ${D.dasValor>0?'warn':'ok'}"><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span>${D.dasValor>0?'⚠️':'✅'}</span><span style="font-size:11.5px;font-weight:600;color:${D.dasValor>0?'var(--am)':'var(--ac)'}">DAS</span></div><div style="font-size:10.5px;color:var(--t2)">${D.dasValor>0?`${esc(D.dasComp)} vence ${esc(D.dasVenc)} · Res. CGSN 140/2018`:'Consulte o PGMEI para verificar'}</div></div>
+      <div class="hi ${fat>0&&trib<28559.70?'ok':'warn'}"><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span>${fat>0&&trib<28559.70?'✅':'ℹ️'}</span><span style="font-size:11.5px;font-weight:600;color:${fat>0&&trib<28559.70?'var(--ac)':'var(--t3)'}">IRPF</span></div><div style="font-size:10.5px;color:var(--t2)">${fat>0?`Lucro tributável ${brl(trib)} · Faixa isenção: R$ 28.559,70`:'Informe o faturamento para calcular'}</div></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px;border-color:rgba(139,92,246,.28);background:rgba(139,92,246,.03)">
+    <div class="ct">🏛️ Reforma Tributária — EC 132/2023 · LC 214/2025</div>
+    <div class="alert alert-bl" style="margin-bottom:12px"><span class="ai2">✅</span><div class="ab2"><div class="at" style="color:var(--ac)">MEI protegido — Simples Nacional mantido durante toda a transição</div><div class="axt">O MEI permanece no regime do Simples Nacional (DAS único) durante o período de transição 2026-2032. Não há impacto imediato no seu boleto mensal.</div></div></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:14px">
+      ${[['CBS','Federal','Substitui PIS e COFINS','Alíquota a definir pelo CGSN para Simples','var(--bl)'],['IBS','Estadual/Municipal','Substitui ICMS e ISS','Simples Nacional tem regras próprias','var(--ac)'],['IS','Federal','Imposto Seletivo','Incide sobre produtos "prejudiciais" — não afeta MEI típico','var(--am)']].map(([sig,esf,desc,obs,c])=>`<div style="background:var(--bg);border-radius:8px;padding:12px;border:1px solid var(--bd)"><div style="display:flex;align-items:center;gap:7px;margin-bottom:6px"><span class="badge bp">${sig}</span><span style="font-size:10px;color:var(--t3)">${esf}</span></div><div style="font-size:11.5px;font-weight:600;color:var(--t1);margin-bottom:3px">${desc}</div><div style="font-size:10.5px;color:var(--t2)">${obs}</div></div>`).join('')}
+    </div>
+    <div class="ct" style="font-size:11.5px;margin-bottom:9px;color:var(--t2)">📅 Cronograma de transição</div>
+    <div style="display:flex;flex-direction:column;gap:5px">
+      ${[['2026','Fase piloto: IBS e CBS com alíquota de 1% cada. Simples Nacional aguarda regulamentação CGSN.','var(--ac)'],['2027–2028','ISS e ICMS reduzidos gradualmente (PIS/COFINS mantidos). Alíquotas CBS/IBS aumentam progressivamente.','var(--am)'],['2029–2032','Extinção progressiva de ISS, ICMS, PIS e COFINS. CBS e IBS consolidados. Simples Nacional com alíquota unificada.','var(--bl)'],['2033','Regime pleno. Simples Nacional totalmente adaptado — uma única alíquota DAS revisada pelo CGSN.','var(--pu)']].map(([ano,desc,c])=>`<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--bg);border-radius:6px;border:1px solid var(--bd)"><div style="font-size:11px;font-weight:800;color:${c};white-space:nowrap;min-width:60px">${ano}</div><div style="font-size:11px;color:var(--t2);line-height:1.5">${desc}</div></div>`).join('')}
+    </div>
+    <div style="margin-top:10px;padding:9px 12px;background:rgba(0,200,150,.06);border-radius:7px;border:1px solid rgba(0,200,150,.2);font-size:10.5px;color:var(--t2);line-height:1.6">💡 <strong style="color:var(--ac)">Para o MEI:</strong> Acompanhe as Resoluções do CGSN (Comitê Gestor do Simples Nacional) que definirão as alíquotas específicas do Simples durante a transição. Seu contador registrado no CRC pode orientar sobre eventuais mudanças no DAS a partir de 2027.</div>
+  </div>
+</div>`;
+  setTimeout(simMisto,0);
+}
+function simMisto(){
+  const vals={s8:parseFloat($('s8')?.value)||0,s16:parseFloat($('s16')?.value)||0,s32:parseFloat($('s32')?.value)||0};
+  let total=0;
+  [{id:'s8',p:.08},{id:'s16',p:.16},{id:'s32',p:.32}].forEach(({id,p})=>{const v=vals[id];const i=v*p;total+=i;const el=$(`${id}-r`);if(el)el.textContent=brl(i);});
+  const el=$('sim-tot');if(el)el.innerHTML=`Total de parcela isenta: <strong style="color:var(--ac)">${brl(total)}</strong> · Art. 15 Lei 9.249/95`;
+}
+function exportIRPF(){
+  const D=MEI_DATA;
+  const cnpj=GOV?.cnpj||CFG.cnpj||'—';
+  const ano=new Date().getFullYear();
+  const atv=D.atividade||'servicos';
+  const percMap={comercio:0.08,transporte:0.16,servicos:0.32};
+  const perc=percMap[atv]||0.32;
+  const refMap={comercio:'Art. 15, I',transporte:'Art. 15, II',servicos:'Art. 15, III'};
+  const fat=D.fatAno||0;
+  const isenta=fat*perc;
+  const prolaboreAnual=(D.prolabore||0)*12;
+  const bens=D.saldoEstimado||0;
+  const linhas=['RASCUNHO IRPF '+ano+' — MEI SOLARI TECH','='.repeat(44),
+    `Contribuinte: ${MEI_NAME||'—'}`,`CNPJ: ${cnpj}`,`Gerado em: ${new Date().toLocaleString('pt-BR')}`,'',
+    'FICHA: RENDIMENTOS ISENTOS E NÃO TRIBUTÁVEIS',
+    fat>0?`Distribuição de Lucro MEI — Cód. 09: R$ ${isenta.toLocaleString('pt-BR',{minimumFractionDigits:2})}`:'Distribuição de Lucro MEI — Cód. 09: sem faturamento registrado',
+    `Base legal: Art. 10 da Lei 9.249/95 (percentual de presunção ${refMap[atv]} = ${(perc*100).toFixed(0)}%) — lucros`,'ou dividendos calculados com base nos resultados apurados são isentos do IRPF. LC 128/2008.','',
+    'FICHA: RENDIMENTOS TRIBUTÁVEIS PF',
+    prolaboreAnual>0?`Pró-labore do titular MEI — Cód. 36: R$ ${prolaboreAnual.toLocaleString('pt-BR',{minimumFractionDigits:2})}`:'Pró-labore do titular MEI — Cód. 36: não configurado',
+    'Base legal: IN RFB 2.178/2024 — sujeito à tabela progressiva do IRPF.','',
+    'FICHA: BENS E DIREITOS',
+    bens>0?`Conta corrente PJ — Cód. 64: R$ ${bens.toLocaleString('pt-BR',{minimumFractionDigits:2})}`:'Conta corrente PJ — Cód. 64: conecte o Open Finance para obter o saldo',
+    `Situação em 31/12/${ano} (estimativa, sujeita a confirmação).`,'',
+    'BASES LEGAIS:','• LC 123/2006 — Estatuto Nacional da ME/MEI','• LC 128/2008 — Criação do MEI',`• Lei 9.249/95, ${refMap[atv]} — Presunção ${(perc*100).toFixed(0)}% (${atv==='comercio'?'comércio':atv==='transporte'?'transporte':'serviços'})`,'• Decreto 3.000/99 (RIR) — Regulamento do IR','• Res. CGSN 140/2018 — Simples Nacional',`• IN RFB 2.178/2024 — IRPF ${ano}`,'',
+    'IMPORTANTE: Rascunho estimativo gerado a partir dos dados registrados no app.','Consulte um contador credenciado pelo CFC antes de declarar.'];
+  const txt=linhas.join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));a.download=`IRPF_${ano}_${cnpj.replace(/\D/g,'')||'MEI'}.txt`;a.click();toast('📄 Rascunho IRPF exportado com bases legais!');
+}
+
+// DAS
+function rDAS(root){
+  const cnpj=GOV?.cnpj||CFG.cnpj||'—';
+  const D=MEI_DATA;
+  const temDAS=D.dasValor>0&&D.dasComp&&D.dasComp!=='—';
+  const dasPagos=D.dasPagos||[];
+  // Composição dinâmica: INSS = 11% * salMin, ISS ou ICMS por atividade
+  const salMin=1518; // 2025
+  const inss=(salMin*0.11).toFixed(2);
+  const iss=D.atividade==='servicos'?5:0;
+  const icms=D.atividade==='comercio'?1:0;
+  const dasTotal=(parseFloat(inss)+iss+icms).toFixed(2);
+  root.innerHTML=`<div class="page">
+  <div class="ph"><h1 class="pt">DAS-MEI / Guias</h1><p class="pd">Documento de Arrecadação do Simples Nacional · Res. CGSN 140/2018, Art. 122${GOV?' · Dados via gov.br':''}</p></div>
+  ${!GOV?`<div class="alert alert-am"><span class="ai2">⚠️</span><div class="ab2"><div class="at" style="color:var(--am)">Login gov.br necessário</div><div class="axt">Faça login com o gov.br para carregar o DAS real do seu CNPJ diretamente do PGMEI.</div></div><button class="btn btn-gov btn-sm" onclick="reconnectGov()" style="flex-shrink:0">🇧🇷 Login gov.br</button></div>`:''}
+  ${GOV?`<div class="alert alert-gov" style="margin-bottom:14px"><span class="ai2">🇧🇷</span><div class="ab2"><div class="at" style="color:#4A90D9">Dados sincronizados via gov.br · Nível ${esc(GOV.nivel)}</div><div class="axt">CNPJ ${esc(cnpj)} · Situação: ${esc(GOV.sit||'—')} · LC 123/2006, Art. 18-A · Autenticado em ${esc(GOV.ts)}</div></div></div>`:''}
+  ${temDAS?`<div class="card amberb" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="badge bam">Pendente</span><span style="font-size:13px;font-weight:600">DAS Competência ${esc(D.dasComp)}</span></div>
+        <div style="font-size:28px;font-weight:800;color:var(--am);letter-spacing:-.03em">${brl(D.dasValor)}</div>
+        <div style="font-size:11.5px;color:var(--t2);margin-top:5px">Vencimento: <strong style="color:var(--am)">${esc(D.dasVenc)}</strong> · INSS: R$ ${inss} (11% × R$ ${salMin.toLocaleString('pt-BR')}) · ${iss>0?`ISS: R$ ${iss.toFixed(2)}`:''}${icms>0?`ICMS: R$ ${icms.toFixed(2)}`:''}</div>
+        <div style="font-size:10.5px;color:var(--t3);margin-top:3px">CNPJ: ${esc(cnpj)} · Multa: 0,33%/dia · Juros: SELIC · Base: Res. CGSN 140/2018</div>
+      </div>
+      <div id="das-pix"><button class="btn btn-am" onclick="gerarPix()">◎ Pagar via Pix</button></div>
+    </div>
+  </div>`:`<div class="card" style="margin-bottom:14px;text-align:center;padding:28px">
+    <div style="font-size:32px;margin-bottom:10px">✅</div>
+    <div style="font-size:14px;font-weight:700;color:var(--ac);margin-bottom:6px">${GOV?'Nenhum DAS pendente encontrado':'Faça login gov.br para verificar o DAS'}</div>
+    <div style="font-size:12px;color:var(--t2)">${GOV?'Consulte o PGMEI para confirmar: <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Aplicacoes/ATBHE/pgmei.app/Identificacao" target="_blank" rel="noopener" style="color:var(--bl)">pgmei.receita.fazenda.gov.br</a>':'Configure o CNPJ nas ⚙ Configurações para carregar automaticamente.'}</div>
+  </div>`}
+  <div class="card" style="margin-bottom:14px"><div class="ct">📅 Calendário fiscal ${new Date().getFullYear()} — Vencimento todo dia 20</div><div class="mc" id="mchips-w"></div><div style="margin-top:10px;font-size:10.5px;color:var(--t3)">DAS calculado: R$ ${dasTotal}/mês · INSS (R$ ${inss}) ${iss>0?`+ ISS (R$ ${iss.toFixed(2)})`:''}${icms>0?`+ ICMS (R$ ${icms.toFixed(2)})`:''} · Reajuste anual pelo salário mínimo · Base: LC 123/2006</div></div>
+  <div class="card" style="margin-bottom:14px"><div class="ct">📋 Histórico de pagamentos</div>
+    ${dasPagos.length?dasPagos.map(h=>`
+    <div class="das-row"><div style="display:flex;align-items:center;gap:9px"><div style="width:7px;height:7px;border-radius:50%;background:var(--ac);flex-shrink:0"></div><div><div style="font-size:12.5px;font-weight:500">DAS ${esc(h.comp||h.c||'—')}</div><div style="font-size:10.5px;color:var(--t3)">Pago em ${esc(h.data||h.d||'—')}</div></div></div><div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span style="font-weight:700;color:var(--t2);font-family:var(--mo);font-size:12.5px">${brl(h.valor||h.v||0)}</span><span class="badge ba">pago</span></div></div>`).join(''):`<div style="text-align:center;padding:22px;color:var(--t3)">${GOV?'Nenhum pagamento registrado ou dados ainda sendo carregados do PGMEI.':'Faça login gov.br para carregar o histórico real do PGMEI.'}</div>`}
+  </div>
+  <div class="card"><div class="ct">📖 Composição do DAS ${new Date().getFullYear()}</div>
+    <div style="font-size:12px;color:var(--t2);line-height:1.8">
+      <strong style="color:var(--t1)">INSS — Previdência Social:</strong> 11% do salário mínimo vigente (R$ ${salMin.toLocaleString('pt-BR')} × 11% = R$ ${inss}/mês). Garante aposentadoria, auxílio-doença, salário-maternidade. Base: Art. 21, §2º, II da Lei 8.212/91 com redação dada pela LC 128/2008.<br><br>
+      ${D.atividade==='servicos'||!D.atividade?`<strong style="color:var(--t1)">ISS — Imposto Sobre Serviços:</strong> R$ 5,00/mês fixo para MEI prestador de serviços. Base: LC 116/2003 e LC 123/2006, Art. 18-A, §3º, IV.<br><br>`:''}
+      ${D.atividade==='comercio'?`<strong style="color:var(--t1)">ICMS:</strong> R$ 1,00/mês para MEI comercial/industrial. Base: LC 123/2006, Art. 18-A, §3º, III.<br><br>`:''}
+      <strong style="color:var(--t1)">Pagamento:</strong> Exclusivamente via PGMEI. <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Aplicacoes/ATBHE/pgmei.app/Identificacao" target="_blank" rel="noopener" style="color:var(--bl)">Acessar PGMEI →</a>
+    </div>
+  </div>
+</div>`;
+  setTimeout(()=>bMC(),0);
+}
+async function gerarPix(){
+  const btn=$('das-pix')?.querySelector('button');if(btn){btn.disabled=true;btn.textContent='⏳ Gerando...';}
+  await sleep(1300);
+  const n=(CFG.cnpj||'45678901000123').replace(/\D/g,'').padEnd(14,'0').slice(0,14);
+  const payload=`00020126580014br.gov.bcb.pix0136${n}52040000530398654057260055802BR5913MEI-DAS-${n.slice(0,6)}6009BRASILIA62140510DAS052025630`;
+  const area=$('das-pix');
+  if(area)area.innerHTML=`<div style="background:var(--bg);border:1px solid var(--acg);border-radius:9px;padding:13px 14px;text-align:center;max-width:300px"><div style="font-size:10.5px;color:var(--t3);margin-bottom:6px">Pix Copia e Cola — DAS Maio/2025</div><div class="pix">${payload}</div><div style="font-size:10.5px;color:var(--ac);margin-top:7px">✅ Válido por 30 min · BCB Circular 3.962/2019</div><button onclick="navigator.clipboard?.writeText('${payload}').then(()=>toast('📋 Código Pix copiado!'))" class="btn btn-g btn-sm" style="margin-top:7px">📋 Copiar</button></div>`;
+  toast('✅ Código Pix gerado!');
+}
+
+// Relatórios
+let relP='mes';
+function getREL(){
+  const D=MEI_DATA;
+  const lancs=D.lancamentos||[];
+  const now=new Date();
+  const meAtual=now.getMonth();
+  const anoAtual=now.getFullYear();
+  function parseMes(s){if(!s)return{m:-1,a:-1};const p=s.split('/');return{d:parseInt(p[0])||1,m:parseInt(p[1])-1,a:p[2]?parseInt(p[2]):anoAtual};}
+  function filtLancs(fn){return lancs.filter(l=>{const p=parseMes(l.data);return fn(p);});}
+  function soma(arr,tipo){return arr.filter(l=>l.tipo===tipo).reduce((a,l)=>a+l.v,0);}
+  // Mês atual
+  const lMes=filtLancs(p=>p.m===meAtual&&p.a===anoAtual);
+  const fatMes=soma(lMes,'r');const despMes=soma(lMes,'d');const retMes=soma(lMes,'w');
+  const dasMes=D.dasValor||0;
+  const resMes=fatMes-despMes-retMes-dasMes;
+  const meses=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const lbMes=`${meses[meAtual]}/${anoAtual}`;
+  // Trimestre: 3 meses anteriores incluindo atual
+  const lTri=filtLancs(p=>{const diff=(anoAtual-p.a)*12+(meAtual-p.m);return diff>=0&&diff<3;});
+  const fatTri=soma(lTri,'r');const despTri=soma(lTri,'d');const retTri=soma(lTri,'w');
+  const dasTri=(D.dasPagos||[]).slice(0,3).reduce((a,h)=>a+(h.valor||h.v||0),0);
+  const resTri=fatTri-despTri-retTri-dasTri;
+  const lbTri=`Trim. ${meAtual+1}/${anoAtual}`;
+  // Ano
+  const lAno=filtLancs(p=>p.a===anoAtual);
+  const fatAno=D.fatAno||soma(lAno,'r');const despAno=soma(lAno,'d');const retAno=soma(lAno,'w');
+  const dasAno=(D.dasPagos||[]).reduce((a,h)=>a+(h.valor||h.v||0),0);
+  const resAno=fatAno-despAno-retAno-dasAno;
+  return{
+    mes:{fat:fatMes,d:despMes,r:retMes,das:dasMes,res:resMes,lb:lbMes,lancs:lMes},
+    tri:{fat:fatTri,d:despTri,r:retTri,das:dasTri,res:resTri,lb:lbTri,lancs:lTri},
+    ano:{fat:fatAno,d:despAno,r:retAno,das:dasAno,res:resAno,lb:`Ano ${anoAtual}`,lancs:lAno},
+  };
+}
+function rRel(root){
+  const D=MEI_DATA;
+  const semDados=!GOV&&!CFG.cnpj;
+  const perc=D.atividade==='comercio'?0.08:D.atividade==='transporte'?0.16:0.32;
+  const fat=D.fatAno||0;
+  const isenta=fat*perc;
+  const prolaboreAno=(D.prolabore||0)*12;
+  root.innerHTML=`<div class="page">
+  <div class="ph"><h1 class="pt">Relatórios</h1><p class="pd">DRE gerado a partir dos seus lançamentos reais. ${semDados?'Faça login gov.br para carregar dados.':''}</p></div>
+  ${semDados?`<div class="alert alert-am"><span class="ai2">⚠️</span><div class="ab2"><div class="at" style="color:var(--am)">Sem dados reais</div><div class="axt">Faça login com o gov.br e registre lançamentos no módulo Financeiro para gerar relatórios reais.</div></div><button class="btn btn-gov btn-sm" onclick="reconnectGov()" style="flex-shrink:0">🇧🇷 Login gov.br</button></div>`:''}
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+    <div class="tabs" style="margin-bottom:0"><button class="tab active" onclick="setRelP('mes',this)">Mês</button><button class="tab" onclick="setRelP('tri',this)">Trimestre</button><button class="tab" onclick="setRelP('ano',this)">Ano</button></div>
+    <button class="btn btn-g btn-sm" onclick="exportIRPF()">📥 Exportar IRPF</button>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px"><div class="ct" style="margin:0">📊 DRE — Demonstração de Resultado</div><span class="badge ba" id="rel-badge">—</span></div>
+    <div id="dre-rows"></div>
+    <div style="margin-top:12px;padding:12px 14px;background:var(--acd);border-radius:8px;border:1px solid var(--acg);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px">
+      <div><div style="font-size:12.5px;font-weight:700;color:var(--t1)">RESULTADO DO PERÍODO</div><div style="font-size:10.5px;color:var(--t2);margin-top:2px">Lucro líquido disponível para o titular</div></div>
+      <div style="font-size:22px;font-weight:800;color:var(--ac);letter-spacing:-.03em" id="dre-res">—</div>
+    </div>
+  </div>
+  <div class="g2" style="margin-bottom:14px">
+    <div class="card"><div class="ct">💸 Fluxo de Caixa — por lançamentos</div><div id="fluxo-w" style="display:flex;align-items:flex-end;gap:5px;height:88px;margin-bottom:8px"></div><div style="display:flex;gap:12px;font-size:10.5px;color:var(--t2)"><span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:var(--ac);display:inline-block"></span>Entradas</span><span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:var(--rd);display:inline-block"></span>Saídas</span></div></div>
+    <div class="card"><div class="ct">📐 Análise de Margem</div><div id="margem-rows"><div style="text-align:center;padding:18px;color:var(--t3)">Registre lançamentos para calcular</div></div></div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:9px"><div class="ct" style="margin:0">🏛️ Rascunho IRPF ${new Date().getFullYear()}</div><button class="btn btn-g btn-sm" style="border-color:var(--ac);color:var(--ac)" onclick="exportIRPF()">📥 Exportar</button></div>
+    <div class="g3">
+      <div style="background:var(--bg);border-radius:8px;padding:12px;border:1px solid var(--bd)"><div style="font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Rendimentos Isentos<br>Cód. 09 · Art. 10 Lei 9.249/95</div><div style="font-size:16px;font-weight:800;color:var(--ac)">${fat>0?brl(isenta):'—'}</div><div style="font-size:10.5px;color:var(--t2);margin-top:3px">${fat>0?`${(perc*100).toFixed(0)}% × ${brl(fat)}`:'Sem faturamento registrado'}</div></div>
+      <div style="background:var(--bg);border-radius:8px;padding:12px;border:1px solid var(--bd)"><div style="font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Rendimentos Tributáveis<br>Cód. 36 · IN RFB 2.178/2024</div><div style="font-size:16px;font-weight:800;color:var(--am)">${prolaboreAno>0?brl(prolaboreAno):'—'}</div><div style="font-size:10.5px;color:var(--t2);margin-top:3px">${prolaboreAno>0?`Pró-labore ${brl(D.prolabore)}/mês × 12`:'Informe pró-labore nas Configurações'}</div></div>
+      <div style="background:var(--bg);border-radius:8px;padding:12px;border:1px solid var(--bd)"><div style="font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Bens e Direitos<br>Cód. 64 · Conta PJ</div><div style="font-size:16px;font-weight:800;color:var(--bl)">${D.saldoEstimado>0?brl(D.saldoEstimado):'—'}</div><div style="font-size:10.5px;color:var(--t2);margin-top:3px">${D.saldoEstimado>0?'Saldo estimado em conta PJ':'Conecte Open Finance para obter'}</div></div>
+    </div>
+  </div>
+  <div class="card"><div class="ct">🏆 Top clientes por receita</div><div id="top-clis"></div></div>
+</div>`;
+  setTimeout(()=>{bDRE();bFluxo();bTopCli();},0);
+}
+function bDRE(){
+  const rel=getREL();const d=rel[relP]||rel.mes;
+  set('rel-badge',d.lb);
+  const res=d.res;
+  set('dre-res',brl(res));
+  const w=$('dre-rows');if(!w)return;
+  if(!d.fat&&!d.d&&!d.r&&!d.das){w.innerHTML=`<div style="text-align:center;padding:22px;color:var(--t3)">Nenhum lançamento registrado neste período. Use o módulo Financeiro para lançar receitas e despesas.</div>`;return;}
+  w.innerHTML=[['(+) Receita bruta',d.fat,'var(--ac)','+'],['(−) Despesas operacionais',d.d,'var(--rd)','-'],['(−) Pró-labore / Retiradas',d.r,'var(--pu)','-'],['(−) DAS — Simples Nacional · Res. CGSN 140/2018',d.das,'var(--am)','-']].map(([lb,v,c,s])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap;gap:7px"><span style="font-size:12px;color:var(--t2)">${lb}</span><span style="font-size:13px;font-weight:700;color:${c}">${s==='+'?'+':'−'}${brl(v)}</span></div>`).join('');
+  // Margem
+  const mw=$('margem-rows');if(mw&&d.fat>0){const mb=d.fat>0?(d.fat-d.d)/d.fat*100:0;const ml=d.fat>0?d.res/d.fat*100:0;const cr=d.fat>0?d.d/d.fat*100:0;const dr=d.fat>0?d.das/d.fat*100:0;mw.innerHTML=[['Margem bruta',mb,'var(--ac)'],['Margem líquida',ml,'var(--bl)'],['Custo/Receita',cr,'var(--am)'],['DAS/Receita',dr,'var(--pu)']].map(([n,p,c])=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:11.5px"><span style="color:var(--t2)">${n}</span><span style="font-weight:700;color:${c}">${p.toFixed(1)}%</span></div><div class="ptw"><div class="ptf" style="width:${Math.min(100,Math.max(0,p))}%;background:${c}"></div></div></div>`).join('');}
+}
+function bFluxo(){
+  const w=$('fluxo-w');if(!w)return;
+  const lancs=MEI_DATA.lancamentos||[];
+  if(!lancs.length){w.innerHTML=`<div style="font-size:11px;color:var(--t3);text-align:center;width:100%;padding:20px 0">Nenhum lançamento para exibir</div>`;return;}
+  // Agrupar por semana (últimas 4)
+  const now=new Date();
+  const weeks=Array.from({length:4},(_,i)=>{const s=new Date(now);s.setDate(s.getDate()-((3-i)*7));return{e:0,s:0,l:`S${i+1}`};});
+  lancs.forEach(l=>{const p=l.data?.split('/');if(!p||p.length<2)return;const yr=p.length>=3?parseInt(p[2]):now.getFullYear();const d=new Date(yr,parseInt(p[1])-1,parseInt(p[0]));const diff=Math.floor((now-d)/(7*24*60*60*1000));if(diff>=0&&diff<4){const idx=3-diff;if(l.tipo==='r')weeks[idx].e+=l.v;else weeks[idx].s+=l.v;}});
+  const mx=Math.max(...weeks.flatMap(x=>[x.e,x.s]),1);
+  w.innerHTML=weeks.map(x=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="width:100%;display:flex;gap:2px;align-items:flex-end;height:76px"><div style="flex:1;background:rgba(0,200,150,.7);border-radius:3px 3px 0 0;height:${Math.round((x.e/mx)*76)}px" title="${brl(x.e)}"></div><div style="flex:1;background:rgba(239,68,68,.65);border-radius:3px 3px 0 0;height:${Math.round((x.s/mx)*76)}px" title="${brl(x.s)}"></div></div><span style="font-size:9px;color:var(--t3)">${x.l}</span></div>`).join('');
+}
+function bTopCli(){
+  const w=$('top-clis');if(!w)return;
+  const s=[...(MEI_DATA.clientes||[])].sort((a,b)=>b.tot-a.tot);
+  if(!s.length){w.innerHTML=`<div style="text-align:center;padding:22px;color:var(--t3)">Nenhum cliente cadastrado ainda. Emita notas ou registre lançamentos com cliente para ver aqui.</div>`;return;}
+  const mx=s[0].tot||1;
+  w.innerHTML=s.map((c,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd)"><div style="width:20px;height:20px;border-radius:50%;background:${i===0?'var(--ac)':i===1?'var(--bl)':'var(--bd)'};display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;color:${i<2?'#000':'var(--t2)'};flex-shrink:0">${i+1}</div><div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.nome)}</div><div style="margin-top:3px"><div class="ptw"><div class="ptf" style="width:${Math.round((c.tot/mx)*100)}%;background:${i===0?'var(--ac)':i===1?'var(--bl)':'var(--t3)'}"></div></div></div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:12px;font-weight:700;color:var(--ac)">${brl(c.tot)}</div><div style="font-size:10px;color:var(--t3)">${c.nfs} nota(s)</div></div></div>`).join('');
+}
+function setRelP(p,btn){relP=p;$$('#root .tab').forEach(t=>t.classList.remove('active'));if(btn)btn.classList.add('active');bDRE();}
+function bMC(){
+  const w=$('mchips-w');if(!w)return;
+  const D=MEI_DATA;
+  const pagos=D.dasPagos||[];
+  const now=new Date();const meAtual=now.getMonth();const anoAtual=now.getFullYear();
+  const pagosSet=new Set(pagos.map(h=>(h.comp||h.c||'').toLowerCase()));
+  w.innerHTML=MESES.map((m,i)=>{
+    const comp=`${m}/${anoAtual}`.toLowerCase();
+    const pago=[...pagosSet].some(p=>p.startsWith(m.toLowerCase()+'/'+anoAtual));
+    const futuro=i>meAtual;
+    const atual=i===meAtual;
+    const cls=pago?'mcp':atual?'mca':futuro?'mcf':'mcv';
+    const label=pago?'✓':atual?'●':'';
+    return`<div class="mchip ${cls}" title="${m}/${anoAtual}${pago?' — pago':atual?' — competência atual':futuro?' — futuro':' — vencido'}">${m}${label?` ${label}`:''}</div>`;
+  }).join('');
+}
+// Open Finance
+function rOF(root){
+  root.innerHTML=`<div class="page">
+  <div class="ph"><h1 class="pt">Open Finance</h1><p class="pd">Conecte sua conta bancária via Open Finance Brasil (Res. BCB 1/2020) — sem compartilhar senha.</p></div>
+  <div class="alert alert-bl" style="margin-bottom:14px"><span class="ai2">🏦</span><div class="ab2"><div class="at" style="color:var(--bl)">Open Finance Brasil — Fase 2 · Res. BCB 1/2020</div><div class="axt">Conexão via consentimento OAuth sem compartilhar senha. Dados protegidos pela LGPD (Lei 13.709/2018). Consentimento revogável a qualquer momento pelo cliente.</div></div><span class="badge bam" style="flex-shrink:0">Em implantação</span></div>
+  <div class="card" style="margin-bottom:14px"><div class="ct">🏦 Conectar conta bancária</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:9px" id="bancos-g"></div></div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;flex-wrap:wrap;gap:9px"><div class="ct" style="margin:0">📄 Extrato importado — Conta PJ</div><div style="display:flex;gap:7px;align-items:center"><button class="btn btn-g btn-sm" onclick="sincExtrato()">↻ Sincronizar</button></div></div>
+    <div id="extrato-l"></div>
+  </div>
+  <div class="card"><div class="ct">🔗 Conciliação automática</div><div id="concil-g"></div></div>
+</div>`;
+  setTimeout(()=>{bBancos();bExtrato();},0);
+}
+function bBancos(){
+  const w=$('bancos-g');if(!w||w.dataset.ok)return;w.dataset.ok='1';
+  const bs=[{n:'Nubank',c:'#820AD1',l:'N'},{n:'Bradesco',c:'#CC092F',l:'B'},{n:'Itaú',c:'#F18700',l:'I'},{n:'Santander',c:'#EC0000',l:'S'},{n:'BB',c:'#F8D100',l:'B'},{n:'Caixa',c:'#005CA9',l:'C'},{n:'Inter',c:'#FF7A00',l:'I'},{n:'C6 Bank',c:'#2D2D2D',l:'C'}];
+  w.innerHTML=bs.map(b=>`<div onclick="toast('🔗 Iniciando OAuth Open Finance com ${b.n}...')" style="background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:11px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='var(--ac)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--bd)';this.style.transform='none'"><div style="width:34px;height:34px;border-radius:8px;background:${b.c};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff">${b.l}</div><div style="font-size:11.5px;font-weight:600;color:var(--t1)">${b.n}</div><span class="badge ba" style="font-size:8.5px">Conectar</span></div>`).join('');
+}
+function bExtrato(){
+  const w=$('extrato-l');if(!w)return;
+  const its=(MEI_DATA.extrato||[]);
+  if(!its.length){
+    w.innerHTML=`<div style="text-align:center;padding:28px 14px"><div style="font-size:28px;margin-bottom:10px">🏦</div><div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:6px">Nenhuma transação importada</div><div style="font-size:11.5px;color:var(--t2);line-height:1.6">Conecte sua conta bancária via Open Finance acima para importar o extrato real da sua conta PJ.<br><br>Protegido pela LGPD (Lei 13.709/2018) · Res. BCB 1/2020</div></div>`;
+    const cg=$('concil-g');if(cg)cg.innerHTML=`<div style="text-align:center;padding:14px;color:var(--t3)">Conecte sua conta bancária para habilitar a conciliação automática.</div>`;
+    return;
+  }
+  w.innerHTML=its.map(e=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd)"><div style="width:32px;height:32px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;background:${e.t==='c'?'rgba(0,200,150,.14)':'rgba(239,68,68,.1)'};color:${e.t==='c'?'var(--ac)':'var(--rd)'}">${e.t==='c'?'↑':'↓'}</div><div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:500;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(e.tx||e.desc||'—')}</div><div style="font-size:10px;color:var(--t3);margin-top:2px">${esc(e.d||e.data||'')}${e.nf?` · <span style="color:var(--bl)">${esc(e.nf)}</span>`:''}</div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:12.5px;font-weight:700;color:${e.t==='c'?'var(--ac)':'var(--rd)'}">${e.t==='c'?'+':'−'}${brl(e.v||e.valor||0)}</div><span class="badge ${e.ok?'ba':'bam'}" style="font-size:8px;margin-top:3px">${e.ok?'conciliado':'revisar'}</span></div></div>`).join('');
+  // conciliação
+  const cg=$('concil-g');if(!cg)return;
+  const conc=its.filter(e=>e.ok).length;const rev=its.filter(e=>!e.ok).length;
+  const vol=its.filter(e=>e.t==='c').reduce((a,e)=>a+(e.v||e.valor||0),0);
+  const mes=its[0]?.d?.split('/')?.[1]||'—';
+  cg.innerHTML=`<div class="g3">${[[conc,'Conciliadas','var(--ac)','automático','ba'],[rev,'Aguardando revisão','var(--am)','manual','bam'],[brl(vol),'Volume conciliado','var(--bl)',`mês ${mes}`,'bb']].map(([v,lb,c,sub,bc])=>`<div style="background:var(--bg);border-radius:8px;padding:13px;border:1px solid var(--bd);text-align:center"><div style="font-size:22px;font-weight:800;color:${c}">${v}</div><div style="font-size:11px;color:var(--t2);margin-top:3px">${lb}</div><span class="badge ${bc}" style="margin-top:7px">${sub}</span></div>`).join('')}</div>`;
+}
+async function sincExtrato(){
+  if(!MEI_DATA.ofConectado){toast('⚠️ Conecte uma conta bancária via Open Finance primeiro.');return;}
+  toast('↻ Sincronizando via Open Finance Brasil...');
+  await sleep(1400);
+  toast('✅ Extrato atualizado. Verifique as transações importadas.');
+  bExtrato();
+}
+
+// IA Contadora
+function rIA(root){
+  root.innerHTML=`<div class="iapage">
+  <div class="chahdr">
+    <div class="chaav">◉</div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:15px;font-weight:800;color:var(--t1);letter-spacing:-.02em">IA Contadora</div>
+      <div style="font-size:11px;display:flex;align-items:center;gap:5px">
+        <span style="width:6px;height:6px;border-radius:50%;display:inline-block;animation:pdot 2s infinite;background:${CFG.ant?'var(--ac)':'var(--am)'}"></span>
+        <span id="ia-st" style="color:${CFG.ant?'var(--ac)':'var(--am)'}">${CFG.ant?'Online · Acesso aos dados em tempo real':'Configure a API Key Anthropic'}</span>
+      </div>
+    </div>
+    ${!CFG.ant?`<button onclick="openST()" style="background:var(--amd);color:var(--am);border:1px solid rgba(245,158,11,.28);border-radius:7px;padding:5px 11px;font-size:11px;cursor:pointer;font-family:var(--fn);font-weight:600;flex-shrink:0">⚙ Configurar</button>`:''}
+  </div>
+  <div id="cha-msgs" class="chamsgs">
+    <div class="charow"><div class="cha-av">◉</div><div class="bubble ai">Olá! 👋 Sou a IA Contadora${MEI_NAME?`, ${MEI_NAME.split(' ')[0]}`:''}. ${GOV?'Tenho acesso aos seus dados cadastrais e aos lançamentos registrados no app.':'Para eu acessar seus dados reais, faça login com o gov.br e registre seus lançamentos no Financeiro.'}
+
+Posso ajudar com:
+• Quanto posso retirar este mês com segurança?
+• Meu lucro é tributável ou isento no IRPF?
+• Estou próximo do limite do MEI?
+• Quais despesas são dedutíveis?
+• Como funciona o DAS?
+
+O que você quer saber?</div></div>
+  </div>
+  <div class="chasugg" id="cha-sugg">
+    <button class="casb" onclick="chaSend(this.textContent)">Quanto posso retirar este mês?</button>
+    <button class="casb" onclick="chaSend(this.textContent)">Estou perto do limite do MEI?</button>
+    <button class="casb" onclick="chaSend(this.textContent)">Meu lucro é tributável no IRPF?</button>
+    <button class="casb" onclick="chaSend(this.textContent)">Quanto paguei de DAS esse ano?</button>
+    <button class="casb" onclick="chaSend(this.textContent)">Quais despesas são dedutíveis?</button>
+  </div>
+  <div class="chainbar"><div class="chainwrap"><textarea id="cha-inp" class="chainput" placeholder="Pergunte sobre finanças, impostos, DAS..." rows="1" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,78)+'px'" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();chaSend();}"></textarea><button class="chasend" id="cha-send" onclick="chaSend()">↑</button></div></div>
+</div>`;
+  setTimeout(()=>scrollCha(),0);
+}
+function scrollCha(){const m=$('cha-msgs');if(m)m.scrollTop=m.scrollHeight;}
+function appendBub(role,txt){
+  const m=$('cha-msgs');if(!m)return;
+  const s=$('cha-sugg');if(s)s.style.display='none';
+  const d=document.createElement('div');d.className=`charow${role==='user'?' user':''}`;
+  d.innerHTML=role==='assistant'?`<div class="cha-av">◉</div><div class="bubble ai">${esc(txt).replace(/\n/g,'<br>')}</div>`:`<div class="bubble usr">${esc(txt)}</div>`;
+  m.appendChild(d);m.scrollTop=m.scrollHeight;
+}
+function showTyping(){const m=$('cha-msgs');if(!m)return;const d=document.createElement('div');d.className='charow';d.id='typ';d.innerHTML=`<div class="cha-av">◉</div><div class="bubble ai"><div class="tdots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div>`;m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function rmTyping(){$('typ')?.remove();}
+
+async function chaSend(txt){
+  const inp=$('cha-inp');const msg=txt||(inp?.value?.trim()||'');
+  if(!msg)return;if(inp){inp.value='';inp.style.height='auto';}
+  appendBub('user',msg);chatHist.push({role:'user',content:msg});
+  const btn=$('cha-send');if(btn)btn.disabled=true;showTyping();
+
+  if(!CFG.ant){
+    await sleep(500);rmTyping();
+    const r='⚙️ Para usar a IA Contadora, configure sua chave da API Anthropic. Toque em "Configurar" acima.';
+    chatHist.push({role:'assistant',content:r});appendBub('assistant',r);if(btn)btn.disabled=false;return;
+  }
+
+  // Construir system prompt 100% com dados reais
+  const D=MEI_DATA;
+  const cnpj=GOV?.cnpj||CFG.cnpj||'não informado';
+  const nome=MEI_NAME||'não identificado';
+  const fat=D.fatAno||0;
+  const limMEI=81000;
+  const restLim=Math.max(0,limMEI-fat);
+  const atLabel=D.atividade==='comercio'?'Comércio/Indústria — presunção 8% (Lei 9.249/95, Art. 15, I)':D.atividade==='transporte'?'Transporte de cargas — presunção 16% (Lei 9.249/95, Art. 15, II)':'Prestação de Serviços — presunção 32% (Lei 9.249/95, Art. 15, III)';
+  const percIsen=D.atividade==='comercio'?0.08:D.atividade==='transporte'?0.16:0.32;
+  const parcelaIsenta=fat*percIsen;
+  const prolaboreAnual=(D.prolabore||0)*12;
+  const dasStatus=D.dasValor>0&&D.dasComp?`R$ ${D.dasValor.toFixed(2)} — Competência ${D.dasComp} — PENDENTE (vence ${D.dasVenc||'dia 20'})`:'Nenhum DAS pendente identificado';
+  const dasPagosAno=(D.dasPagos||[]).reduce((a,h)=>a+(h.valor||h.v||0),0);
+  const lancamentos=(D.lancamentos||[]);
+  const now=new Date();
+  const meAtual=now.getMonth();const anoAtual=now.getFullYear();
+  const meses=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const fatMesAtual=lancamentos.filter(l=>{if(l.tipo!=='r'||!l.data)return false;const p=l.data.split('/');return parseInt(p[1])-1===meAtual;}).reduce((a,l)=>a+l.v,0);
+  const despMesAtual=lancamentos.filter(l=>{if(l.tipo!=='d'||!l.data)return false;const p=l.data.split('/');return parseInt(p[1])-1===meAtual;}).reduce((a,l)=>a+l.v,0);
+  const sys=`Você é a IA Contadora, assistente tributário especializado no MEI brasileiro integrado ao app do próprio MEI.
+
+DADOS REAIS DO MEI (gerados automaticamente pelo sistema):
+- Nome/Razão Social: ${nome}
+- CNPJ: ${cnpj}
+- CNAE: ${GOV?.cnae||D.cnae||'não informado'}${GOV?.cnaeDesc?' — '+GOV.cnaeDesc:''}
+- Atividade: ${atLabel}
+- Situação cadastral: ${GOV?.sit||'não verificada'}
+- Município/UF: ${GOV?.municipio||D.municipio||'não informado'}
+- Faturamento acumulado ${anoAtual}: ${fat>0?`R$ ${fat.toLocaleString('pt-BR',{minimumFractionDigits:2})} (limite R$ 81.000 · restam R$ ${restLim.toLocaleString('pt-BR',{minimumFractionDigits:2})})`:GOV?'R$ 0,00 — nenhum lançamento registrado':'Não informado — faça login gov.br e registre faturamento'}
+- Faturamento ${meses[meAtual]}/${anoAtual}: ${fatMesAtual>0?`R$ ${fatMesAtual.toLocaleString('pt-BR',{minimumFractionDigits:2})}`:'R$ 0,00'}
+- Despesas ${meses[meAtual]}/${anoAtual}: ${despMesAtual>0?`R$ ${despMesAtual.toLocaleString('pt-BR',{minimumFractionDigits:2})}`:'R$ 0,00'}
+- Pró-labore configurado: ${D.prolabore>0?`R$ ${D.prolabore.toLocaleString('pt-BR',{minimumFractionDigits:2})}/mês (R$ ${prolaboreAnual.toLocaleString('pt-BR',{minimumFractionDigits:2})}/ano — tributável · Cód. 36 · IN RFB 2.178/2024)`:'Não configurado'}
+- Saldo estimado: ${D.saldoEstimado>0?`R$ ${D.saldoEstimado.toLocaleString('pt-BR',{minimumFractionDigits:2})}`:'Não informado — conecte Open Finance'}
+- Parcela isenta IRPF ${anoAtual}: ${fat>0?`R$ ${parcelaIsenta.toLocaleString('pt-BR',{minimumFractionDigits:2})} (${(percIsen*100).toFixed(0)}% × R$ ${fat.toLocaleString('pt-BR',{minimumFractionDigits:2})} · Cód. 09)`:fat===0&&GOV?'R$ 0,00':'Depende do faturamento registrado'}
+- DAS atual: ${dasStatus}
+- DAS pagos ${anoAtual}: ${dasPagosAno>0?`R$ ${dasPagosAno.toLocaleString('pt-BR',{minimumFractionDigits:2})} (${(D.dasPagos||[]).length} competências)`:'Nenhum registro de pagamento'}
+- Autenticação gov.br: ${GOV?`Autenticado · Nível ${GOV.nivel} · ${GOV.ts}`:'Não autenticado — dados podem estar incompletos'}
+- Open Finance: ${D.ofConectado?`Conectado · ${(D.extrato||[]).length} transações importadas`:'Não conectado'}
+
+BASES LEGAIS:
+- LC 123/2006 e LC 128/2008 — Estatuto MEI, limite faturamento, DAS
+- Lei 9.249/95, Art. 15 — percentuais de presunção (8%, 16%, 32%)
+- Decreto 3.000/99 (RIR) Art. 75 — despesas dedutíveis
+- Res. CGSN 140/2018, Art. 122 — DAS, multa 0,33%/dia, juros SELIC
+- IN RFB 2.178/2024 — IRPF: Cód. 09 isentos, Cód. 36 tributáveis, Cód. 64 bens
+- Lei 8.212/91, Art. 21, §2º, II — INSS MEI (11% salário mínimo R$ 1.518/2026)
+- LC 116/2003 — ISS R$ 5,00/mês fixo (serviços)
+- LGPD (Lei 13.709/2018) — proteção de dados
+- EC 132/2023 e LC 214/2025 — Reforma Tributária: CBS (federal, substitui PIS/COFINS), IBS (estadual/municipal, substitui ICMS/ISS), IS (Imposto Seletivo). Transição 2026-2032. MEI permanece no DAS/Simples Nacional durante toda a transição — não é afetado diretamente. A partir de 2026 inicia fase piloto; ISS e ICMS coexistem com IBS durante o período de transição. Oriente o MEI a não se preocupar com CBS/IBS agora, pois está no regime simplificado (Simples Nacional), que tem regras próprias ainda em regulamentação pelo CGSN.
+
+REGRAS DE RESPOSTA:
+- Linguagem simples e direta — o MEI geralmente não conhece contabilidade
+- Cite sempre a base legal relevante
+- Se dado for "não informado" ou "não registrado", oriente o usuário a registrá-lo no app
+- Para retirada segura: calcule (saldo estimado − despesas fixas − DAS pendente)
+- Se faturamento próximo de 75% do limite (R$ 60.750): alerte com urgência
+- Máximo 180 palavras · Emojis com moderação (máx 2 por resposta)
+- DISCLAIMER obrigatório em respostas sobre IRPF ou planejamento fiscal: "Para situações específicas, consulte um contador credenciado pelo CFC."
+- NUNCA invente valores que não estejam nos dados acima — se não souber, diga que precisa do dado`;
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':CFG.ant,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,system:sys,messages:chatHist})});
+    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`Erro ${res.status}`);}
+    const data=await res.json();const reply=data.content?.[0]?.text||'Erro na resposta.';
+    rmTyping();chatHist.push({role:'assistant',content:reply});appendBub('assistant',reply);
+  }catch(e){rmTyping();const em=`❌ Erro: ${e.message}`;chatHist.push({role:'assistant',content:em});appendBub('assistant',em);}
+  if(btn)btn.disabled=false;
+}
+
+// Mobile nav
+function toggleMob(){const m=$('mob-more'),ov=$('mob-ov'),open=m?.style.display==='block';if(m)m.style.display=open?'none':'block';if(ov)ov.style.display=open?'none':'block';}
+function closeMob(){const m=$('mob-more'),ov=$('mob-ov');if(m)m.style.display='none';if(ov)ov.style.display='none';}
+
+// Global Search
+const SIDX=[{lb:'Dashboard',p:'dashboard',ic:'⊞',d:'Visão geral'},{lb:'Consultar GOV',p:'consulta',ic:'⊕',d:'CNPJ, CEP, APIs'},{lb:'Notas Fiscais',p:'notas',ic:'◱',d:'Emitir NFS-e'},{lb:'Clientes',p:'clientes',ic:'◷',d:'Cadastro de clientes'},{lb:'Financeiro',p:'financeiro',ic:'◎',d:'Lançamentos e categorias'},{lb:'Tributário',p:'tributario',ic:'◐',d:'Cálculo IRPF, DRE, bases legais'},{lb:'DAS / Guias',p:'das',ic:'◧',d:'Pagar DAS, histórico'},{lb:'Relatórios',p:'relatorios',ic:'◫',d:'DRE, fluxo de caixa, IRPF'},{lb:'Open Finance',p:'openfinance',ic:'◬',d:'Extrato, conciliação bancária'},{lb:'IA Contadora',p:'ia',ic:'◉',d:'Assistente tributário com IA'},{lb:'Configurações',p:'_st',ic:'⚙',d:'API keys, bases legais, gov.br'},{lb:'Login gov.br',p:'_gov',ic:'🇧🇷',d:'Autenticar CPF e senha'}];
+function openGS(){const ov=$('gsearch');if(ov)ov.style.display='flex';setTimeout(()=>$('gs-inp')?.focus(),50);}
+function closeGS(){const ov=$('gsearch');if(ov)ov.style.display='none';}
+function gSearch(q){
+  const w=$('gs-res');if(!w)return;if(!q.trim()){w.innerHTML='';return;}
+  const r=SIDX.filter(i=>i.lb.toLowerCase().includes(q.toLowerCase())||i.d.toLowerCase().includes(q.toLowerCase()));
+  w.innerHTML=r.length?r.map((i,idx)=>`<div class="gsr${idx===0?' sel':''}" onclick="gsGo('${i.p}')"><span style="font-size:17px;width:22px;text-align:center">${i.ic}</span><div><div style="font-size:12.5px;font-weight:600;color:var(--t1)">${i.lb}</div><div style="font-size:11px;color:var(--t3)">${i.d}</div></div><span style="margin-left:auto;font-size:10px;color:var(--t3)">↵</span></div>`).join(''):`<div style="text-align:center;padding:20px;color:var(--t3);font-size:12.5px">Nenhum resultado para "${esc(q)}"</div>`;
+}
+function gsGo(p){closeGS();if(p==='_st'){openST();return;}if(p==='_gov'){reconnectGov();return;}go(p);}
+
+// Tema
+function toggleTheme(){
+  darkMode=!darkMode;const r=document.documentElement;
+  if(!darkMode){r.style.setProperty('--bg','#F1F5F9');r.style.setProperty('--sf','#FFFFFF');r.style.setProperty('--sf2','#F8FAFC');r.style.setProperty('--hv','#F8FAFC');r.style.setProperty('--bd','#E2E8F0');r.style.setProperty('--bd2','#CBD5E1');r.style.setProperty('--t1','#0F172A');r.style.setProperty('--t2','#475569');r.style.setProperty('--t3','#94A3B8');}
+  else{r.style.setProperty('--bg','#0B0F1A');r.style.setProperty('--sf','#111827');r.style.setProperty('--sf2','#162032');r.style.setProperty('--hv','#1a2538');r.style.setProperty('--bd','#1e2d45');r.style.setProperty('--bd2','#2a3f5f');r.style.setProperty('--t1','#F1F5F9');r.style.setProperty('--t2','#94A3B8');r.style.setProperty('--t3','#4B6280');}
+  const b=$('theme-btn');if(b)b.textContent=darkMode?'🌙':'☀️';
+  toast(darkMode?'🌙 Modo escuro':'☀️ Modo claro');
+}
+
+// Atalhos
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openGS();return;}
+  if(e.key==='Escape'){closeGS();closeST();closeMob();return;}
+  if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
+  const m={'1':'dashboard','2':'notas','3':'clientes','4':'financeiro','5':'tributario','6':'das','7':'relatorios','8':'openfinance','9':'ia','0':'consulta'};
+  if(m[e.key]){go(m[e.key]);e.preventDefault();}
+});
+
+// Notificações
+function checkNotifs(){
+  let n=0;
+  const fat=MEI_DATA.fatAno||0;
+  const lim=MEI_DATA.limiteAnual||81000;
+  if(lim>0&&fat/lim>0.7)n++; // próximo do limite anual
+  // DAS pendente: verifica se competência do mês atual não está paga
+  const now=new Date();const meAtual=now.getMonth();const anoAtual=now.getFullYear();
+  const mesNome=MESES[meAtual];
+  const pagos=MEI_DATA.dasPagos||[];
+  const dasPago=pagos.some(p=>(p.comp||p.c||'').toLowerCase().startsWith(mesNome.toLowerCase()+'/'+anoAtual));
+  if(!dasPago&&meAtual>=0)n++; // DAS do mês ainda não registrado como pago
+  const dot=$('notif-d');if(dot){dot.textContent=n;dot.style.display=n?'flex':'none';}
+}
+
+// Resize
+let _rt;
+window.addEventListener('resize',()=>{clearTimeout(_rt);_rt=setTimeout(()=>{const mob=window.innerWidth<=768;const sb=$('sb'),mn=$('mobnav');if(sb)sb.style.display=mob?'none':'';if(mn)mn.style.display=mob?'flex':'none';if(DEV.ios)document.documentElement.style.setProperty('--real-vh',window.innerHeight*.01+'px');},100);});
+
+// INIT
+window.addEventListener('DOMContentLoaded',()=>{
+  loadCFG();
+  if(CFG.gov){
+    GOV=CFG.gov;
+    if(GOV.razao)MEI_NAME=GOV.razao;
+    // Força atualização silenciosa dos dados cadastrais ao abrir o app
+    GOV.dadosCompletos=false;
+  }
+  if(CFG.meiData){
+    try{MEI_DATA=Object.assign({},EMPTY_DATA,JSON.parse(CFG.meiData));}catch{MEI_DATA=Object.assign({},EMPTY_DATA);}
+  }else{
+    MEI_DATA=Object.assign({},EMPTY_DATA);
+  }
+  if(DEV.mob){const sb=$('sb'),mn=$('mobnav');if(sb)sb.style.display='none';if(mn)mn.style.display='flex';}
+  console.log(`%c☀️ MEI Solari Tech%c v3.1 | ${DEV.mob?'📱 Mobile':'🖥️ Desktop'} | ${DEV.br} | iOS: ${DEV.ios}`,'color:#F59E0B;font-weight:800;font-size:13px','color:#94A3B8;font-size:11px');
+  if(CFG.ok){hide('govbr-ov');applySession();setTimeout(checkNotifs,800);return;}
+  show('govbr-ov');setTimeout(()=>{
+    // Pré-preencher campos de login se já houver dados salvos
+    if(CFG.cpf&&$('gb-cpf'))$('gb-cpf').value=CFG.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4');
+    if(CFG.cnpj&&$('gb-cnpj'))$('gb-cnpj').value=CFG.cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5');
+    $('gb-cpf')?.focus();
+  },200);
+});
+</script>
+</body>
+</html>

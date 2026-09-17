@@ -783,6 +783,129 @@
             margin-right: auto;
         }
 
+        /* ---------- MEI Solari Tech (premium) ---------- */
+        .mei-tech-section {
+            background: radial-gradient(ellipse 900px 420px at 50% 0%, rgba(212, 160, 23, 0.08), transparent 70%);
+        }
+
+        .mei-tech-panel {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2.8rem;
+            align-items: center;
+            background: linear-gradient(160deg, rgba(212, 160, 23, 0.07), rgba(255, 255, 255, 0.02));
+            border: 1px solid var(--border-gold);
+            border-radius: 18px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .mei-tech-panel::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 160, 23, 0.16), rgba(212, 160, 23, 0) 70%);
+            pointer-events: none;
+        }
+
+        .mei-tech-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(212, 160, 23, 0.12);
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            margin-bottom: 1.3rem;
+        }
+
+        .mei-tech-copy h3 {
+            font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .mei-tech-copy > p {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 480px;
+            margin-bottom: 1.6rem;
+            position: relative;
+        }
+
+        .mei-mini-list {
+            list-style: none;
+            position: relative;
+            margin-bottom: 1.8rem;
+        }
+
+        .mei-mini-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            padding: 0.5rem 0;
+            color: var(--off-white);
+            font-size: 0.92rem;
+        }
+
+        .mei-mini-list i {
+            color: var(--gold);
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .mei-tech-cta {
+            position: relative;
+            background: rgba(5, 18, 33, 0.55);
+            border: 1px solid var(--border-gold);
+            border-radius: 14px;
+            padding: 2.2rem;
+            text-align: center;
+        }
+
+        .mei-tech-cta .cta-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(212, 160, 23, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.4rem;
+            margin: 0 auto 1.1rem;
+        }
+
+        .mei-tech-cta h4 {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--off-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .mei-tech-cta p {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.4rem;
+        }
+
+        @media (max-width: 900px) {
+            .mei-tech-panel { grid-template-columns: 1fr; padding: 2.2rem; text-align: center; }
+            .mei-tech-copy > p, .mei-tech-copy .mei-mini-list { margin-left: auto; margin-right: auto; }
+            .mei-mini-list li { justify-content: center; text-align: left; max-width: 380px; margin: 0 auto; }
+            .mei-tech-badge { margin-left: auto; margin-right: auto; }
+        }
+
         /* ---------- About visual ---------- */
         .about-visual {
             display: flex;
@@ -1204,6 +1327,31 @@
                     <a href="/ferramentas/dp.html" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-calculator" aria-hidden="true"></i> Acessar ferramenta <i class="fas fa-chevron-right" aria-hidden="true"></i>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="mei-tech-section" id="mei-solari-tech">
+            <div class="container">
+                <div class="mei-tech-panel reveal">
+                    <div class="mei-tech-copy">
+                        <span class="mei-tech-badge"><i class="fas fa-star" aria-hidden="true"></i> Exclusivo para clientes MEI</span>
+                        <h3>MEI Solari Tech: seu escritório fiscal completo, disponível 24 horas.</h3>
+                        <p>Um sistema exclusivo para clientes MEI da Solari, com emissão de notas, controle do limite anual, DAS e uma IA Contadora sempre à disposição — acompanhado de perto pela nossa equipe.</p>
+                        <ul class="mei-mini-list">
+                            <li><i class="fas fa-check-circle" aria-hidden="true"></i> Notas fiscais, DAS e relatórios em um só painel</li>
+                            <li><i class="fas fa-check-circle" aria-hidden="true"></i> Alertas de limite anual e situação cadastral</li>
+                            <li><i class="fas fa-check-circle" aria-hidden="true"></i> IA Contadora disponível 24h para tirar dúvidas</li>
+                        </ul>
+                    </div>
+                    <div class="mei-tech-cta">
+                        <div class="cta-icon" aria-hidden="true"><i class="fas fa-crown"></i></div>
+                        <h4>Acesso liberado individualmente</h4>
+                        <p>Fale com sua contadora para conhecer o MEI Solari Tech e ativar o seu acesso.</p>
+                        <a href="/mei-solari-tech.html" class="btn btn-primary btn-block">
+                            Conhecer o MEI Solari Tech <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>

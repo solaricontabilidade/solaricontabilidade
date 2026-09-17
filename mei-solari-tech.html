@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEI Solari Tech | Solari Contabilidade</title>
+    <meta name="description" content="MEI Solari Tech: o sistema fiscal exclusivo para clientes MEI da Solari Contabilidade. Notas fiscais, DAS, relatórios e IA Contadora em um só lugar.">
+    <link rel="canonical" href="https://solaricontabilidade.com.br/mei-solari-tech.html">
+    <meta name="theme-color" content="#051221">
+    <link rel="icon" type="image/png" sizes="32x32" href="/imagens/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/imagens/favicon-512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/imagens/favicon-180.png">
+    <link rel="icon" href="/favicon.ico">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Solari Contabilidade">
+    <meta property="og:title" content="MEI Solari Tech | Solari Contabilidade">
+    <meta property="og:description" content="O sistema fiscal exclusivo para clientes MEI da Solari Contabilidade. Notas fiscais, DAS, relatórios e IA Contadora em um só lugar.">
+    <meta property="og:image" content="https://solaricontabilidade.com.br/imagens/og-image.jpg">
+    <meta property="og:url" content="https://solaricontabilidade.com.br/mei-solari-tech.html">
+    <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --navy: #051221;
+            --navy-2: #0a1c31;
+            --gold: #D4A017;
+            --gold-soft: #F0A500;
+            --off-white: #F5F5F2;
+            --graphite: #2C2C2A;
+            --muted: #b3bac4;
+            --border-gold: rgba(212, 160, 23, 0.25);
+            --border-gold-soft: rgba(212, 160, 23, 0.15);
+            --radius: 12px;
+            --container: 1180px;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--navy);
+            color: var(--off-white);
+            line-height: 1.65;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; }
+
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 1.6rem;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: 0;
+            background: var(--gold);
+            color: var(--navy);
+            padding: 0.8rem 1.2rem;
+            z-index: 999;
+            font-weight: 600;
+            border-radius: 0 0 8px 0;
+            text-decoration: none;
+        }
+        .skip-link:focus { left: 0; }
+
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        section:last-of-type { border-bottom: none; }
+
+        h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; color: var(--off-white); }
+
+        /* ---------- Buttons ---------- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.9rem 1.7rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: var(--font-sans);
+            text-decoration: none;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+        .btn-primary:hover { background: transparent; color: var(--gold); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(212, 160, 23, 0.18); }
+        .btn-secondary { background: transparent; color: var(--off-white); border-color: rgba(245, 245, 242, 0.22); }
+        .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+        .btn-sm { padding: 0.55rem 1.15rem; font-size: 0.82rem; }
+        .btn .fa-chevron-right { font-size: 0.75em; transition: transform 0.25s ease; }
+        .btn:hover .fa-chevron-right { transform: translateX(3px); }
+
+        /* ---------- Navbar ---------- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: rgba(5, 18, 33, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-gold-soft);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        .navbar.scrolled { background: rgba(5, 18, 33, 0.94); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28); }
+        .nav-inner {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0.55rem 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+        .nav-brand { display: flex; align-items: center; }
+        .nav-brand img { height: 92px; width: auto; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: #cfcfcf; font-size: 0.88rem; letter-spacing: 0.2px; transition: color 0.25s ease; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
+        .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 30px; height: 30px; background: none; border: none; padding: 0; }
+        .nav-toggle span { display: block; height: 2px; width: 100%; background: var(--off-white); border-radius: 2px; transition: transform 0.25s ease, opacity 0.25s ease; }
+        .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+        .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        @media (max-width: 880px) {
+            .nav-links {
+                position: absolute; top: 100%; left: 0; right: 0;
+                flex-direction: column; gap: 0; background: var(--navy-2);
+                border-bottom: 1px solid var(--border-gold);
+                max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            }
+            .nav-links.open { max-height: 400px; }
+            .nav-links a { padding: 1rem 1.6rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+            .nav-toggle { display: flex; }
+            .nav-actions .btn-sm { padding: 0.5rem 0.85rem; font-size: 0.74rem; }
+        }
+        @media (min-width: 881px) { .nav-toggle { display: none; } }
+
+        /* ---------- Hero ---------- */
+        .mst-hero {
+            position: relative;
+            padding: 4.5rem 0 5rem;
+            overflow: hidden;
+            text-align: center;
+        }
+        .mst-hero-glow {
+            position: absolute;
+            top: -220px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 780px;
+            background: radial-gradient(circle, rgba(212, 160, 23, 0.16), rgba(212, 160, 23, 0) 68%);
+            pointer-events: none;
+        }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+        }
+        .eyebrow::before, .eyebrow::after {
+            content: '';
+            display: inline-block;
+            width: 18px;
+            height: 1px;
+            background: var(--gold);
+            flex-shrink: 0;
+        }
+        .mst-hero h1 {
+            position: relative;
+            font-size: clamp(2rem, 4vw, 2.9rem);
+            line-height: 1.28;
+            margin: 0 auto 1.3rem;
+            max-width: 780px;
+        }
+        .mst-hero h1 .gold-text { color: var(--gold); }
+        .mst-hero p.lead {
+            position: relative;
+            color: var(--muted);
+            font-size: 1.08rem;
+            max-width: 620px;
+            margin: 0 auto 2.2rem;
+        }
+        .mst-hero-actions {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.6rem;
+        }
+        .mst-note {
+            position: relative;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+        .mst-note i { color: var(--gold); margin-right: 0.4rem; }
+
+        /* ---------- Section head ---------- */
+        .section-head {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 3.4rem;
+        }
+        .section-head .eyebrow { justify-content: center; }
+        .section-title { font-size: clamp(1.6rem, 3vw, 2.15rem); line-height: 1.3; margin-bottom: 1rem; }
+        .section-sub { color: var(--muted); font-size: 1rem; }
+
+        /* ---------- Feature cards ---------- */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 1.9rem;
+            transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        }
+        .card:hover { transform: translateY(-4px); border-color: rgba(212, 160, 23, 0.5); background: rgba(255, 255, 255, 0.05); }
+        .card-icon {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(212, 160, 23, 0.1);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold); font-size: 1.05rem; margin-bottom: 1.2rem;
+        }
+        .card h3 { font-size: 1.05rem; margin-bottom: 0.55rem; }
+        .card p { color: var(--muted); font-size: 0.92rem; }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.4rem;
+        }
+        @media (max-width: 980px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .features-grid { grid-template-columns: 1fr; } }
+
+        /* ---------- Why exclusive / editorial ---------- */
+        .editorial {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.6rem;
+            align-items: center;
+        }
+        .editorial h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); line-height: 1.32; margin-bottom: 1.2rem; }
+        .editorial p { color: var(--muted); font-size: 1rem; max-width: 480px; }
+        @media (max-width: 900px) {
+            .editorial { grid-template-columns: 1fr; text-align: center; }
+            .editorial p { margin: 0 auto; }
+        }
+
+        .check-list { list-style: none; margin-top: 1.6rem; }
+        .check-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--muted);
+            font-size: 0.95rem;
+            text-align: left;
+        }
+        .check-list li:last-child { border-bottom: none; }
+        .check-list i { color: var(--gold); margin-top: 0.25rem; flex-shrink: 0; }
+
+        .mst-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            padding: 2.2rem;
+        }
+
+        /* ---------- Final CTA ---------- */
+        .cta-final {
+            text-align: center;
+        }
+        .cta-final .section-head { margin-bottom: 2rem; }
+        .cta-final-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+        /* ---------- Footer ---------- */
+        footer {
+            margin-top: auto;
+            background: var(--navy-2);
+            border-top: 1px solid var(--border-gold-soft);
+            padding: 4rem 0 2rem;
+        }
+        .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+        .footer-brand img { height: 84px; width: auto; margin-bottom: 0.9rem; }
+        .footer-brand p { color: var(--gold); font-family: var(--font-serif); font-size: 1rem; }
+        .footer-brand .footer-desc { color: var(--muted); font-family: var(--font-sans); font-size: 0.88rem; margin-top: 0.7rem; max-width: 320px; }
+        .footer-col h4 { font-family: var(--font-sans); color: var(--off-white); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.1rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 0.7rem; }
+        .footer-col a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.25s ease; }
+        .footer-col a:hover { color: var(--gold); }
+        .footer-social { display: flex; gap: 0.9rem; margin-top: 0.3rem; }
+        .footer-social a {
+            width: 38px; height: 38px; border-radius: 50%;
+            border: 1px solid var(--border-gold);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--off-white); transition: all 0.25s ease;
+        }
+        .footer-social a:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 1.6rem;
+            display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.6rem;
+            font-size: 0.8rem; color: #6b7280;
+        }
+        @media (max-width: 750px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-brand { grid-column: 1 / -1; }
+        }
+        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+        /* ---------- Reveal animation ---------- */
+        .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.is-visible { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+
+        @media (max-width: 650px) {
+            section { padding: 4.5rem 0; }
+            .mst-hero { padding: 4.5rem 0 4rem; }
+            .mst-hero-actions .btn { width: 100%; }
+            .cta-final-actions .btn { width: 100%; }
+            .nav-inner { padding: 0.5rem 1.1rem; }
+            .nav-brand img { height: 66px; }
+            .footer-brand img { height: 64px; }
+        }
+
+        /* ---------- Exclusive badge strip ---------- */
+        .mst-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(212, 160, 23, 0.1);
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="/" class="nav-brand" aria-label="Solari Contabilidade">
+                <img src="/imagens/logo-solari.png" alt="Solari Contabilidade" width="103" height="92">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/#servicos">Serviços</a></li>
+                <li><a href="/#ferramentas">Ferramentas</a></li>
+                <li><a href="/mei-solari-tech.html">MEI Solari Tech</a></li>
+                <li><a href="/#sobre">Sobre a Solari</a></li>
+                <li><a href="/#contato">Contato</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="https://wa.me/5563991078032?text=Ol%C3%A1%2C%20sou%20cliente%20MEI%20e%20quero%20saber%20mais%20sobre%20o%20MEI%20Solari%20Tech." class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer">
+                    <span class="btn-label">Fale conosco</span>
+                </a>
+                <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="conteudo">
+
+        <header class="mst-hero" id="top">
+            <div class="mst-hero-glow" aria-hidden="true"></div>
+            <div class="container">
+                <span class="mst-badge reveal"><i class="fas fa-star" aria-hidden="true"></i> Exclusivo para clientes MEI da Solari</span>
+                <h1 class="reveal">Seu escritório fiscal completo, disponível <span class="gold-text">24 horas por dia.</span></h1>
+                <p class="lead reveal">O MEI Solari Tech reúne emissão de notas, controle do limite anual, DAS, relatórios e uma IA Contadora treinada em legislação do Simples Nacional — tudo em um painel só, acompanhado pela sua contadora.</p>
+                <div class="mst-hero-actions reveal">
+                    <a href="https://wa.me/5563991078032?text=Ol%C3%A1%2C%20sou%20cliente%20MEI%20e%20quero%20saber%20mais%20sobre%20o%20MEI%20Solari%20Tech." class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i> Falar com meu contador <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                    <a href="/#servicos" class="btn btn-secondary">Conhecer a Solari <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
+                </div>
+                <p class="mst-note reveal"><i class="fas fa-lock" aria-hidden="true"></i>Acesso liberado individualmente pela Solari Contabilidade a clientes MEI ativos.</p>
+            </div>
+        </header>
+
+        <section id="recursos">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="eyebrow">O que você acompanha</span>
+                    <h2 class="section-title">Tudo o que o seu MEI precisa, em um só painel.</h2>
+                    <p class="section-sub">Pensado para o dia a dia de quem fatura como Microempreendedor Individual — sem planilhas soltas e sem depender de lembrar prazos.</p>
+                </div>
+                <div class="features-grid reveal">
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true"><i class="fas fa-gauge-high"></i></div>
+                        <h3>Painel do MEI</h3>
+                        <p>Acompanhamento em tempo real do limite anual de faturamento, INSS e situação cadastral, com alertas antes de qualquer risco de desenquadramento.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true"><i class="fas fa-file-invoice"></i></div>
+                        <h3>Notas Fiscais</h3>
+                        <p>Emissão de NFS-e integrada ao Emissor Nacional, com histórico organizado de todas as notas emitidas.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true"><i class="fas fa-address-book"></i></div>
+                        <h3>Clientes</h3>
+                        <p>Cadastro de clientes com busca automática de dados na Receita Federal a partir do CNPJ.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true"><i class="fas fa-sack-dollar"></i></div>
+                        <h3>Financeiro</h3>
+                        <p>Lançamentos e categorização de entradas e saídas, para saber exatamente para onde vai o dinheiro do negócio.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true"><i class="fas fa-scale-balanced"></i></div>
+                        <h3>Tributário & DAS</h3>
+                        <p>DRE simplificado, apoio à declaração anual (DASN-SIMEI) e guias do DAS com link direto para pagamento.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true"><i class="fas fa-robot"></i></div>
+                        <h3>IA Contadora</h3>
+                        <p>Assistente com inteligência artificial disponível 24h para tirar dúvidas sobre notas, tributos e obrigações do MEI.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exclusivo">
+            <div class="container editorial">
+                <div class="reveal">
+                    <span class="eyebrow" style="justify-content:flex-start">Por que é exclusivo</span>
+                    <h2>Uma ferramenta acompanhada pela sua contadora, não só um aplicativo.</h2>
+                    <p>O MEI Solari Tech não é vendido de forma avulsa. Ele é liberado individualmente pela Solari Contabilidade para clientes MEI, porque os lançamentos e relatórios gerados no sistema continuam sendo acompanhados pela nossa equipe — a mesma que cuida da sua contabilidade hoje.</p>
+                </div>
+                <div class="mst-panel reveal">
+                    <ul class="check-list">
+                        <li><i class="fas fa-check-circle" aria-hidden="true"></i> Configuração inicial feita junto com a sua contadora</li>
+                        <li><i class="fas fa-check-circle" aria-hidden="true"></i> Relatórios já organizados no formato que a Solari usa na sua contabilidade</li>
+                        <li><i class="fas fa-check-circle" aria-hidden="true"></i> Suporte direto pelo WhatsApp em caso de dúvidas</li>
+                        <li><i class="fas fa-check-circle" aria-hidden="true"></i> Atualizações constantes conforme mudanças na legislação do Simples Nacional</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-final" id="contato">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="eyebrow">Próximo passo</span>
+                    <h2 class="section-title">Fale com sua contadora e ative o MEI Solari Tech.</h2>
+                    <p class="section-sub">O acesso é liberado individualmente para clientes MEI da Solari. Fale com a gente pelo WhatsApp para saber as condições e ativar o seu.</p>
+                </div>
+                <div class="cta-final-actions reveal">
+                    <a href="https://wa.me/5563991078032?text=Ol%C3%A1%2C%20sou%20cliente%20MEI%20e%20quero%20ativar%20o%20MEI%20Solari%20Tech." class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i> Falar com meu contador <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="/imagens/logo-solari.png" alt="Solari Contabilidade" width="94" height="84">
+                    <p>Clareza para evoluir.</p>
+                    <p class="footer-desc">Contabilidade estratégica, inteligência tributária e estruturação empresarial para empresas em todo o Brasil.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="/#servicos">Serviços</a></li>
+                        <li><a href="/#ferramentas">Ferramentas</a></li>
+                        <li><a href="/mei-solari-tech.html">MEI Solari Tech</a></li>
+                        <li><a href="/#sobre">Sobre</a></li>
+                        <li><a href="/#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Conecte-se</h4>
+                    <div class="footer-social">
+                        <a href="https://wa.me/5563991078032" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/solaricontabilidade/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://g.page/r/CboAtE9zI-JTEBM/review" target="_blank" rel="noopener noreferrer" aria-label="Google"><i class="fab fa-google" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2025 Solari Contabilidade. Todos os direitos reservados.</span>
+                <span>CNPJ: 63.085.577/0001-63 · CRC-TO 001085/O-1</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var navbar = document.getElementById('navbar');
+            var toggle = document.getElementById('navToggle');
+            var links = document.getElementById('navLinks');
+
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 12) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }, { passive: true });
+
+            toggle.addEventListener('click', function () {
+                var open = links.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+
+            links.querySelectorAll('a').forEach(function (a) {
+                a.addEventListener('click', function () {
+                    links.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12 });
+                document.querySelectorAll('.reveal').forEach(function (el) {
+                    observer.observe(el);
+                });
+            } else {
+                document.querySelectorAll('.reveal').forEach(function (el) {
+                    el.classList.add('is-visible');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
