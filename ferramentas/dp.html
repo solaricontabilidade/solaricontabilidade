@@ -303,6 +303,118 @@ select option{background:var(--bg2)}
   .mob-nav,.mob-menu-overlay,.mob-drawer{display:none!important}
 }
 
+
+/* ── CNAE/FATORR extras ── */
+
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+
+.g2,.g3{grid-template-columns:1fr}
+
+.gauge-wrap{display:flex;align-items:center;gap:2rem;margin:1.5rem 0;flex-wrap:wrap}
+
+.gauge-ring{position:relative;width:140px;height:140px;flex-shrink:0}
+
+.gauge-ring svg{width:140px;height:140px;transform:rotate(-90deg)}
+
+.gauge-ring .track{fill:none;stroke:var(--bg3);stroke-width:10}
+
+.gauge-ring .fill{fill:none;stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .8s ease}
+
+.gauge-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+
+.gauge-pct{font-size:1.6rem;font-weight:800;font-family:'JetBrains Mono',monospace;line-height:1}
+
+.gauge-lbl{font-size:.6rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-top:2px}
+
+.gauge-info{flex:1;min-width:180px}
+
+.gauge-verdict{font-size:1.4rem;font-weight:800;margin-bottom:.4rem}
+
+.gauge-detail{font-size:.8rem;color:var(--muted);line-height:1.6}
+/* ── SIMULADOR MENSAL ────────────────────────────────────── */
+.sim-table-wrap{overflow-x:auto;margin-top:1rem}
+
+.sim-table{width:100%;border-collapse:collapse;font-size:.78rem}
+
+.sim-table thead th{background:var(--card2);padding:.5rem .8rem;text-align:left;font-size:.63rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;border-bottom:1px solid var(--border)}
+
+.sim-table tbody td{padding:.5rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);font-family:'JetBrains Mono',monospace}
+/* ── CNAE SEARCH ─────────────────────────────────────────── */
+.search-hero{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(75,127,255,.08));border:1px solid rgba(201,168,76,.2);border-radius:var(--r);padding:2rem;margin-bottom:1.5rem;text-align:center}
+
+.search-hero h2{font-size:1.5rem;font-weight:800;margin-bottom:.5rem}
+
+.search-hero h2 span{color:var(--gold)}
+
+.search-hero p{font-size:.82rem;color:var(--muted);max-width:500px;margin:0 auto 1.25rem}
+
+.search-bar-wrap{display:flex;gap:.5rem;max-width:600px;margin:0 auto}
+
+.search-bar-wrap input{font-size:1rem;padding:.7rem 1rem;border-color:rgba(201,168,76,.3)}
+
+.search-bar-wrap .btn{width:auto;padding:.7rem 1.4rem;font-size:.85rem;flex-shrink:0}
+
+.filter-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem}
+
+.filter-chip{padding:.3rem .8rem;border:1px solid var(--border2);border-radius:99px;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .15s;background:transparent;color:var(--muted);font-family:'Syne',sans-serif}
+
+.filter-chip.active{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.1)}
+
+.cnae-results{display:none}
+
+.cnae-results.show{display:block}
+
+.cnae-count{font-size:.7rem;color:var(--muted);margin-bottom:.75rem}
+
+.cnae-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-bottom:.75rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+
+.cnae-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.5rem}
+
+.cnae-code{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted)}
+
+.cnae-name{font-size:.88rem;font-weight:700;color:var(--text);flex:1}
+
+.cnae-badge{font-size:.62rem;padding:3px 10px;border-radius:99px;font-weight:700;white-space:nowrap}
+
+.cnae-badge.zero{background:rgba(34,197,94,.15);color:var(--green)}
+
+.cnae-badge.red60{background:rgba(201,168,76,.15);color:var(--gold)}
+
+.cnae-badge.red40{background:rgba(34,211,238,.15);color:var(--cyan)}
+
+.cnae-badge.red30{background:rgba(167,139,250,.15);color:var(--purple)}
+
+.cnae-badge.full{background:rgba(122,130,160,.15);color:var(--muted)}
+
+.cnae-meta{display:flex;gap:1rem;flex-wrap:wrap;font-size:.72rem;color:var(--muted);margin-bottom:.5rem}
+
+.cnae-meta span strong{color:var(--text)}
+
+.cnae-artigo{font-size:.68rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+
+.cnae-obs{font-size:.74rem;color:var(--amber);margin-top:.3rem;line-height:1.5}
+/* ── SIMULAÇÃO CNAE ─────────────────────────────────────── */
+.sim-cnae-panel{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--gold);border-radius:var(--r);padding:1.5rem;margin-top:1rem;display:none}
+
+.sim-cnae-panel.show{display:block}
+
+.sim-cnae-title{font-size:1rem;font-weight:800;color:var(--gold);margin-bottom:1rem}
+
+.aliq-table{width:100%;border-collapse:collapse;margin:1rem 0}
+
+.aliq-table th{background:var(--bg3);padding:.55rem .9rem;text-align:left;font-size:.63rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border);font-weight:700}
+
+.aliq-table td{padding:.55rem .9rem;border-bottom:1px solid rgba(255,255,255,.04);font-family:'JetBrains Mono',monospace;font-size:.8rem}
+
+.aliq-table .aq{color:var(--gold);font-weight:700}
+
+.aliq-table .ef{color:var(--green)}
+
+.aliq-table .at{color:var(--amber)}
+
+.search-bar-wrap{flex-direction:column}
+
+.gauge-wrap{flex-direction:column;align-items:flex-start}
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;box-sizing:border-box}
   html,body{margin:0;padding:0;background:#fff!important;color:#111!important;font-size:9pt;font-family:'Syne',sans-serif}
@@ -442,6 +554,11 @@ select option{background:var(--bg2)}
   <div class="mob-drawer-section">Referência</div>
   <button class="mob-drawer-btn" onclick="goMob('tabelas',this)"><span>📖</span> Tabelas 2026</button>
   <button class="mob-drawer-btn" onclick="goMob('reformatrib',this)"><span>⚖️</span> Reforma Tributária</button>
+  <div class="mob-drawer-section">CNAE / CBS / IBS</div>
+  <button class="mob-drawer-btn" onclick="goMob('cnae-consulta',this)"><span>🔍</span> Consulta CNAE</button>
+  <button class="mob-drawer-btn" onclick="goMob('fatorr',this)"><span>📐</span> Fator R Completo</button>
+  <button class="mob-drawer-btn" onclick="goMob('sim-mensal',this)"><span>📅</span> Simulador Mensal</button>
+  <button class="mob-drawer-btn" onclick="goMob('rel-cliente',this)"><span>📋</span> Relatório Cliente</button>
 </div>
 
 <!-- Bottom Navigation Bar (5 atalhos + "mais") -->
@@ -515,6 +632,11 @@ select option{background:var(--bg2)}
   <div class="sidebar-section">Referência</div>
   <button class="nav-btn" onclick="go('tabelas',this)">📖 Tabelas 2026</button>
   <button class="nav-btn" onclick="go('reformatrib',this)">⚖️ Reforma Tributária</button>
+  <div class="sidebar-section">CNAE / CBS / IBS</div>
+  <button class="nav-btn" onclick="go('cnae-consulta',this)">🔍 Consulta CNAE</button>
+  <button class="nav-btn" onclick="go('fatorr',this)">📐 Fator R Completo</button>
+  <button class="nav-btn" onclick="go('sim-mensal',this)">📅 Simulador Mensal</button>
+  <button class="nav-btn" onclick="go('rel-cliente',this)">📋 Relatório Cliente</button>
 </nav>
 
 <!-- PAINÉIS -->
@@ -1284,10 +1406,10 @@ select option{background:var(--bg2)}
       <p style="font-size:.72rem;color:var(--muted)">Base legal: Decreto 9.580/2018 (RIR/2018) · IN RFB 1.700/2017 · LC 123/2006 · IBGE/CNAE 2.3</p>
     </div>
     <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
-      <input id="cnae-busca" placeholder="Buscar CNAE ou atividade…"
+      <input id="cnae-busca-prec" placeholder="Buscar CNAE ou atividade…"
         style="width:220px;font-size:.8rem;padding:.4rem .7rem;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rs);color:var(--text)"
         oninput="filtrarCNAE()">
-      <select id="cnae-setor" onchange="filtrarCNAE()"
+      <select id="cnae-setor-prec" onchange="filtrarCNAE()"
         style="font-size:.8rem;padding:.4rem .6rem;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rs);color:var(--text)">
         <option value="">Todos os setores</option>
         <option value="comercio">Comércio</option>
@@ -1323,13 +1445,12 @@ select option{background:var(--bg2)}
           <th style="width:90px;text-align:center">Base Legal</th>
         </tr>
       </thead>
-      <tbody id="cnae-tbody"></tbody>
+      <tbody id="prec-cnae-tbody"></tbody>
     </table>
   </div>
-  <div id="cnae-count" style="font-size:.68rem;color:var(--muted);margin-top:.5rem;text-align:right"></div>
+  <div id="prec-cnae-count" style="font-size:.68rem;color:var(--muted);margin-top:.5rem;text-align:right"></div>
 </div>
 
-</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -1372,10 +1493,11 @@ select option{background:var(--bg2)}
       <tbody>
         <tr><td>Teste / informativa</td><td class="aq">2026</td><td><strong style="color:var(--accent3)">0,9% — sem recolhimento efetivo</strong></td></tr>
         <tr><td>Início cobrança plena</td><td class="aq">2027</td><td>PIS e COFINS extintos; CBS entra em vigor</td></tr>
-        <tr><td>Alíquota de referência</td><td class="aq">2027–2035</td><td>Fixada pelo Senado Federal anualmente</td></tr>
+        <tr><td>Alíquota de referência</td><td class="aq">2027–2028</td><td>≈ 8,8–9,21% (estimativa CGIBS nº 14/2026; fixada pelo Senado até 15/dez/2026)</td></tr>
+        <tr><td>Extinção PIS/COFINS</td><td class="aq">01/01/2027</td><td>PIS e COFINS extintos. CBS vigora em alíquota cheia.</td></tr>
       </tbody>
     </table></div>
-    <div class="wbox" style="margin-top:.6rem;margin-bottom:0">⚠️ Em 2026: CBS deve ser <strong>calculada, destacada na NF-e e reportada</strong>, mas o recolhimento financeiro está dispensado pelo art. 348 da LC 214/2025 e pelo Comunicado Conjunto CGIBS/RFB nº 01/2025. Os valores apurados são compensáveis com PIS/COFINS.</div>
+    <div class="wbox" style="margin-top:.6rem;margin-bottom:0">⚠️ Em 2026: CBS calculada, destacada na NF-e e compensável com PIS/COFINS (art. 348 LC 214/2025). Empresas do Simples Nacional: isentas das alíquotas de teste 2026 (art. 348, III, "c" LC 214/2025) — entram em 2027. <strong>⚡ Atualização 15/09/2026:</strong> Receita Federal entregou ao TCU a proposta de alíquota-referência da CBS para 2027. TCU tem até 30/out para homologar; Senado fixa até 15/dez/2026.</div>
   </div>
 
   <!-- IBS -->
@@ -1484,145 +1606,993 @@ select option{background:var(--bg2)}
   <div class="ibox" style="margin-top:.9rem;margin-bottom:0">📚 <strong>Bases legais:</strong> EC 132/2023 · LC 214/2025 (arts. 1º, 38, 348) · PLP 108/24 · Comunicado Conjunto CGIBS/RFB nº 01/2025 · Resolução CGSN nº 183/2025 · Nota Técnica NF-e (jan/2026)</div>
 </div>
 
+
+<!-- ── CALCULADORA CBS/IBS ───────────────────────────────────────── -->
+<div style="margin-top:1.5rem">
+  <div class="panel-title" style="font-size:.95rem;margin-bottom:.75rem">🧮 Simulador CBS / IBS — 2026 e 2027</div>
+
+  <div class="sbox" style="margin-bottom:1rem">
+    <strong>⚡ Status 15/09/2026:</strong> Receita Federal entregou proposta ao TCU hoje (prazo legal: 14/set).
+    TCU homologa até 30/out → Senado fixa alíquota até 15/dez/2026.
+    Estimativa CGIBS nº 14 (31/jul/2026): CBS ≈ 9,21% + IBS ≈ 18,70% = 27,91% combinado.
+    Teto legal LC 214/2025: 26,5%. <strong>Alíquota definitiva ainda não publicada.</strong>
+  </div>
+
+  <div class="g2">
+  <div class="card">
+    <div class="card-title">Dados da Simulação</div>
+
+    <div class="fg">
+      <label>Valor da operação / fatura (R$)</label>
+      <input id="cbs-valor" class="money" placeholder="10.000,00" oninput="mm(this)">
+    </div>
+    <div class="fg">
+      <label>Regime tributário da empresa</label>
+      <select id="cbs-regime" onchange="updateCBSregime()">
+        <option value="lp">Lucro Presumido / Lucro Real</option>
+        <option value="sn">Simples Nacional</option>
+        <option value="mei">MEI</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Fase de simulação</label>
+      <select id="cbs-fase">
+        <option value="2026">2026 — Fase de testes (CBS 0,9% + IBS 0,1%)</option>
+        <option value="2027">2027 — Estimativa (CBS ≈8,8% + IBS 0,1% transitório)</option>
+        <option value="2027est">2027+ — Projeção CGIBS (CBS 9,21% + IBS 18,70%)</option>
+        <option value="custom">Personalizado — inserir alíquota manualmente</option>
+      </select>
+    </div>
+    <div id="cbs-custom-fields" style="display:none">
+      <div class="g2f">
+        <div class="fg"><label>Alíquota CBS % (manual)</label>
+          <input id="cbs-al-custom" type="number" value="8.8" min="0" max="30" step="0.01"></div>
+        <div class="fg"><label>Alíquota IBS % (manual)</label>
+          <input id="ibs-al-custom" type="number" value="0.1" min="0" max="25" step="0.01"></div>
+      </div>
+    </div>
+    <div class="fg">
+      <label>Crédito CBS/IBS nas entradas do período (R$)</label>
+      <input id="cbs-credito" class="money" value="0,00" oninput="mm(this)"
+        title="Créditos de CBS/IBS sobre compras e serviços adquiridos — sistema não cumulativo">
+    </div>
+    <div id="cbs-sn-nota" class="ibox" style="display:none;margin-bottom:.6rem">
+      ℹ️ Simples Nacional: isento das alíquotas-teste em 2026 (art.348, III, "c" LC 214/2025).
+      Em 2027, entra no sistema com alíquotas reduzidas incorporadas ao DAS.
+    </div>
+    <button class="btn" onclick="calcCBSIBS()">Calcular CBS / IBS</button>
+  </div>
+
+  <div>
+    <div id="cbs-result">
+      <div class="ph"><span>⚖️</span><p>Simule o impacto da<br>Reforma Tributária</p></div>
+    </div>
+  </div>
+  </div>
+
+  <!-- CRONOGRAMA TRANSIÇÃO -->
+  <div class="card" style="margin-top:1rem">
+    <div class="card-title">📅 Cronograma de Transição — CBS e IBS até 2033</div>
+    <div class="tref"><table>
+      <thead><tr><th>Ano</th><th>CBS (Federal)</th><th>IBS (Est./Mun.)</th><th>Eventos</th></tr></thead>
+      <tbody>
+        <tr><td class="aq">2026</td><td>0,9% (teste)</td><td>0,1% (teste)</td><td style="font-size:.72rem;color:var(--muted)">Fase teste. Simples isento. NF-e com campos CBS/IBS. Recolhimento compensável.</td></tr>
+        <tr><td class="aq">2027</td><td>≈ 8,8% (ref.) ⚡</td><td>0,1% estadual + 0,05% municipal</td><td style="font-size:.72rem;color:var(--muted)">PIS e COFINS extintos. Imposto Seletivo inicia. Simples entra no sistema.</td></tr>
+        <tr><td class="aq">2028</td><td>Cheia</td><td>0,1% + 0,05% (transitório)</td><td style="font-size:.72rem;color:var(--muted)">CBS plena. IBS ainda em fase de testes ampliada.</td></tr>
+        <tr><td class="aq">2029</td><td>Cheia</td><td>10% da alíquota final</td><td style="font-size:.72rem;color:var(--muted)">Início redução ICMS/ISS: −90% em 2029.</td></tr>
+        <tr><td class="aq">2030</td><td>Cheia</td><td>20% da alíquota final</td><td style="font-size:.72rem;color:var(--muted)">ICMS/ISS reduzidos a 80% da alíquota anterior.</td></tr>
+        <tr><td class="aq">2031</td><td>Cheia</td><td>30% da alíquota final</td><td style="font-size:.72rem;color:var(--muted)">Continuidade da transição gradual.</td></tr>
+        <tr><td class="aq">2032</td><td>Cheia</td><td>60% da alíquota final</td><td style="font-size:.72rem;color:var(--muted)">Penúltimo ano de transição. ICMS/ISS chegam a 0.</td></tr>
+        <tr style="background:rgba(16,185,129,.06)"><td class="aq" style="color:var(--accent2)"><strong>2033</strong></td><td style="color:var(--accent2)"><strong>Plena</strong></td><td style="color:var(--accent2)"><strong>100% (≈18,7% est.)</strong></td><td style="font-size:.72rem;color:var(--success)"><strong>Sistema tributário completamente reformado. CBS + IBS + IS substituem todos os 5 tributos.</strong></td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:.5rem">⚡ Alíquota CBS 2027: proposta entregue ao TCU em 14/09/2026. TCU homologa até 30/out. Senado fixa até 15/dez/2026. Fonte: LC 214/2025 arts.343-347 · LC 227/2026 · Resolução CGIBS nº 14/2026 · EC 132/2023.</p>
+  </div>
+</div>
+
 </div><!-- /p-reformatrib -->
 
 <!-- ═══════════════════════════════════════════════════════════
      FATOR R — Simples Nacional
 ════════════════════════════════════════════════════════════ -->
 <div id="p-fatorr" class="panel">
-<div class="panel-title">📐 Calculadora do Fator R — Simples Nacional</div>
-
-<div class="ibox" style="margin-bottom:1rem">
-  <strong>LC 123/2006 + Resolução CGSN 140/2018:</strong>
-  Fator R = Folha de Salários acumulada 12 meses ÷ RBT12.<br>
-  <strong>≥ 28% → Anexo III</strong> (alíquota menor) &nbsp;|&nbsp;
-  <strong>< 28% → Anexo V</strong> (alíquota maior).<br>
-  Compõem a folha: salários, pró-labore, FGTS (8%), 13º proporcional, férias proporcionais e CPP quando devida.
-</div>
-
-<div class="g2">
-<!-- ── FORMULÁRIO ──────────────────────────────────── -->
-<div class="card">
-  <div class="card-title">Dados dos Últimos 12 Meses</div>
-
-  <div class="fg">
-    <label>Receita Bruta Total 12 meses — RBT12 (R$)</label>
-    <input id="fr-rbt12" class="money" placeholder="600.000,00" oninput="mm(this)">
-  </div>
-
-  <div class="divider"></div>
-  <div class="card-title">Composição da Folha (12 meses acumulados)</div>
-
-  <div class="g2f">
-    <div class="fg">
-      <label>Salários CLT (R$)</label>
-      <input id="fr-sal" class="money" value="0,00" oninput="mm(this)">
-    </div>
-    <div class="fg">
-      <label>Pró-labore sócios (R$)</label>
-      <input id="fr-pro" class="money" value="0,00" oninput="mm(this)">
-    </div>
-  </div>
-  <div class="g2f">
-    <div class="fg">
-      <label>FGTS recolhido (R$)</label>
-      <input id="fr-fgts" class="money" value="0,00" oninput="mm(this)"
-        title="Ou calcule automaticamente: 8% sobre salários CLT">
-    </div>
-    <div class="fg">
-      <label>13º pago no período (R$)</label>
-      <input id="fr-13" class="money" value="0,00" oninput="mm(this)">
-    </div>
-  </div>
-  <div class="g2f">
-    <div class="fg">
-      <label>Férias pagas no período (R$)</label>
-      <input id="fr-fer" class="money" value="0,00" oninput="mm(this)">
-    </div>
-    <div class="g2f">
-    <div class="fg">
-      <label>INSS sobre pró-labore (11%) (R$)</label>
-      <input id="fr-inss-pro" class="money" value="0,00" oninput="mm(this)"
-        title="INSS retido do sócio sobre o pró-labore — compõe a FS12 (art.26 Res. CGSN 140/2018)">
-    </div>
-    <div class="fg">
-      <label>CPP paga separado (Anexo IV, R$)</label>
-      <input id="fr-cpp" class="money" value="0,00" oninput="mm(this)"
-        title="Contribuição Patronal Previdenciária — só Anexo IV e LP">
-    </div>
-    </div>
-  </div>
-
-  <div class="wbox" style="margin-bottom:.75rem">
-    💡 <strong>Dica:</strong> se não souber o FGTS exato, deixe em R$ 0,00 e marque abaixo para calcular automaticamente.
-    <div style="margin-top:.5rem;display:flex;align-items:center;gap:.5rem">
-      <input type="checkbox" id="fr-auto-fgts" onchange="toggleAutoFGTS()" style="width:auto;min-height:auto;padding:0">
-      <label for="fr-auto-fgts" style="font-size:.78rem;color:var(--text);margin:0">Calcular FGTS automaticamente (8% dos salários CLT)</label>
-    </div>
-  </div>
-
-  <button class="btn" onclick="calcFatorR()">Calcular Fator R</button>
-  <button class="btn sec" onclick="limpar('fr-rbt12','fr-sal','fr-pro','fr-fgts','fr-13','fr-fer','fr-cpp')">Limpar</button>
-</div>
-
-<!-- ── RESULTADO ──────────────────────────────────── -->
+<div class="panel-title">📐 Calculadora Fator R — Simples Nacional</div>
 <div>
-  <div id="fr-result">
-    <div class="ph"><span>📐</span><p>Preencha os dados para<br>calcular o Fator R</p></div>
+  <div class="section-head">📐 Calculadora do Fator R — Simples Nacional</div>
+
+  <div class="ibox">
+    <strong>Base legal:</strong> LC 123/2006 art.18 §§5º-J, 5º-K e 5º-M · Resolução CGSN 140/2018 art.26 · Resolução CGSN 183/2025.<br>
+    <strong>Fator R = Folha de Salários 12 meses ÷ RBT12</strong> · Resultado <strong>truncado</strong> em 2 casas (PGDAS-D) · ≥ 0,28 → Anexo III | &lt; 0,28 → Anexo V.
+  </div>
+
+  <div class="g2">
+  <!-- FORMULÁRIO -->
+  <div>
+    <div class="card">
+      <div class="card-title">RBT12 — Receita Bruta 12 Meses</div>
+      <div class="fg">
+        <label>Receita Bruta acumulada 12 meses (R$)</label>
+        <input id="fr-rbt12" class="money" placeholder="600.000,00" oninput="mm(this)">
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1rem">
+      <div class="card-title">FS12 — Composição da Folha (12 meses)</div>
+      <div class="wbox" style="margin-bottom:.75rem">Composição conforme art.26 Res. CGSN 140/2018 (atualizada pela Res. CGSN 183/2025). Somente valores <strong>efetivamente pagos e declarados</strong> em eSocial/GFIP.</div>
+      <div class="g2f">
+        <div class="fg"><label>Salários CLT — bruto (R$)</label>
+          <input id="fr-sal" class="money" value="0,00" oninput="mm(this);autoCalcFR()"></div>
+        <div class="fg"><label>Pró-labore dos sócios (R$)</label>
+          <input id="fr-pro" class="money" value="0,00" oninput="mm(this);autoCalcFR()"></div>
+      </div>
+      <div class="g2f">
+        <div class="fg"><label>INSS sobre pró-labore (11%) (R$)</label>
+          <input id="fr-inss-pro" class="money" value="0,00" oninput="mm(this)" title="Compõe a FS12 — art.26 Res. CGSN 140/2018. Erro comum: esquecer esse valor."></div>
+        <div class="fg"><label>FGTS recolhido (R$)</label>
+          <input id="fr-fgts" class="money" value="0,00" oninput="mm(this)"></div>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="fr-auto" onchange="toggleAutoFR()">
+        <label for="fr-auto">Calcular FGTS (8%) e INSS pró-labore (11%) automaticamente</label>
+      </div>
+      <div class="g2f">
+        <div class="fg"><label>13º salário pago (R$)</label>
+          <input id="fr-13" class="money" value="0,00" oninput="mm(this)"></div>
+        <div class="fg"><label>Férias pagas no período (R$)</label>
+          <input id="fr-fer" class="money" value="0,00" oninput="mm(this)"></div>
+      </div>
+      <div class="fg"><label>CPP paga separado — Anexo IV (R$)</label>
+        <input id="fr-cpp" class="money" value="0,00" oninput="mm(this)" title="Contribuição Patronal Previdenciária paga fora do DAS — apenas Anexo IV e Lucro Presumido/Real"></div>
+      <div class="ibox" style="font-size:.72rem">
+        ❌ <strong>Não entram:</strong> distribuição de lucros, honorários pagos a PJ/MEI, pagamento de estagiários.<br>
+        ✅ <strong>Entram:</strong> salários, pró-labore + INSS 11%, FGTS, 13º, férias, CPP quando devida.
+      </div>
+      <button class="btn" onclick="calcFatorR()">Calcular Fator R</button>
+      <button class="btn sec" onclick="limparFR()">Limpar campos</button>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div>
+    <div class="fr-result-wrap" id="fr-result">
+      <!-- preenchido via JS -->
+    </div>
+    <div id="fr-ph" class="ph card">
+      <div class="icon">📐</div>
+      <p>Preencha os dados e clique em<br><strong>Calcular Fator R</strong></p>
+    </div>
+  </div>
   </div>
 </div>
 </div>
 
-<!-- ── TABELA ANALÍTICA DE EVOLUÇÃO MENSAL ─────── -->
-<div style="margin-top:1.5rem">
-  <div class="panel-title" style="font-size:.9rem;margin-bottom:.75rem">📅 Simulador Mensal — Evolução do Fator R</div>
-  <div class="ibox" style="margin-bottom:.75rem">Informe os valores mensais de receita e folha para simular a evolução do Fator R mês a mês e prever quando a empresa atinge ou perde o enquadramento no Anexo III.</div>
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 3 — SIMULADOR MENSAL
+════════════════════════════════════════════════════════════ -->
 
-  <div class="card" style="margin-bottom:1rem">
-    <div class="card-title">Configurar Simulação</div>
-    <div class="g2f">
-      <div class="fg"><label>Receita bruta mensal média (R$)</label>
-        <input id="fr-sim-rec" class="money" placeholder="50.000,00" oninput="mm(this)">
-      </div>
+<!-- ═══════════════════ CONSULTA CNAE ═══════════════════ -->
+<div id="p-cnae-consulta" class="panel">
+<div class="panel-title">🔍 Consulta CNAE — Benefícios CBS / IBS</div>
+<div>
+
+  <div class="search-hero">
+    <h2>Consulte o <span>Benefício Fiscal</span> da sua Atividade</h2>
+    <p>Pesquise pelo código CNAE ou descrição da atividade para ver a alíquota de CBS + IBS aplicável pela Reforma Tributária — com redução de 0%, 30%, 40% ou 60%.</p>
+    <div class="search-bar-wrap">
+      <input type="text" id="cnae-q" placeholder="Ex: 6920 ou contabilidade ou médico..." oninput="buscarCNAE()" onkeydown="if(event.key==='Enter')buscarCNAE()">
+      <button class="btn" onclick="buscarCNAE()">Buscar</button>
+    </div>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-chip active" data-f="" onclick="setFiltro('',this)">Todos</button>
+    <button class="filter-chip" data-f="zero" onclick="setFiltro('zero',this)">🟢 Alíquota Zero</button>
+    <button class="filter-chip" data-f="red60" onclick="setFiltro('red60',this)">🟡 Redução 60%</button>
+    <button class="filter-chip" data-f="red40" onclick="setFiltro('red40',this)">🔵 Redução 40%</button>
+    <button class="filter-chip" data-f="red30" onclick="setFiltro('red30',this)">🟣 Redução 30%</button>
+    <button class="filter-chip" data-f="full" onclick="setFiltro('full',this)">⚪ Alíquota Cheia</button>
+  </div>
+
+  <div class="cnae-results" id="cnae-results">
+    <div class="cnae-count" id="cnae-count"></div>
+    <div id="cnae-list"></div>
+  </div>
+
+  <div id="cnae-ph" class="ph">
+    <div class="icon">🔍</div>
+    <p>Digite o código CNAE ou nome da atividade para consultar<br>o benefício fiscal da Reforma Tributária.</p>
+  </div>
+
+  <!-- Painel de simulação para o CNAE selecionado -->
+  <div class="sim-cnae-panel" id="sim-cnae">
+    <div class="sim-cnae-title" id="sim-cnae-title"></div>
+    <div id="sim-cnae-body"></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 2 — CALCULADORA FATOR R
+════════════════════════════════════════════════════════════ -->
+
+<!-- ═══════════════════ SIMULADOR MENSAL ════════════════ -->
+<div id="p-sim-mensal" class="panel">
+<div class="panel-title">📅 Simulador Mensal — Evolução do Fator R</div>
+<div>
+  <div class="section-head">📅 Simulador de Evolução do Fator R — 12 Meses</div>
+  <div class="ibox">Simule mês a mês a evolução do Fator R para prever quando a empresa atinge ou perde o enquadramento no Anexo III. Ideal para planejamento tributário preventivo.</div>
+
+  <div class="card" style="margin-bottom:1.5rem">
+    <div class="card-title">Parâmetros da Simulação</div>
+    <div class="g3">
+      <div class="fg"><label>Receita mensal média (R$)</label>
+        <input id="sim-rec" class="money" placeholder="50.000,00" oninput="mm(this)"></div>
       <div class="fg"><label>Folha mensal média (R$)</label>
-        <input id="fr-sim-fol" class="money" placeholder="14.000,00" oninput="mm(this)">
+        <input id="sim-fol" class="money" placeholder="14.000,00" oninput="mm(this)"></div>
+      <div class="fg"><label>Mês de início</label>
+        <select id="sim-mes">
+          <option value="1">Janeiro</option><option value="2">Fevereiro</option>
+          <option value="3">Março</option><option value="4">Abril</option>
+          <option value="5" selected>Maio</option><option value="6">Junho</option>
+          <option value="7">Julho</option><option value="8">Agosto</option>
+          <option value="9">Setembro</option><option value="10">Outubro</option>
+          <option value="11">Novembro</option><option value="12">Dezembro</option>
+        </select>
       </div>
     </div>
-    <div class="fg"><label>Mês de início da simulação</label>
-      <select id="fr-sim-mes">
-        <option value="1">Janeiro</option><option value="2">Fevereiro</option>
-        <option value="3">Março</option><option value="4">Abril</option>
-        <option value="5" selected>Maio</option><option value="6">Junho</option>
-        <option value="7">Julho</option><option value="8">Agosto</option>
-        <option value="9">Setembro</option><option value="10">Outubro</option>
-        <option value="11">Novembro</option><option value="12">Dezembro</option>
-      </select>
+    <div class="g2f">
+      <div class="fg"><label>RBT12 inicial (antes do período) (R$)</label>
+        <input id="sim-rbt-ini" class="money" value="0,00" oninput="mm(this)" title="Se a empresa já tem histórico, informe o RBT12 acumulado antes do mês 1"></div>
+      <div class="fg"><label>FS12 inicial (antes do período) (R$)</label>
+        <input id="sim-fs-ini" class="money" value="0,00" oninput="mm(this)"></div>
     </div>
-    <button class="btn secondary" onclick="simularFatorR()" style="background:var(--bg3);border:1px solid var(--border2);color:var(--text)">Simular Evolução 12 meses</button>
+    <button class="btn" onclick="simularMensal()">Simular 12 meses</button>
   </div>
 
-  <div id="fr-sim-result" style="display:none">
-    <div class="tref">
-      <table id="fr-sim-table">
+  <div id="sim-result" style="display:none">
+    <div class="metrics-row" id="sim-metrics"></div>
+    <div class="sim-table-wrap">
+      <table class="sim-table">
         <thead><tr>
-          <th>Mês</th><th>Receita Mensal</th><th>Folha Mensal</th>
-          <th>RBT12 Acum.</th><th>Folha 12m Acum.</th>
-          <th style="text-align:center">Fator R</th>
-          <th style="text-align:center">Enquadramento</th>
+          <th>Mês</th>
+          <th>Receita</th>
+          <th>Folha</th>
+          <th>RBT12 Acum.</th>
+          <th>FS12 Acum.</th>
+          <th>Fator R (trunc.)</th>
+          <th>Enquadramento</th>
+          <th>DAS estimado</th>
         </tr></thead>
-        <tbody id="fr-sim-tbody"></tbody>
+        <tbody id="sim-tbody"></tbody>
       </table>
     </div>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:.5rem">DAS estimado = receita mensal × alíquota efetiva do Anexo III ou V para o RBT12 acumulado · Base: Res. CGSN 140/2018 · Tabelas LC 123/2006</p>
   </div>
 </div>
-
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 4 — RELATÓRIO PARA CLIENTE
+════════════════════════════════════════════════════════════ -->
+
+<!-- ═══════════════════ RELATÓRIO CLIENTE ═══════════════ -->
+<div id="p-rel-cliente" class="panel">
+<div class="panel-title">📋 Relatório de Impacto para o Cliente</div>
+<div>
+  <div class="section-head">📋 Gerar Relatório para Cliente</div>
+  <div class="ibox">Preencha os dados do cliente e gere um relatório profissional pronto para enviar por e-mail, WhatsApp ou imprimir em PDF.</div>
+
+  <div class="g2">
+  <div class="card">
+    <div class="card-title">Dados do Cliente</div>
+    <div class="fg"><label>Nome / Razão Social</label><input id="rel-nome" placeholder="Ex: Tech Solutions Ltda."></div>
+    <div class="g2f">
+      <div class="fg"><label>CNPJ</label><input id="rel-cnpj" placeholder="00.000.000/0001-00"></div>
+      <div class="fg"><label>CNAE principal</label><input id="rel-cnae" placeholder="6920-6/01" oninput="autoPreencherCNAE()"></div>
+    </div>
+    <div class="fg"><label>Regime tributário atual</label>
+      <select id="rel-regime">
+        <option value="sn3">Simples Nacional — Anexo III</option>
+        <option value="sn4">Simples Nacional — Anexo IV</option>
+        <option value="sn5">Simples Nacional — Anexo V</option>
+        <option value="lp">Lucro Presumido</option>
+        <option value="lr">Lucro Real</option>
+      </select>
+    </div>
+    <div class="fg"><label>Faturamento mensal médio (R$)</label>
+      <input id="rel-fat" class="money" placeholder="50.000,00" oninput="mm(this)"></div>
+    <div class="fg"><label>Fator R atual (%) — se aplicável</label>
+      <input id="rel-fr" type="number" min="0" max="100" step="0.01" placeholder="0.00"></div>
+    <div class="fg" id="rel-cnae-info" style="display:none">
+      <div class="sbox" id="rel-cnae-msg"></div>
+    </div>
+    <button class="btn" onclick="gerarRelatorio()">Gerar Relatório</button>
+  </div>
+
+  <div id="rel-result">
+    <div class="ph card"><div class="icon">📋</div><p>Preencha os dados e gere<br>o relatório personalizado</p></div>
+  </div>
+  </div>
+</div>
+</div>
+
+
 
 </div><!-- /panels -->
 </div><!-- /layout -->
 </div><!-- /app -->
 
 <script>
+
+// ═══ CNAE / CBS / IBS — constantes e funções adicionais ═══
+const AL_CBS_REF = 0.088;
+const AL_IBS_REF = 0.177;
+const AL_TOTAL   = AL_CBS_REF + AL_IBS_REF;
+const AL_IBS_27  = 0.001;
+const CNAE_DB = [
+// ──── ALÍQUOTA ZERO — Cesta Básica Nacional (Anexo I LC 214/2025) ────────
+['0111-3/01','Cultivo de arroz','Agronegócio','zero',0,'Anexo I LC 214/2025 art.125','Cesta básica nacional — alíquota zero CBS e IBS'],
+['0111-3/03','Cultivo de milho','Agronegócio','zero',0,'Anexo I LC 214/2025','Cesta básica nacional'],
+['0111-3/05','Cultivo de soja','Agronegócio','zero',0,'Anexo I LC 214/2025','Cesta básica nacional'],
+['0111-3/06','Cultivo de trigo','Agronegócio','zero',0,'Anexo I LC 214/2025','Cesta básica nacional'],
+['0131-8/00','Cultivo de laranja','Agronegócio','zero',0,'Anexo I LC 214/2025','Cesta básica — frutas frescas'],
+['0132-6/00','Cultivo de uva','Agronegócio','zero',0,'Anexo I LC 214/2025','Cesta básica'],
+['0133-4/02','Cultivo de banana','Agronegócio','zero',0,'Anexo I LC 214/2025','Cesta básica nacional'],
+['0151-2/01','Criação de bovinos para corte','Agronegócio','zero',0,'Anexo I LC 214/2025','Carnes — cesta básica'],
+['0151-2/02','Criação de bovinos para leite','Agronegócio','zero',0,'Anexo I LC 214/2025','Laticínios — cesta básica'],
+['0155-5/00','Criação de suínos','Agronegócio','zero',0,'Anexo I LC 214/2025','Carnes — cesta básica'],
+['0159-8/01','Apicultura','Agronegócio','zero',0,'Anexo I LC 214/2025','Mel — cesta básica'],
+['1011-2/01','Abate de bovinos — frigorífico','Indústria alimentos','zero',0,'Anexo I LC 214/2025','Carnes — alíquota zero'],
+['1012-1/01','Abate de aves','Indústria alimentos','zero',0,'Anexo I LC 214/2025','Aves — alíquota zero'],
+['1031-7/00','Fabricação de conservas de frutas','Indústria alimentos','zero',0,'Anexo I LC 214/2025','Cesta básica'],
+['1033-3/01','Fabricação de sucos concentrados','Indústria alimentos','zero',0,'Anexo I LC 214/2025','Cesta básica'],
+['1051-1/00','Fabricação de leite pasteurizado','Indústria alimentos','zero',0,'Anexo I LC 214/2025','Laticínios — zero'],
+['1052-0/00','Fabricação de laticínios','Indústria alimentos','zero',0,'Anexo I LC 214/2025','Laticínios — zero'],
+['1061-9/01','Beneficiamento de arroz','Indústria alimentos','zero',0,'Anexo I LC 214/2025','Cesta básica nacional'],
+['1063-5/00','Fabricação de farinha de mandioca','Indústria alimentos','zero',0,'Anexo I LC 214/2025','Cesta básica'],
+['1065-1/01','Fabricação de amidos e féculas','Indústria alimentos','zero',0,'Anexo I LC 214/2025','Cesta básica'],
+['1066-0/00','Fabricação de alimentos para animais','Indústria alimentos','zero',0,'Anexo I LC 214/2025','Insumos agropecuários — zero'],
+['2121-1/01','Fabricação de medicamentos para uso humano','Indústria farmacêutica','zero',0,'LC 214/2025 art.125 e arts.135-137','Medicamentos da lista RENAME — alíquota zero'],
+['2121-1/02','Fabricação de medicamentos para uso veterinário','Indústria farmacêutica','zero',0,'LC 214/2025 art.125','Medicamentos veterinários — alíquota zero'],
+['4771-7/01','Farmácia e drogaria — manipulação','Comércio','zero',0,'LC 214/2025 arts.135-137','Medicamentos RENAME — alíquota zero na dispensação'],
+['4771-7/02','Farmácia e drogaria sem manipulação','Comércio','zero',0,'LC 214/2025 arts.135-137','Medicamentos — verificar lista RENAME'],
+['4911-6/00','Transporte ferroviário urbano de passageiros','Transporte','zero',0,'LC 214/2025 art.138','Transporte público coletivo urbano — alíquota zero'],
+['4921-3/01','Transporte rodoviário coletivo — municipal','Transporte','zero',0,'LC 214/2025 art.138','Transporte público coletivo — alíquota zero'],
+['4921-3/02','Transporte rodoviário coletivo — intermunicipal','Transporte','zero',0,'LC 214/2025 art.138','Transporte público coletivo — alíquota zero'],
+
+// ──── REDUÇÃO DE 60% — Paga 40% da alíquota (Serviços de Saúde, Educação, etc.) ────
+['8511-2/00','Educação infantil — creche','Educação','red60',0.4,'LC 214/2025 art.129 + Anexo II','Serviços de educação — redução de 60% na CBS e IBS'],
+['8512-1/00','Educação infantil — pré-escola','Educação','red60',0.4,'LC 214/2025 art.129 + Anexo II','Redução de 60%'],
+['8513-9/00','Ensino fundamental','Educação','red60',0.4,'LC 214/2025 art.129 + Anexo II','Redução de 60%'],
+['8520-1/00','Ensino médio','Educação','red60',0.4,'LC 214/2025 art.129 + Anexo II','Redução de 60%'],
+['8531-7/00','Educação superior — graduação','Educação','red60',0.4,'LC 214/2025 art.129 + Anexo II','Redução de 60% apenas sobre mensalidade de graduação'],
+['8532-5/00','Educação superior — graduação e pós','Educação','red60',0.4,'LC 214/2025 art.129 + Anexo II','Redução de 60%'],
+['8533-3/00','Educação superior — pós-graduação e extensão','Educação','red60',0.4,'LC 214/2025 art.129 + Anexo II','Redução de 60%'],
+['8541-4/00','Educação profissional de nível técnico','Educação','red60',0.4,'LC 214/2025 art.129 + Anexo II','Redução de 60%'],
+['8542-2/00','Educação profissional — cursos livres','Educação','red60',0.4,'LC 214/2025 art.129 + Anexo II','Somente serviços educacionais listados no Anexo II'],
+['8593-7/00','Ensino de idiomas','Educação','red60',0.4,'LC 214/2025 art.129 + Anexo II','Verificar enquadramento no Anexo II'],
+['8610-1/01','Hospital geral','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Serviços hospitalares — redução de 60%'],
+['8610-1/02','Hospital especializado','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Redução de 60%'],
+['8621-6/01','Pronto-socorro e unidade de trauma','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Redução de 60%'],
+['8630-5/01','Atividade médica ambulatorial — especialistas','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Médicos: 60% de redução (Anexo III). Mais vantajoso que a redução 30% do art.127.'],
+['8630-5/02','Atividade médica ambulatorial — clínica geral','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Redução de 60% — serviços médicos'],
+['8630-5/03','Atividade odontológica','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Dentistas — redução de 60%'],
+['8630-5/06','Vacinação e imunização humana','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Redução de 60%'],
+['8640-2/02','Laboratórios clínicos','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Exames laboratoriais — redução de 60%'],
+['8640-2/07','Serviços de diagnóstico por imagem','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Diagnóstico por imagem — redução de 60%'],
+['8640-2/03','Serviços de diálise e nefrologia','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Redução de 60%'],
+['8650-0/01','Enfermagem — atendimento domiciliar','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Redução de 60%'],
+['8650-0/04','Fisioterapia','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Fisioterapia — redução de 60%'],
+['8650-0/05','Psicologia e psicanálise','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Psicólogos — redução de 60% (Anexo III)'],
+['8650-0/06','Terapia ocupacional','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Redução de 60%'],
+['8650-0/07','Fonoaudiologia','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Redução de 60%'],
+['8650-0/09','Nutrição — consultas e avaliações','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Redução de 60% para serviços listados no Anexo III'],
+['8690-9/01','Acupuntura','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Verificar enquadramento no Anexo III'],
+['8690-9/12','Pilates e métodos posturais terapêuticos','Saúde','red60',0.4,'LC 214/2025 arts.128-134 + Anexo III','Quando com finalidade terapêutica (fisioterapeuta)'],
+['9003-5/00','Produção de artes cênicas — companhias','Arte e Cultura','red60',0.4,'LC 214/2025 art.128 + Anexo VI','Produções artísticas e culturais — redução de 60%'],
+['9001-9/01','Produção teatral','Arte e Cultura','red60',0.4,'LC 214/2025 art.128 + Anexo VI','Produções artísticas — redução de 60%'],
+['9001-9/02','Produção musical','Arte e Cultura','red60',0.4,'LC 214/2025 art.128 + Anexo VI','Redução de 60%'],
+['9001-9/03','Produção de óperas, ballet e dança','Arte e Cultura','red60',0.4,'LC 214/2025 art.128 + Anexo VI','Redução de 60%'],
+['0161-0/00','Atividades de apoio à agricultura','Agronegócio','red60',0.4,'LC 214/2025 art.128','Insumos agropecuários — redução de 60%'],
+['0162-8/00','Atividades de apoio à pecuária','Agronegócio','red60',0.4,'LC 214/2025 art.128','Redução de 60%'],
+
+// ──── REDUÇÃO DE 40% — Paga 60% da alíquota (Setores específicos) ────────
+['5611-2/01','Restaurante e similares','Alimentação','red40',0.6,'LC 214/2025 art.275','Bares e restaurantes: redução de 40% nas alíquotas de IBS e CBS'],
+['5611-2/03','Lanchonetes e casas de sucos','Alimentação','red40',0.6,'LC 214/2025 art.275','Redução de 40%'],
+['5611-2/04','Bares e estabelecimentos de bebidas','Alimentação','red40',0.6,'LC 214/2025 art.275','Redução de 40%'],
+['5620-1/01','Fornecimento de alimentos — refeitórios','Alimentação','red40',0.6,'LC 214/2025 art.275','Redução de 40%'],
+['5620-1/02','Catering — eventos','Alimentação','red40',0.6,'LC 214/2025 art.275','Redução de 40%'],
+['5510-8/01','Hotéis','Turismo e Hotelaria','red40',0.6,'LC 214/2025 art.281','Hotelaria: redução de 40%'],
+['5510-8/02','Apart-hotéis','Turismo e Hotelaria','red40',0.6,'LC 214/2025 art.281','Redução de 40%'],
+['5590-6/01','Albergues e pousadas','Turismo e Hotelaria','red40',0.6,'LC 214/2025 art.281','Redução de 40%'],
+['7911-2/00','Agências de viagens','Turismo e Hotelaria','red40',0.6,'LC 214/2025 art.289','Agências de viagem e turismo: redução de 40%'],
+['7912-1/00','Operadores turísticos','Turismo e Hotelaria','red40',0.6,'LC 214/2025 art.289','Redução de 40%'],
+['9321-2/00','Parques de diversão e temáticos','Lazer','red40',0.6,'LC 214/2025 art.289','Parques de diversão: redução de 40%'],
+
+// ──── REDUÇÃO DE 30% — Paga 70% da alíquota (Profissões regulamentadas art.127) ────
+['6910-6/00','Atividades jurídicas — advocacia','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 I','Advogados: redução de 30%. Requisito: sócios habilitados na OAB, objeto social restrito, serviço prestado pelo próprio profissional.'],
+['6920-6/01','Atividades de contabilidade','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 VII','Contabilistas (CRC): redução de 30%. Requisitos: sócios registrados no CRC, objeto social ligado à contabilidade.'],
+['6920-6/02','Consultoria e auditoria contábil','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 VII','Contabilistas — redução de 30%'],
+['7020-4/00','Consultoria em gestão empresarial','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 XI','Administradores (CFA) — redução de 30%'],
+['7111-1/00','Serviços de arquitetura','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 II','Arquitetos (CAU): redução de 30%'],
+['7112-0/00','Serviços de engenharia','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 XI','Engenheiros (CREA/CFE): redução de 30%'],
+['7119-7/01','Serviços de cartografia, topografia e geodésia','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 XI','Engenheiros agrimensores — redução de 30%'],
+['7210-0/00','Pesquisa e desenvolvimento — ciências exatas','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127','Verificar enquadramento — profissão regulamentada'],
+['7410-2/02','Design de interiores','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 II','Arquitetos habilitados para design — redução 30%'],
+['7490-1/01','Serviços de tradução e interpretação','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127','Verificar conselho profissional aplicável'],
+['7490-1/04','Intermediação e agenciamento','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127','Verificar se atividade está ligada à profissão regulamentada'],
+['7500-1/00','Atividades veterinárias','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 XIII','Médicos veterinários (CFMV): redução de 30%'],
+['7311-4/00','Agências de publicidade','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 XVII','Profissionais de relações públicas e publicidade — redução 30%'],
+['7320-3/00','Pesquisas de mercado e de opinião','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 X','Estatísticos (CONRE) — redução de 30%'],
+['7490-1/03','Serviços de agronomia','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 XI','Agrônomos (CREA) — redução de 30%'],
+['8650-0/02','Odontologia — clínicas','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 + art.128','Dentistas: redução de 60% (Anexo III) prevalece sobre 30% do art.127'],
+['8591-1/00','Ensino de esportes — academias','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 §2º','Ed. física: regra especial — academias podem aplicar 30% sem exigência de sócios habilitados'],
+['8592-9/01','Ensino de dança','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127','Verificar habilitação profissional dos sócios'],
+['9313-1/00','Condicionamento físico — academias','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 §2º','Academia de ginástica: regra especial no §2º do art.127'],
+['7110-3/00','Serviços de engenharia — análise técnica','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 XI','Engenheiros — redução de 30%'],
+['6911-5/00','Atividades jurídicas — exceto advocacia','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 I','Verificar se sócios são advogados habilitados'],
+['8599-6/04','Treinamento e desenvolvimento profissional','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127','Verificar habilitação — se professor/educador com conselho'],
+['7490-1/05','Serviços de química','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 XIV','Químicos (CRQ) — redução de 30%'],
+['7490-1/06','Serviços de biologia','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 V','Biólogos (CFBio) — redução de 30%'],
+['7490-1/07','Serviços de estatística','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127 X','Estatísticos (CONRE) — redução de 30%'],
+['8742-3/00','Atividades de nutrição e dietética','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127','Nutricionistas (CFN): quando não classificados como saúde (60%)'],
+['8650-0/08','Serviços de farmácia — clínica','Profissões Regulamentadas','red30',0.7,'LC 214/2025 art.127','Farmacêuticos (CRF) — verificar natureza do serviço'],
+
+// ──── ALÍQUOTA CHEIA — Sem benefício ─────────────────────────────────────
+['4511-1/01','Comércio de automóveis novos','Comércio','full',1.0,'LC 214/2025 alíquota padrão','Sem redução prevista — alíquota de referência cheia'],
+['4511-1/02','Comércio de automóveis usados','Comércio','full',1.0,'LC 214/2025','Alíquota plena'],
+['4530-7/01','Comércio de peças para veículos','Comércio','full',1.0,'LC 214/2025','Alíquota plena'],
+['4711-3/01','Hipermercados','Comércio','full',1.0,'LC 214/2025','Alíquota plena — exceto itens da cesta básica (zero)'],
+['4711-3/02','Supermercados','Comércio','full',1.0,'LC 214/2025','Alíquota mista: zero para cesta básica, plena para demais'],
+['4751-2/01','Comércio de informática','Comércio','full',1.0,'LC 214/2025','Alíquota plena'],
+['6201-5/00','Desenvolvimento de software sob encomenda','Tecnologia','full',1.0,'LC 214/2025','Software: alíquota padrão. Mas profissional de TI pode ter 30% se habilitado em conselho.'],
+['6202-3/00','Desenvolvimento de softwares customizáveis','Tecnologia','full',1.0,'LC 214/2025','Alíquota plena'],
+['6209-1/00','Suporte técnico em TI','Tecnologia','full',1.0,'LC 214/2025','Alíquota plena — verificar se profissional tem conselho'],
+['4930-2/01','Transporte rodoviário de cargas — municipal','Transporte','full',1.0,'LC 214/2025','Transporte de cargas: alíquota plena (diferente do coletivo, que é zero)'],
+['4930-2/02','Transporte rodoviário de cargas — intermunicipal','Transporte','full',1.0,'LC 214/2025','Alíquota plena'],
+['8011-1/01','Vigilância e segurança','Serviços','full',1.0,'LC 214/2025','Alíquota plena'],
+['8121-4/00','Limpeza em edifícios e domicílios','Serviços','full',1.0,'LC 214/2025','Alíquota plena'],
+['7810-8/00','Seleção e agenciamento de mão de obra','Serviços','full',1.0,'LC 214/2025','Alíquota plena'],
+['9313-1/99','Outras atividades de condicionamento físico','Serviços','full',1.0,'LC 214/2025','Verificar se profissional tem registro em conselho'],
+['4781-4/00','Vestuário e complementos','Comércio','full',1.0,'LC 214/2025','Alíquota plena'],
+['4772-5/00','Cosméticos e perfumaria','Comércio','full',1.0,'LC 214/2025','Alíquota plena — exceto medicamentos e produtos de saúde'],
+['1411-8/01','Confecção de roupas','Indústria','full',1.0,'LC 214/2025','Alíquota plena'],
+['1510-6/00','Fabricação de calçados','Indústria','full',1.0,'LC 214/2025','Alíquota plena'],
+['3101-2/00','Fabricação de móveis','Indústria','full',1.0,'LC 214/2025','Alíquota plena'],
+['4321-5/00','Instalação elétrica','Construção','full',1.0,'LC 214/2025','Alíquota plena — exceto engenheiro habilitado (30%)'],
+['4120-4/00','Construção de edifícios','Construção','full',1.0,'LC 214/2025','Alíquota plena — a empresa construtora; engenheiros = 30%'],
+['4930-2/01','Transporte de cargas municipal','Transporte','full',1.0,'LC 214/2025','Alíquota plena'],
+['4930-2/02','Transporte de cargas intermunicipal','Transporte','full',1.0,'LC 214/2025','Alíquota plena'],
+['8011-1/01','Vigilância e segurança privada','Serviços','full',1.0,'LC 214/2025','Alíquota plena'],
+['8121-4/00','Limpeza em edifícios e domicílios','Serviços','full',1.0,'LC 214/2025','Alíquota plena'],
+['9601-7/01','Lavanderias','Serviços pessoais','full',1.0,'LC 214/2025','Alíquota plena'],
+['9602-5/02','Cabeleireiros','Serviços pessoais','full',1.0,'LC 214/2025','Alíquota plena'],
+['9602-5/03','Manicure e pedicure','Serviços pessoais','full',1.0,'LC 214/2025','Alíquota plena'],
+['6201-5/00','Desenvolvimento de software sob encomenda','Tecnologia','full',1.0,'LC 214/2025','Alíquota plena'],
+['6202-3/00','Desenvolvimento de softwares customizáveis','Tecnologia','full',1.0,'LC 214/2025','Alíquota plena'],
+['6209-1/00','Suporte técnico em TI','Tecnologia','full',1.0,'LC 214/2025','Alíquota plena'],
+['4511-1/01','Comércio de automóveis novos','Comércio','full',1.0,'LC 214/2025','Alíquota plena'],
+['4711-3/02','Supermercados','Comércio','full',1.0,'LC 214/2025','Itens da cesta basica = zero; demais = plena'],
+['4781-4/00','Vestuário e complementos','Comércio','full',1.0,'LC 214/2025','Alíquota plena'],
+['7810-8/00','Seleção e agenciamento de mão de obra','Serviços','full',1.0,'LC 214/2025','Alíquota plena'],
+];
+const TIPO_LABEL = {zero:'Alíquota Zero',red60:'Redução 60%',red40:'Redução 40%',red30:'Redução 30%',full:'Alíquota Cheia'};
+const TIPO_DESC  = {
+  zero:  'Isento de CBS e IBS — alíquota zero (Anexo I LC 214/2025)',
+  red60: 'Paga 40% da alíquota de referência — redução de 60%',
+  red40: 'Paga 60% da alíquota de referência — redução de 40%',
+  red30: 'Paga 70% da alíquota de referência — redução de 30% (profissão regulamentada)',
+  full:  'Paga 100% da alíquota de referência — sem redução'
+};
+
+// (substituindo versão anterior de calcFatorR)
+
+
+function calcFatorR(){
+  const rbt12   = pm(document.getElementById('fr-rbt12').value);
+  const sal     = pm(document.getElementById('fr-sal').value);
+  const pro     = pm(document.getElementById('fr-pro').value);
+  const auto    = document.getElementById('fr-auto').checked;
+  const fgts    = auto ? sal*0.08 : pm(document.getElementById('fr-fgts').value);
+  const inssPro = auto ? Math.min(pro,8475.55)*0.11 : pm(document.getElementById('fr-inss-pro').value);
+  const dec13   = pm(document.getElementById('fr-13').value);
+  const ferias  = pm(document.getElementById('fr-fer').value);
+  const cpp     = pm(document.getElementById('fr-cpp').value);
+
+  if(!rbt12){alert('Informe o RBT12.');return}
+  if(!sal&&!pro){alert('Informe ao menos salários ou pró-labore.');return}
+
+  const fs12 = sal+pro+inssPro+fgts+dec13+ferias+cpp;
+  // TRUNCAMENTO obrigatório — Manual PGDAS-D (não arredonda)
+  const fr_raw = rbt12>0 ? fs12/rbt12 : 0;
+  const fr     = Math.trunc(fr_raw*100)/100;
+  const isIII  = fr >= 0.28;
+  const pct    = (fr*100).toFixed(2)+'%';
+  const pct_raw= (fr_raw*100).toFixed(4)+'%';
+
+  const alIII  = dasAnexo('III',rbt12);
+  const alV    = dasAnexo('V',  rbt12);
+  const recMes = rbt12/12;
+  const dasIII = recMes*alIII;
+  const dasV   = recMes*alV;
+  const econMes= recMes*(alV-alIII);
+  const cor    = isIII?'var(--green)':'var(--red)';
+
+  // Gravar para uso no simulador e relatório
+  window._FR = {fr,fr_raw,fs12,rbt12,sal,pro,inssPro,fgts,dec13,ferias,cpp,isIII,alIII,alV,econMes,recMes,dasIII,dasV};
+
+  // Gauge SVG
+  const circum = 2*Math.PI*55;
+  const perc   = Math.min(fr_raw,1);
+  const offset = circum*(1-perc);
+  const strokeColor = isIII?'#22c55e':'#f43f5e';
+
+  const ph = document.getElementById('fr-ph');
+  if(ph) ph.style.display='none';
+
+  const res = document.getElementById('fr-result');
+  res.classList.add('show');
+  res.innerHTML = `
+    <div class="gauge-wrap">
+      <div class="gauge-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="track" cx="60" cy="60" r="55"/>
+          <circle class="fill" cx="60" cy="60" r="55"
+            stroke="${strokeColor}"
+            stroke-dasharray="${circum}"
+            stroke-dashoffset="${offset}"/>
+          <circle cx="60" cy="60" r="48" fill="var(--card2)"/>
+        </svg>
+        <div class="gauge-center">
+          <div class="gauge-pct" style="color:${cor}">${pct}</div>
+          <div class="gauge-lbl">Fator R</div>
+        </div>
+      </div>
+      <div class="gauge-info">
+        <div class="gauge-verdict" style="color:${cor}">
+          ${isIII?'✅ Anexo III':'⚠️ Anexo V'}
+        </div>
+        <div class="gauge-detail">
+          Fator R truncado: <strong style="color:${cor}">${pct}</strong><br>
+          Fator R real: <span style="color:var(--muted)">${pct_raw}</span><br>
+          ${fr_raw!==fr?`<span style="color:var(--amber);font-size:.7rem">⚠️ Truncamento alterou enquadramento: ${pct_raw} → ${pct}</span><br>`:''}
+          Limiar: 28,00%<br>
+          ${!isIII?`<span style="color:var(--amber)">Falta R$ ${fmt(0.28*rbt12-fs12)} na folha para atingir 28%</span>`:`<span style="color:var(--green)">Margem de segurança: R$ ${fmt(fs12-0.28*rbt12)}</span>`}
+        </div>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric"><div class="ml">Folha 12m (FS12)</div><div class="mv" style="color:var(--accent)">${fmt(fs12)}</div></div>
+      <div class="metric"><div class="ml">RBT12</div><div class="mv" style="color:var(--muted)">${fmt(rbt12)}</div></div>
+      <div class="metric"><div class="ml">Alíq. ef. ${isIII?'Anexo III':'Anexo V'}</div><div class="mv" style="color:var(--amber)">${((isIII?alIII:alV)*100).toFixed(2)}%</div></div>
+      <div class="metric"><div class="ml">DAS médio/mês</div><div class="mv" style="color:var(--amber)">${fmt(isIII?dasIII:dasV)}</div></div>
+      ${!isIII?`<div class="metric"><div class="ml">Economia potencial/mês</div><div class="mv" style="color:var(--green)">${fmt(econMes)}</div></div>`:''}
+    </div>
+
+    <div class="hole">
+      <div class="hole-hd"><h3>Composição da FS12</h3><span class="ref">LC 123/2006 · Res. CGSN 140/2018 atualizada pela 183/2025</span></div>
+      <div class="hole-sec">Remunerações efetivamente pagas (eSocial/GFIP)</div>
+      <div class="hole-row"><span class="d">Salários CLT (bruto)</span><span class="rv"></span><span class="v p">${fmt(sal)}</span></div>
+      <div class="hole-row"><span class="d">Pró-labore dos sócios</span><span class="rv"></span><span class="v p">${fmt(pro)}</span></div>
+      <div class="hole-row"><span class="d">INSS sobre pró-labore (11%)</span><span class="rv">${auto?'auto':'informado'}</span><span class="v p">${fmt(inssPro)}</span></div>
+      <div class="hole-row"><span class="d">FGTS (8%)</span><span class="rv">${auto?'auto':'informado'}</span><span class="v p">${fmt(fgts)}</span></div>
+      ${dec13>0?`<div class="hole-row"><span class="d">13º salário</span><span class="rv"></span><span class="v p">${fmt(dec13)}</span></div>`:''}
+      ${ferias>0?`<div class="hole-row"><span class="d">Férias</span><span class="rv"></span><span class="v p">${fmt(ferias)}</span></div>`:''}
+      ${cpp>0?`<div class="hole-row"><span class="d">CPP (fora do DAS)</span><span class="rv"></span><span class="v p">${fmt(cpp)}</span></div>`:''}
+      <div class="hole-total"><span class="lbl">Total FS12</span><span class="amt liq">${fmt(fs12)}</span></div>
+    </div>
+
+    <div class="hole" style="margin-top:.75rem">
+      <div class="hole-hd"><h3>Impacto Fiscal — Comparativo de Anexos</h3><span class="ref">Tabela LC 123/2006</span></div>
+      <div class="hole-sec">Alíquotas efetivas para RBT12 ${fmt(rbt12)}</div>
+      <div class="hole-row"><span class="d">Alíquota efetiva Anexo III</span><span class="rv">DAS ref.~${fmt(dasIII)}/mês</span><span class="v ${isIII?'p':'n'}">${(alIII*100).toFixed(3)}%${isIII?' ✅':''}</span></div>
+      <div class="hole-row"><span class="d">Alíquota efetiva Anexo V</span><span class="rv">DAS ref.~${fmt(dasV)}/mês</span><span class="v ${!isIII?'p':'n'}">${(alV*100).toFixed(3)}%${!isIII?' (atual)':''}</span></div>
+      ${!isIII?`
+      <div class="hole-sec">Estratégia para atingir Anexo III</div>
+      <div class="hole-row"><span class="d">FS12 necessária (28% × RBT12)</span><span class="rv"></span><span class="v n">${fmt(0.28*rbt12)}</span></div>
+      <div class="hole-row"><span class="d">FS12 atual</span><span class="rv"></span><span class="v n">${fmt(fs12)}</span></div>
+      <div class="hole-row"><span class="d">Folha adicional necessária</span><span class="rv">considerar encargos</span><span class="v p">${fmt(0.28*rbt12-fs12)}</span></div>
+      <div class="hole-row"><span class="d">Economia mensal possível (Anexo III)</span><span class="rv"></span><span class="v p">${fmt(econMes)}</span></div>
+      <div class="hole-total"><span class="lbl">Economia anual potencial</span><span class="amt liq">${fmt(econMes*12)}</span></div>`
+      :`<div class="hole-row"><span class="d">Margem de segurança (folha acima do mínimo)</span><span class="rv"></span><span class="v p">${fmt(fs12-0.28*rbt12)}</span></div>
+      <div class="hole-total"><span class="lbl">Economia anual (Anexo III vs V)</span><span class="amt liq">${fmt(econMes*12)}</span></div>`}
+    </div>
+  `;
+}
+
+// (substituindo versão anterior de dasAnexo)
+
+
+function dasAnexo(anx, rbt){
+  const tab=SN[anx]; if(!tab)return 0;
+  let al=0,ded=0;
+  for(const f of tab.faixas){if(rbt<=f.ate){al=f.al;ded=f.ded;break}}
+  return rbt>0?(rbt*al-ded)/rbt:0;
+}
+
+// (substituindo versão anterior de renderCNAE)
+
+
+function renderCNAE(dados){
+  const list = document.getElementById('cnae-list');
+  const count = document.getElementById('cnae-count');
+  document.getElementById('cnae-ph').style.display='none';
+  document.getElementById('cnae-results').classList.add('show');
+
+  count.textContent = `${dados.length} atividade${dados.length!==1?'s':''} encontrada${dados.length!==1?'s':''}`;
+
+  if(!dados.length){
+    list.innerHTML = '<div class="ph" style="padding:2rem"><div class="icon">🔍</div><p>Nenhuma atividade encontrada.<br>Tente outros termos ou limpe o filtro.</p></div>';
+    return;
+  }
+
+  list.innerHTML = dados.map((r,i)=>{
+    const [cnae,nome,grupo,tipo,reducao,art,obs] = r;
+    const alTotal = AL_TOTAL;
+    const alCBS   = AL_CBS_REF * reducao;
+    const alIBS   = AL_IBS_REF * reducao;
+    const alEf    = alTotal * reducao;
+
+    return `<div class="cnae-card ${tipo}" onclick="simularCNAE(${i})">
+      <div class="cnae-card-top">
+        <div>
+          <div class="cnae-code">${cnae}</div>
+          <div class="cnae-name">${nome}</div>
+        </div>
+        <span class="cnae-badge ${tipo}">${TIPO_LABEL[tipo]}</span>
+      </div>
+      <div class="cnae-meta">
+        <span>Grupo: <strong>${grupo}</strong></span>
+        ${tipo!=='full'?`<span>CBS ef.: <strong>${tipo==='zero'?'0%':fmtPct(alCBS)}</strong></span>
+        <span>IBS ef.: <strong>${tipo==='zero'?'0%':fmtPct(alIBS)}</strong></span>
+        <span>Total: <strong>${tipo==='zero'?'0%':fmtPct(alEf)}</strong></span>`
+        :`<span>Total ref.: <strong>≈${fmtPct(alTotal)}</strong></span>`}
+      </div>
+      <div class="cnae-artigo">${art}</div>
+      ${obs?`<div class="cnae-obs">⚠️ ${obs}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+
+function autoCalcFR(){
+  if(!document.getElementById('fr-auto').checked) return;
+  const sal = pm(document.getElementById('fr-sal').value);
+  const pro = pm(document.getElementById('fr-pro').value);
+  document.getElementById('fr-fgts').value     = fmtMoney(sal*0.08);
+  document.getElementById('fr-inss-pro').value = fmtMoney(Math.min(pro,8475.55)*0.11);
+}
+// ═══════════════════════════════════════════════════════════════════════════
+// TAB 4 — RELATÓRIO PARA CLIENTE
+// ═══════════════════════════════════════════════════════════════════════════
+function autoPreencherCNAE(){
+  const q = document.getElementById('rel-cnae').value.replace('-','').replace('/','').toLowerCase();
+  const r = CNAE_DB.find(x=>x[0].replace(/[-/]/g,'').toLowerCase().startsWith(q)||x[1].toLowerCase().includes(q));
+  const div = document.getElementById('rel-cnae-info');
+  const msg = document.getElementById('rel-cnae-msg');
+  if(r&&q.length>=4){
+    div.style.display='block';
+    msg.innerHTML = `<strong>${r[0]} — ${r[1]}</strong><br>${TIPO_LABEL[r[3]]}: ${TIPO_DESC[r[3]]}<br><span style="font-size:.68rem">${r[5]}</span>`;
+    window._REL_CNAE = r;
+  } else {
+    div.style.display='none';
+    window._REL_CNAE = null;
+  }
+}
+
+
+function buscarCNAE(){
+  const q = (document.getElementById('cnae-q').value||'').toLowerCase().trim();
+  if(!q && !filtroAtivo){
+    document.getElementById('cnae-results').classList.remove('show');
+    document.getElementById('cnae-ph').style.display='flex';
+    document.getElementById('sim-cnae').classList.remove('show');
+    return;
+  }
+  const resultado = CNAE_DB.filter(r=>{
+    const matchBusca = !q || r[0].toLowerCase().includes(q) || r[1].toLowerCase().includes(q) || r[2].toLowerCase().includes(q);
+    const matchFiltro = !filtroAtivo || r[3]===filtroAtivo;
+    return matchBusca && matchFiltro;
+  });
+  renderCNAE(resultado);
+}
+
+
+function calcImpactoCNAE(){
+  if(!CNAE_SELECIONADO) return;
+  const [cnae,nome,grupo,tipo,reducao] = CNAE_SELECIONADO;
+  const fat   = pm(document.getElementById('sim-fat-cnae').value);
+  const cred  = pm(document.getElementById('sim-cred-cnae').value);
+  if(!fat){ document.getElementById('sim-cnae-calc').innerHTML=''; return; }
+
+  const cbs27  = fat * AL_CBS_REF * reducao;
+  const ibs27  = fat * AL_IBS_27; // transitório
+  const cbsPleno = fat * AL_CBS_REF * reducao;
+  const ibsPleno = fat * AL_IBS_REF * reducao;
+  const totalPleno = Math.max(0, cbsPleno + ibsPleno - cred);
+  const totalSemRed = fat * AL_TOTAL;
+  const economia   = totalSemRed - totalPleno;
+  const pisCofinsSub = fat * (0.0065 + 0.03); // PIS+COFINS substituídos
+
+  document.getElementById('sim-cnae-calc').innerHTML = `
+    <div class="metrics-row">
+      <div class="metric"><div class="ml">CBS 2027 (est.)</div><div class="mv" style="color:${tipo==='zero'?'var(--green)':'var(--amber)'}">${tipo==='zero'?'R$ 0,00':fmt(cbs27+ibs27)}</div></div>
+      <div class="metric"><div class="ml">CBS+IBS pleno (2033)</div><div class="mv" style="color:${tipo==='zero'?'var(--green)':'var(--red)'}">${tipo==='zero'?'R$ 0,00':fmt(totalPleno)}</div></div>
+      <div class="metric"><div class="ml">PIS+COFINS atual</div><div class="mv" style="color:var(--muted)">${fmt(pisCofinsSub)}</div></div>
+      ${tipo!=='full'&&tipo!=='zero'?`<div class="metric"><div class="ml">Economia vs cheia</div><div class="mv" style="color:var(--green)">${fmt(economia)}/mês</div></div>`:''}
+    </div>
+  `;
+}
+
+
+function mm(el){let v=el.value.replace(/\D/g,'');v=(parseInt(v)||0).toString();while(v.length<3)v='0'+v;let i=v.slice(0,-2).replace(/^0+/,'')||'0';i=i.replace(/\B(?=(\d{3})+(?!\d))/g,'.');el.value=i+','+v.slice(-2)}
+function pm(s){if(!s)return 0;return parseFloat(s.replace(/\./g,'').replace(',','.'))||0}
+function fmt(n){return'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function fmtMoney(n){
+  const s=Math.round(n*100).toString().padStart(3,'0');
+  const i=s.slice(0,-2).replace(/^0+/,'')||'0';
+  return i.replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+s.slice(-2);
+}
+
+function fmtPct(n){return(n*100).toFixed(2)+'%'}
+
+
+function gerarRelatorio(){
+  const nome   = document.getElementById('rel-nome').value||'Cliente';
+  const cnpj   = document.getElementById('rel-cnpj').value||'—';
+  const fat    = pm(document.getElementById('rel-fat').value);
+  const regime = document.getElementById('rel-regime').value;
+  const fr_val = parseFloat(document.getElementById('rel-fr').value)||0;
+  const cnaeR  = window._REL_CNAE;
+
+  const regimeLabel = {sn3:'Simples Nacional — Anexo III',sn4:'Simples Nacional — Anexo IV',sn5:'Simples Nacional — Anexo V',lp:'Lucro Presumido',lr:'Lucro Real'};
+  const hoje = new Date().toLocaleDateString('pt-BR');
+
+  let cnae_html = '';
+  if(cnaeR){
+    const [cnae,nomeAt,grupo,tipo,reducao,art,obs] = cnaeR;
+    const alEf = AL_TOTAL*reducao;
+    const pisCofinsMes = fat*(0.0065+0.03);
+    const cbsIBSMes = fat*alEf;
+    cnae_html = `
+      <div style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:12px;padding:1.2rem;margin-bottom:1rem">
+        <div style="font-weight:700;font-size:.9rem;color:var(--green);margin-bottom:.3rem">Benefício Reforma Tributária — ${TIPO_LABEL[tipo]}</div>
+        <div style="font-size:.82rem;color:var(--muted);margin-bottom:.5rem">${cnae} — ${nomeAt} · ${art}</div>
+        <div style="font-size:.8rem;line-height:1.7">
+          ${tipo==='zero'?
+            '<strong style="color:var(--green)">Sua atividade tem ALÍQUOTA ZERO de CBS e IBS.</strong> Nenhum valor de CBS/IBS será recolhido sobre essas operações.'
+            :tipo==='full'?
+            '<strong style="color:var(--red)">Sua atividade não tem redução prevista.</strong> A alíquota cheia de CBS+IBS será aplicada.'
+            :`<strong>Sua atividade tem redução de ${((1-reducao)*100).toFixed(0)}%</strong> sobre as alíquotas de CBS e IBS.<br>
+             Alíquota efetiva CBS+IBS (sistema pleno 2033): <strong style="color:var(--gold)">${fmtPct(alEf)}</strong>
+             em vez de ${fmtPct(AL_TOTAL)} (alíquota cheia).`
+          }
+          ${obs?`<br><span style="color:var(--amber)">⚠️ ${obs}</span>`:''}
+        </div>
+      </div>`;
+  }
+
+  const fr_html = fr_val>0?`
+    <div style="background:rgba(75,127,255,.08);border:1px solid rgba(75,127,255,.2);border-radius:12px;padding:1.2rem;margin-bottom:1rem">
+      <div style="font-weight:700;font-size:.9rem;color:var(--accent);margin-bottom:.5rem">Fator R atual: ${fr_val.toFixed(2)}%</div>
+      <div style="font-size:.8rem;color:var(--muted);line-height:1.7">
+        ${fr_val>=28?
+          `<strong style="color:var(--green)">✅ Enquadrado no Anexo III</strong> — você está aproveitando a menor alíquota do Simples Nacional para serviços.`
+          :`<strong style="color:var(--red)">⚠️ Enquadrado no Anexo V</strong> — com Fator R de ${fr_val.toFixed(2)}%, você está ${(28-fr_val).toFixed(2)} pontos abaixo do limiar de 28% para o Anexo III.`
+        }
+      </div>
+    </div>`:'';
+
+  document.getElementById('rel-result').innerHTML = `
+    <div class="card" style="border:1px solid var(--gold)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem">
+        <div>
+          <div style="font-size:1.1rem;font-weight:800">Relatório Tributário</div>
+          <div style="font-size:.72rem;color:var(--muted)">Reforma Tributária LC 214/2025 — Emitido em ${hoje}</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.75rem;font-weight:700;color:var(--gold)">Solari Contabilidade</div>
+          <div style="font-size:.65rem;color:var(--muted)">CRC-TO 001085/O-1</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border-radius:var(--rs);padding:1rem;margin-bottom:1rem">
+        <div style="font-size:.9rem;font-weight:700">${nome}</div>
+        <div style="font-size:.72rem;color:var(--muted)">CNPJ: ${cnpj} · Regime: ${regimeLabel[regime]}</div>
+        ${fat>0?`<div style="font-size:.72rem;color:var(--muted)">Faturamento mensal: ${fmt(fat)}</div>`:''}
+      </div>
+
+      ${cnae_html}${fr_html}
+
+      <div style="font-size:.72rem;color:var(--muted);line-height:1.7;padding-top:.75rem;border-top:1px solid var(--border)">
+        Este relatório é informativo e baseado na legislação vigente até 15/09/2026. 
+        A alíquota definitiva da CBS para 2027 ainda será fixada pelo Senado Federal (prazo: 15/dez/2026). 
+        Recomendamos revisão com o contador antes de reprecificar produtos/serviços.
+      </div>
+
+      <button class="btn" onclick="window.print()" style="margin-top:1rem;background:var(--bg3);color:var(--text);border:1px solid var(--border2)">🖨️ Imprimir / Salvar PDF</button>
+    </div>
+  `;
+}
+
+
+function limparFR(){
+  ['fr-rbt12','fr-sal','fr-pro','fr-fgts','fr-inss-pro','fr-13','fr-fer','fr-cpp'].forEach(id=>{
+    const el=document.getElementById(id); if(el){el.value='0,00';el.disabled=false}
+  });
+  document.getElementById('fr-auto').checked=false;
+  document.getElementById('fr-result').classList.remove('show');
+  const ph=document.getElementById('fr-ph');
+  if(ph)ph.style.display='flex';
+}
+
+
+function setFiltro(f, el){
+  filtroAtivo = f;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  buscarCNAE();
+}
+
+
+function simularCNAE(idx){
+  const q = (document.getElementById('cnae-q').value||'').toLowerCase().trim();
+  const filtrado = CNAE_DB.filter(r=>{
+    const matchBusca = !q || r[0].toLowerCase().includes(q)||r[1].toLowerCase().includes(q)||r[2].toLowerCase().includes(q);
+    const matchFiltro = !filtroAtivo || r[3]===filtroAtivo;
+    return matchBusca&&matchFiltro;
+  });
+  const r = filtrado[idx];
+  if(!r) return;
+  CNAE_SELECIONADO = r;
+
+  const [cnae,nome,grupo,tipo,reducao,art,obs] = r;
+  const panel = document.getElementById('sim-cnae');
+  const title = document.getElementById('sim-cnae-title');
+  const body  = document.getElementById('sim-cnae-body');
+  title.textContent = `Simulação: ${cnae} — ${nome}`;
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  const alEf  = AL_TOTAL * reducao;
+  const alCBS = AL_CBS_REF * reducao;
+  const alIBS_pleno = AL_IBS_REF * reducao;
+  const alIBS_27 = AL_IBS_27; // 2027 transitório
+
+  const corTipo = {zero:getComputedStyle(document.documentElement).getPropertyValue('--green'),red60:'var(--gold)',red40:'var(--cyan)',red30:'var(--purple)',full:'var(--muted)'};
+
+  body.innerHTML = `
+    <div class="sbox" style="margin-bottom:1rem">
+      <strong>${TIPO_LABEL[tipo]}</strong> — ${TIPO_DESC[tipo]}<br>
+      <span style="font-size:.68rem">${art}</span>
+    </div>
+    ${obs?`<div class="wbox">${obs}</div>`:''}
+
+    <table class="aliq-table">
+      <thead><tr><th>Fase</th><th>CBS</th><th>IBS</th><th>Total CBS+IBS</th><th>Vs. Regime Atual</th></tr></thead>
+      <tbody>
+        <tr><td>2026 — teste</td><td class="at">0,9%</td><td class="at">0,1%</td><td class="at">1,0%</td><td style="font-size:.72rem;color:var(--muted)">Compensável com PIS/COFINS</td></tr>
+        <tr><td>2027 — estimativa CBS</td>
+          <td class="${tipo==='zero'?'ef':'aq'}">${tipo==='zero'?'0%':fmtPct(alCBS)}</td>
+          <td class="aq">≈0,1% (transitório)</td>
+          <td class="${tipo==='zero'?'ef':'aq'}">${tipo==='zero'?'0%':fmtPct(alCBS+0.001)}</td>
+          <td style="font-size:.72rem;color:var(--muted)">PIS+COFINS extintos · CBS entra</td>
+        </tr>
+        <tr><td>2033 — sistema pleno</td>
+          <td class="${tipo==='zero'?'ef':'aq'}">${tipo==='zero'?'0%':fmtPct(alCBS)}</td>
+          <td class="${tipo==='zero'?'ef':'aq'}">${tipo==='zero'?'0%':fmtPct(alIBS_pleno)}</td>
+          <td class="${tipo==='zero'?'ef':'aq'}" style="font-weight:800">${tipo==='zero'?'0%':fmtPct(alEf)}</td>
+          <td style="font-size:.72rem;color:var(--muted)">Sistema completo · IBS pleno</td>
+        </tr>
+        <tr style="background:rgba(75,127,255,.06)"><td>Referência cheia (sem redução)</td>
+          <td>${fmtPct(AL_CBS_REF)}</td><td>${fmtPct(AL_IBS_REF)}</td>
+          <td style="font-weight:700">${fmtPct(AL_TOTAL)}</td>
+          <td style="color:${tipo==='full'?'var(--muted)':'var(--green)'}">
+            ${tipo==='full'?'Sem redução':tipo==='zero'?'Economia: 100%':'Economia: '+fmtPct((1-reducao))+' da alíquota'}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:1rem">
+      <div class="card-title">Simule o impacto sobre o faturamento</div>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:.75rem">
+        <div class="fg" style="margin:0;flex:1;min-width:160px">
+          <label>Faturamento mensal (R$)</label>
+          <input id="sim-fat-cnae" class="money" placeholder="50.000,00" oninput="mm(this);calcImpactoCNAE()">
+        </div>
+        <div class="fg" style="margin:0;flex:1;min-width:140px">
+          <label>Créditos CBS/IBS entradas (R$)</label>
+          <input id="sim-cred-cnae" class="money" placeholder="0,00" oninput="mm(this);calcImpactoCNAE()">
+        </div>
+      </div>
+      <div id="sim-cnae-calc"></div>
+    </div>
+
+    <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)">
+      <p style="font-size:.68rem;color:var(--muted);line-height:1.6">
+        ⚠️ <strong>Importante:</strong> O enquadramento não depende apenas do CNAE. 
+        Para profissões do art.127 (redução 30%), é necessário verificar composição societária, 
+        habilitação dos sócios e objeto social. Consulte um contador especializado antes de 
+        parametrizar os documentos fiscais. Alíquota CBS 2027 ainda não definida — Senado fixa até 15/dez/2026.<br>
+        Fontes: ${art} · EC 132/2023 · LC 214/2025 · LC 227/2026.
+      </p>
+    </div>
+  `;
+}
+// ═══════════════════════════════════════════════════════════════════════════
+// TAB 3 — SIMULADOR MENSAL
+// ═══════════════════════════════════════════════════════════════════════════
+function simularMensal(){
+  const recMes  = pm(document.getElementById('sim-rec').value);
+  const folMes  = pm(document.getElementById('sim-fol').value);
+  const mesIni  = +document.getElementById('sim-mes').value;
+  const rbtIni  = pm(document.getElementById('sim-rbt-ini').value);
+  const fsIni   = pm(document.getElementById('sim-fs-ini').value);
+  if(!recMes||!folMes){alert('Informe receita e folha mensais.');return}
+
+  const meses=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  let rbt12=rbtIni, fs12=fsIni;
+  let rows='', trocas=0, prevIII=(fs12/rbt12)>=0.28;
+
+  for(let i=0;i<12;i++){
+    rbt12+=recMes; fs12+=folMes;
+    const fr_raw = rbt12>0?fs12/rbt12:0;
+    const fr     = Math.trunc(fr_raw*100)/100;
+    const isIII  = fr>=0.28;
+    const cor    = isIII?'var(--green)':'var(--red)';
+    const mesIdx = (mesIni-1+i)%12;
+    if(i>0&&isIII!==prevIII)trocas++;
+    prevIII=isIII;
+
+    const alAt = dasAnexo(isIII?'III':'V',rbt12);
+    const das  = recMes*alAt;
+
+    rows+=`<tr>
+      <td style="font-weight:600">${meses[mesIdx]}</td>
+      <td>${fmt(recMes)}</td>
+      <td>${fmt(folMes)}</td>
+      <td>${fmt(rbt12)}</td>
+      <td>${fmt(fs12)}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-weight:800;color:${cor}">${(fr*100).toFixed(2)}%</td>
+      <td><span style="background:${isIII?'rgba(34,197,94,.15)':'rgba(244,63,94,.15)'};color:${cor};font-size:.65rem;padding:2px 8px;border-radius:99px;font-weight:700">${isIII?'Anexo III':'Anexo V'}</span></td>
+      <td style="font-family:'JetBrains Mono',monospace;color:var(--amber)">${fmt(das)}</td>
+    </tr>`;
+  }
+
+  const fr_final = Math.trunc((fs12/rbt12)*100)/100;
+  document.getElementById('sim-metrics').innerHTML=`
+    <div class="metric"><div class="ml">RBT12 final</div><div class="mv" style="color:var(--accent)">${fmt(rbt12)}</div></div>
+    <div class="metric"><div class="ml">FS12 final</div><div class="mv" style="color:var(--accent)">${fmt(fs12)}</div></div>
+    <div class="metric"><div class="ml">Fator R final</div><div class="mv" style="color:${fr_final>=0.28?'var(--green)':'var(--red)'}">${(fr_final*100).toFixed(2)}%</div></div>
+    <div class="metric"><div class="ml">Enquadramento final</div><div class="mv" style="color:${fr_final>=0.28?'var(--green)':'var(--red)'}">${fr_final>=0.28?'Anexo III':'Anexo V'}</div></div>
+    <div class="metric"><div class="ml">Trocas de anexo</div><div class="mv" style="color:${trocas>0?'var(--amber)':'var(--muted)'}">${trocas} troca${trocas!==1?'s':''}</div></div>
+  `;
+  document.getElementById('sim-tbody').innerHTML=rows;
+  document.getElementById('sim-result').style.display='block';
+}
+
+
+function switchTab(id,el){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+// ═══════════════════════════════════════════════════════════════════════════
+// TAB 2 — CALCULADORA FATOR R
+// ═══════════════════════════════════════════════════════════════════════════
+function toggleAutoFR(){
+  const auto = document.getElementById('fr-auto').checked;
+  document.getElementById('fr-fgts').disabled = auto;
+  document.getElementById('fr-inss-pro').disabled = auto;
+  if(auto) autoCalcFR();
+}
+
+
 // ═══════════════════════════════════════════════════════════════════════════
 // EXPORTAR PDF — imprime apenas o painel ativo com identidade visual
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1727,9 +2697,9 @@ const SN={
 // ═══════════════════════════════════════════════════════════════════════════
 // UTILS
 // ═══════════════════════════════════════════════════════════════════════════
-function mm(el){let v=el.value.replace(/\D/g,'');v=(parseInt(v)||0).toString();while(v.length<3)v='0'+v;let i=v.slice(0,-2).replace(/^0+/,'')||'0';i=i.replace(/\B(?=(\d{3})+(?!\d))/g,'.');el.value=i+','+v.slice(-2)}
-function pm(s){if(!s)return 0;return parseFloat(s.replace(/\./g,'').replace(',','.'))||0}
-function fmt(n){return'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+
+
 function pct(n){if(!isFinite(n)||isNaN(n))return'';return(n*100).toFixed(2)+'%'}
 function limpar(...ids){ids.forEach(id=>{const el=document.getElementById(id);if(!el)return;if(el.type==='number')el.value='0';else if(el.classList.contains('money'))el.value='0,00';else el.value=''})}
 function getComp(){const v=document.getElementById('comp').value||'2026-05';const[a,m]=v.split('-');return m+'/'+a}
@@ -2980,7 +3950,7 @@ function calcPrecificacao(){
 // MOBILE — Drawer + Bottom Nav
 // ═══════════════════════════════════════════════════════════════════════════
 
-const PANEL_NAMES={'holerite': '• Holerite CLT', 'rescisao': '• Rescisão', 'ferias': '• Férias', 'aviso': '• Aviso Prévio', 'horas': '• Horas Extras', 'jornada': '• Jornada Noturna', 'intermitente': '• Intermitente', 'seguro': '• Seg. Desemprego', 'custo': '• Custo Empregado', 'prolabore': '• Pró-Labore', 'rpa': '• RPA', 'aluguel': '• IR Aluguel', 'mei': '• MEI', 'presumido': '• L. Presumido', 'real': '• L. Real', 'simples': '• Simples Nacional', 'irpfm': '• IR Dividendos', 'precificacao': '• Precificação', 'tabelas': '• Tabelas 2026', 'reformatrib': '• Reforma Trib.'};
+const PANEL_NAMES={'holerite': '• Holerite CLT', 'rescisao': '• Rescisão', 'ferias': '• Férias', 'aviso': '• Aviso Prévio', 'horas': '• Horas Extras', 'jornada': '• Jornada Noturna', 'intermitente': '• Intermitente', 'seguro': '• Seg. Desemprego', 'custo': '• Custo Empregado', 'prolabore': '• Pró-Labore', 'rpa': '• RPA', 'aluguel': '• IR Aluguel', 'mei': '• MEI', 'presumido': '• L. Presumido', 'real': '• L. Real', 'simples': '• Simples Nacional', 'irpfm': '• IR Dividendos', 'precificacao': '• Precificação', 'tabelas': '• Tabelas 2026', 'reformatrib': '• Reforma Trib.','cnae-consulta':'• Consulta CNAE','sim-mensal':'• Sim. Fator R','rel-cliente':'• Rel. Cliente'};
 // IDs que têm atalho direto na bottom nav
 const MOB_NAV_IDS = ['holerite','rescisao','prolabore','simples','tabelas'];
 
@@ -3273,39 +4243,37 @@ const SETOR_COR = {
   agro:'#10b981'
 };
 
-function renderCNAE(dados){
-  const tbody = document.getElementById('cnae-tbody');
-  if(!tbody) return;
-  tbody.innerHTML = dados.map(r => {
-    const [cnae, ativ, setor, mb, ml, pres, lei] = r;
-    const cor = SETOR_COR[setor] || 'var(--muted)';
-    const mbStr = mb > 0 ? mb + '%' : '—';
-    const mlStr = ml > 0 ? ml + '%' : '—';
-    // Cor da margem líquida
-    const mlCor = ml >= 20 ? '#10b981' : ml >= 10 ? 'var(--accent)' : ml >= 5 ? 'var(--accent3)' : ml > 0 ? 'var(--accent4)' : 'var(--muted)';
-    return `<tr style="cursor:pointer" onclick="selecionarCNAE(${ml},'${ativ}')" title="Clique para usar esta margem na calculadora">
-      <td style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted)">${cnae}</td>
-      <td style="font-size:.76rem;color:var(--text)">${ativ}</td>
-      <td><span style="background:${cor}20;color:${cor};font-size:.6rem;padding:2px 6px;border-radius:99px;font-weight:700;white-space:nowrap">${SETOR_LABEL[setor]||setor}</span></td>
-      <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--accent)">${mbStr}</td>
-      <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;color:${mlCor}">${mlStr}</td>
-      <td style="text-align:center;font-size:.72rem;color:var(--accent3)">${pres}</td>
-      <td style="font-size:.66rem;color:var(--muted)">${lei}</td>
-    </tr>`;
-  }).join('');
-  document.getElementById('cnae-count').textContent = dados.length + ' atividades exibidas de ' + CNAE_DADOS.length + ' cadastradas';
-}
+
 
 function filtrarCNAE(){
-  const busca = (document.getElementById('cnae-busca').value||'').toLowerCase();
-  const setor = document.getElementById('cnae-setor').value;
+  const busca = (document.getElementById('cnae-busca-prec')&&document.getElementById('cnae-busca-prec').value||'').toLowerCase();
+  const setor = document.getElementById('cnae-setor-prec')&&document.getElementById('cnae-setor-prec').value||'';
   const filtrado = CNAE_DADOS.filter(r => {
     const [cnae, ativ, set] = r;
     const matchSetor = !setor || set === setor;
     const matchBusca = !busca || cnae.toLowerCase().includes(busca) || ativ.toLowerCase().includes(busca);
     return matchSetor && matchBusca;
   });
-  renderCNAE(filtrado);
+  renderCNAEPrec(filtrado);
+}
+function renderCNAEPrec(dados){
+  const tbody = document.getElementById('prec-cnae-tbody');
+  const count = document.getElementById('prec-cnae-count');
+  if(!tbody) return;
+  tbody.innerHTML = dados.map(r => {
+    const [cnae, ativ, setor, mb, ml, pres, lei] = r;
+    const mlCor = ml>=20?'var(--success)':ml>=10?'var(--accent)':ml>=5?'var(--accent3)':'var(--muted)';
+    return `<tr style="cursor:pointer" onclick="selecionarCNAE(${ml},'${ativ.replace(/'/g,'&apos;')}')" title="Usar esta margem na calculadora">
+      <td style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted)">${cnae}</td>
+      <td style="font-size:.76rem">${ativ}</td>
+      <td style="font-size:.7rem;color:var(--muted)">${setor}</td>
+      <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--accent)">${mb}%</td>
+      <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;color:${mlCor}">${ml}%</td>
+      <td style="text-align:center;font-size:.72rem;color:var(--accent3)">${pres}</td>
+      <td style="font-size:.66rem;color:var(--muted)">${lei}</td>
+    </tr>`;
+  }).join('');
+  if(count) count.textContent = dados.length + ' atividades';
 }
 
 function selecionarCNAE(margem, atividade){
@@ -3323,7 +4291,7 @@ function selecionarCNAE(margem, atividade){
 }
 
 // Inicializar tabela ao carregar
-document.addEventListener('DOMContentLoaded', ()=>{ renderCNAE(CNAE_DADOS); });
+document.addEventListener('DOMContentLoaded', ()=>{ renderCNAEPrec(CNAE_DADOS); });
 
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -3351,107 +4319,7 @@ function fmtInput(n){
   return int.replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+s.slice(-2);
 }
 
-function calcFatorR(){
-  const rbt12  = pm(document.getElementById('fr-rbt12').value);
-  const sal    = pm(document.getElementById('fr-sal').value);
-  const pro    = pm(document.getElementById('fr-pro').value);
-  const fgtsEl = document.getElementById('fr-fgts');
-  const autoFGTS = document.getElementById('fr-auto-fgts').checked;
-  const fgts   = autoFGTS ? sal*0.08 : pm(fgtsEl.value);
-  const dec13  = pm(document.getElementById('fr-13').value);
-  const ferias = pm(document.getElementById('fr-fer').value);
-  const cpp      = pm(document.getElementById('fr-cpp').value);
-  const inssPro  = autoFGTS
-    ? Math.min(pro,8475.55)*0.11
-    : pm(document.getElementById('fr-inss-pro').value);
 
-  if(!rbt12){ alert('Informe o RBT12 (receita bruta 12 meses).'); return; }
-  if(!sal && !pro){ alert('Informe ao menos salários CLT ou pró-labore.'); return; }
-
-  const folha12 = sal + pro + inssPro + fgts + dec13 + ferias + cpp;
-  // Fator R: TRUNCADO em 2 casas decimais (não arredondado) — Manual PGDAS-D
-  const fatorR_raw = rbt12 > 0 ? folha12 / rbt12 : 0;
-  const fatorR = Math.trunc(fatorR_raw * 100) / 100; // truncamento obrigatório
-  const pct     = (fatorR * 100).toFixed(2);    // valor truncado (usado no PGDAS)
-  const pct_raw = (fatorR_raw * 100).toFixed(4); // valor real antes do truncamento
-  const isAnxIII = fatorR >= 0.28;
-  const diff    = Math.abs(fatorR - 0.28) * rbt12; // R$ de diferença
-
-  // ── Alíquota efetiva por anexo para comparar ──────────────
-  function dasAnexo(anx, rbt){
-    const tab = SN[anx]; if(!tab) return 0;
-    let al_nom=0, ded_sn=0;
-    for(const f of tab.faixas){ if(rbt<=f.ate){al_nom=f.al;ded_sn=f.ded;break} }
-    return (rbt*al_nom - ded_sn) / rbt;
-  }
-  const alIII = dasAnexo('III', rbt12);
-  const alV   = dasAnexo('V',   rbt12);
-  const recMes = rbt12/12;
-  const econMes = recMes*(alV - alIII);
-
-  const cor  = isAnxIII ? 'var(--accent2)' : 'var(--accent4)';
-  const icon = isAnxIII ? '✅' : '⚠️';
-
-  let rows = hSec('Composição da Folha de Salários (12 meses)');
-  rows += hRow('Salários CLT',              '', fmt(sal),    sal>0?'p':'n');
-  rows += hRow('Pró-labore dos sócios',     '', fmt(pro),    pro>0?'p':'n');
-  rows += hRow(`FGTS (8% salários${autoFGTS?' — automático':''})`, '', fmt(fgts), fgts>0?'p':'n');
-  rows += hRow('INSS sobre pró-labore (11%)', autoFGTS?'automático':'informado', fmt(inssPro), inssPro>0?'p':'n');
-  if(dec13>0) rows += hRow('13º salário pago',      '', fmt(dec13),  'p');
-  if(ferias>0)rows += hRow('Férias pagas',           '', fmt(ferias), 'p');
-  if(cpp>0)   rows += hRow('CPP (Contribuição Patronal)', '', fmt(cpp), 'p');
-  rows += `<div class="hole-row" style="background:rgba(212,160,23,.06)">
-    <span class="d" style="font-weight:700">Total Folha 12 meses</span>
-    <span class="v p" style="font-size:.95rem">${fmt(folha12)}</span></div>`;
-  rows += hSec('Cálculo do Fator R');
-  rows += hRow('RBT12', '', fmt(rbt12), 'n');
-  rows += hRow('Folha 12 meses', '', fmt(folha12), 'n');
-  rows += hRow('Fórmula', 'Folha ÷ RBT12', `${fmt(folha12)} ÷ ${fmt(rbt12)}`, 'n');
-  rows += `<div class="hole-row" style="background:${isAnxIII?'rgba(16,185,129,.08)':'rgba(248,113,113,.08)'}">
-    <span class="d" style="font-weight:700;font-size:.95rem">${icon} Fator R</span>
-    <span class="v" style="color:${cor};font-size:1.3rem;font-weight:700">${pct}%</span></div>`;
-  rows += hSec('Enquadramento e Impacto Fiscal');
-  rows += hRow('Resultado',
-    'Limiar: 28%',
-    isAnxIII ? 'Anexo III ✅' : 'Anexo V ⚠️',
-    isAnxIII ? 'p' : 'm');
-  rows += hRow('Alíquota efetiva Anexo III', `RBT12 ${fmt(rbt12)}`, (alIII*100).toFixed(3)+'%', 'n');
-  rows += hRow('Alíquota efetiva Anexo V',   `RBT12 ${fmt(rbt12)}`, (alV*100).toFixed(3)+'%',   'n');
-  if(!isAnxIII && econMes>0){
-    rows += hRow('Economia mensal possível', 'migrar p/ Anexo III', fmt(econMes), 'p');
-    const folhaNec = 0.28*rbt12;
-    rows += hRow('Folha necessária para Fator R ≥ 28%', '', fmt(folhaNec), 'n');
-    rows += hRow('Aumento de folha necessário', '', fmt(folhaNec-folha12), 'p');
-  } else if(isAnxIII){
-    const folhaMin = 0.28*rbt12;
-    const margem   = folha12 - folhaMin;
-    rows += hRow('Margem de segurança (folha acima do mínimo)', '', fmt(margem), 'p');
-    rows += hRow('Redução máxima de folha sem perder Anexo III', '', fmt(margem), 'n');
-  }
-
-  const tots = hTot(
-    isAnxIII ? 'Enquadrado no Anexo III' : 'Enquadrado no Anexo V',
-    pct + '%',
-    isAnxIII ? 'liq' : 'ded'
-  );
-
-  document.getElementById('fr-result').innerHTML = `
-    <div class="metrics">
-      <div class="metric"><div class="ml">Fator R</div><div class="mv" style="color:${cor};font-size:1.1rem;font-weight:700">${pct}%</div></div>
-      <div class="metric"><div class="ml">Enquadramento</div><div class="mv" style="color:${cor};font-size:.85rem">${isAnxIII?'Anexo III':'Anexo V'}</div></div>
-      <div class="metric"><div class="ml">Alíq. Ef. atual</div><div class="mv" style="color:var(--accent3)">${isAnxIII?(alIII*100).toFixed(2):(alV*100).toFixed(2)}%</div></div>
-      <div class="metric"><div class="ml">Folha 12m</div><div class="mv" style="color:var(--accent2)">${fmt(folha12)}</div></div>
-      ${!isAnxIII?`<div class="metric"><div class="ml">Econ. potencial/mês</div><div class="mv" style="color:var(--success)">${fmt(econMes)}</div></div>`:''}
-    </div>
-    <div class="hole">
-      <div class="hole-hd"><h3>Análise Fator R</h3><span class="ref">LC 123/2006 · Res. CGSN 140/2018 · ${getComp()}</span></div>
-      ${rows}
-      ${tots}
-    </div>`;
-
-  // Gravar no storage global para uso em calcSimples
-  window._fatorR_result = { folha12, rbt12, fatorR, isAnxIII };
-}
 
 function simularFatorR(){
   const recMes = pm(document.getElementById('fr-sim-rec').value);
@@ -3484,6 +4352,166 @@ function simularFatorR(){
   document.getElementById('fr-sim-tbody').innerHTML = rows;
   document.getElementById('fr-sim-result').style.display = 'block';
 }
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CBS / IBS — Reforma Tributária (LC 214/2025 + LC 227/2026)
+// Dados: 15/09/2026 — proposta alíquota CBS entregue ao TCU hoje
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Alíquotas por fase (LC 214/2025 arts.343,346; Res. CGIBS nº 14/2026)
+const CBS_FASES = {
+  '2026':    { cbs: 0.009, ibs: 0.001, label: '2026 — teste', nota: 'Valores compensáveis com PIS/COFINS. Simples isento.' },
+  '2027':    { cbs: 0.088, ibs: 0.001, label: '2027 — estimativa conservadora', nota: 'CBS estimada ≈8,8%. IBS transitório 0,1% (art.344 LC214). Alíquota a ser fixada pelo Senado até 15/dez/2026.' },
+  '2027est': { cbs: 0.0921,ibs: 0.187, label: '2027+ — projeção CGIBS', nota: 'Estimativa CGIBS nº 14/2026: CBS 9,21% + IBS 18,70% = 27,91%. Teto legal: 26,5%. NÃO é alíquota definitiva.' },
+  'custom':  { cbs: null, ibs: null, label: 'Personalizado', nota: 'Use para simular cenários específicos.' }
+};
+
+// Alíquotas reduzidas por setor (LC 214/2025 arts.107-111 CBS / 183-188 IBS)
+const REDUCOES_CBS = {
+  'geral':       1.00, // alíquota cheia
+  'saude':       0.40, // redução de 60% — art.108
+  'educacao':    0.40, // redução de 60%
+  'alimentos':   0.40, // redução de 60% (cesta básica: 0%)
+  'transporte':  0.40, // redução de 60%
+  'cesta':       0.00, // isenção cesta básica ampliada
+  'medicamento': 0.00, // isenção medicamentos
+};
+
+function updateCBSregime(){
+  const reg = document.getElementById('cbs-regime').value;
+  const notaSN = document.getElementById('cbs-sn-nota');
+  if(notaSN) notaSN.style.display = reg === 'sn' || reg === 'mei' ? 'block' : 'none';
+}
+
+document.getElementById('cbs-fase')?.addEventListener('change', function(){
+  const isCustom = this.value === 'custom';
+  const cf = document.getElementById('cbs-custom-fields');
+  if(cf) cf.style.display = isCustom ? 'block' : 'none';
+});
+
+function calcCBSIBS(){
+  const valor   = pm(document.getElementById('cbs-valor').value);
+  const regime  = document.getElementById('cbs-regime').value;
+  const fase    = document.getElementById('cbs-fase').value;
+  const credito = pm(document.getElementById('cbs-credito').value);
+  if(!valor){ alert('Informe o valor da operação.'); return; }
+
+  // Simples e MEI: isentos em 2026
+  if((regime==='sn'||regime==='mei') && fase==='2026'){
+    document.getElementById('cbs-result').innerHTML = `
+      <div class="sbox">✅ <strong>Simples Nacional / MEI em 2026:</strong> isentos das alíquotas-teste de CBS e IBS (art.348, III, "c" da LC 214/2025). Sem recolhimento, sem destaque obrigatório na NF-e para o Simples em 2026. Aguardar regulamentação para 2027.</div>`;
+    return;
+  }
+
+  let al_cbs, al_ibs, label_fase, nota_fase;
+  if(fase === 'custom'){
+    al_cbs = (+document.getElementById('cbs-al-custom').value||0) / 100;
+    al_ibs = (+document.getElementById('ibs-al-custom').value||0) / 100;
+    label_fase = 'Personalizado';
+    nota_fase  = 'Simulação com alíquotas personalizadas.';
+  } else {
+    const f = CBS_FASES[fase];
+    al_cbs = f.cbs; al_ibs = f.ibs;
+    label_fase = f.label; nota_fase = f.nota;
+  }
+
+  const cbs_bruto    = valor * al_cbs;
+  const ibs_bruto    = valor * al_ibs;
+  const total_bruto  = cbs_bruto + ibs_bruto;
+  const cbs_liq      = Math.max(0, cbs_bruto - credito*(al_cbs/(al_cbs+al_ibs||1)));
+  const ibs_liq      = Math.max(0, ibs_bruto - credito*(al_ibs/(al_cbs+al_ibs||1)));
+  const total_liq    = Math.max(0, total_bruto - credito);
+  const carga_ef     = valor > 0 ? (total_liq/valor*100).toFixed(3)+'%' : '0%';
+
+  // PIS + COFINS equivalente para comparação (regime LP/LR)
+  const pis_atual    = regime !== 'sn' ? valor * 0.0065 : 0;
+  const cofins_atual = regime !== 'sn' ? valor * 0.03   : 0;
+  const atual_total  = pis_atual + cofins_atual;
+
+  let rows = hSec('CBS — Contribuição sobre Bens e Serviços (Federal)');
+  rows += hRow(`CBS (${(al_cbs*100).toFixed(2)}%)`, `${label_fase}`, fmt(cbs_bruto), cbs_bruto>0?'m':'n');
+  rows += hSec('IBS — Imposto sobre Bens e Serviços (Est./Mun.)');
+  rows += hRow(`IBS (${(al_ibs*100).toFixed(2)}%)`, fase==='2027'?'transitório 2027':'', fmt(ibs_bruto), ibs_bruto>0?'m':'n');
+  rows += hSec('Apuração Líquida');
+  rows += hRow('CBS + IBS bruto', '', fmt(total_bruto), 'm');
+  if(credito>0){
+    rows += hRow('(−) Créditos das entradas','não cumulativo',fmt(credito),'n');
+    rows += hRow('CBS + IBS a recolher','',fmt(total_liq),'m');
+  }
+  if(regime!=='sn' && fase!=='2026'){
+    rows += hSec('Comparativo: sistema atual (PIS + COFINS)');
+    rows += hRow('PIS (0,65%)','regime cumulativo',fmt(pis_atual),'n');
+    rows += hRow('COFINS (3%)','regime cumulativo',fmt(cofins_atual),'n');
+    rows += hRow('Total PIS + COFINS atual','',fmt(atual_total),'n');
+    const delta = total_liq - atual_total;
+    rows += hRow('Variação vs sistema atual', delta>=0?'aumento':'redução', `${delta>=0?'+':''}${fmt(delta)}`, delta>=0?'m':'p');
+  }
+  rows += `<div class="hole-row" style="background:rgba(255,255,255,.03)"><span class="d" style="font-size:.7rem;color:var(--muted)">${nota_fase}</span></div>`;
+
+  const tots = hTot(`CBS + IBS a recolher (carga ef. ${carga_ef})`, fmt(total_liq), total_liq>0?'ded':'liq');
+
+  document.getElementById('cbs-result').innerHTML = `
+    <div class="metrics">
+      <div class="metric"><div class="ml">CBS</div><div class="mv" style="color:var(--accent4)">${fmt(cbs_bruto)}</div></div>
+      <div class="metric"><div class="ml">IBS</div><div class="mv" style="color:var(--accent4)">${fmt(ibs_bruto)}</div></div>
+      <div class="metric"><div class="ml">Total</div><div class="mv" style="color:var(--accent4);font-weight:700">${fmt(total_bruto)}</div></div>
+      ${credito>0?`<div class="metric"><div class="ml">Líquido (créditos)</div><div class="mv" style="color:var(--accent3)">${fmt(total_liq)}</div></div>`:''}
+      ${regime!=='sn'&&fase!=='2026'?`<div class="metric"><div class="ml">PIS+COFINS atual</div><div class="mv" style="color:var(--muted)">${fmt(atual_total)}</div></div>`:''}
+    </div>
+    <div class="hole">
+      <div class="hole-hd"><h3>Simulação CBS / IBS</h3><span class="ref">${label_fase} · ${getComp()}</span></div>
+      ${rows}${tots}
+    </div>`;
+}
+
+
+// ── CNAE/IBS/FATOR R — funções da nova ferramenta ──
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CONSTANTES — Alíquotas de referência (estimativa 2027, não definitiva)
+// LC 214/2025 · Res. CGIBS nº 14/2026 · Status 15/09/2026
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BASE DE DADOS CNAE × BENEFÍCIO LC 214/2025
+// Campos: [cnae, descricao, grupo, tipo, reducao, art, obs]
+// tipo: zero | red60 | red40 | red30 | full
+// reducao: fração da alíquota de referência (0 = isento, 0.4 = paga 40%, etc.)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── LABELS E CORES ──────────────────────────────────────────────────────────
+
+// ═══════════════════════════════════════════════════════════════════════════
+// UTILIDADES
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TAB 1 — CONSULTA CNAE
+// ═══════════════════════════════════════════════════════════════════════════
+let filtroAtivo = '';
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TAB 2 — CALCULADORA FATOR R
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TAB 3 — SIMULADOR MENSAL
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TAB 4 — RELATÓRIO PARA CLIENTE
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── INICIALIZAÇÃO ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  // Mostrar todos os CNAEs no início quando filtro ativo
+  document.getElementById('cnae-q').addEventListener('keydown',e=>{
+    if(e.key==='Enter')buscarCNAE();
+  });
+});
+
 
 </script>
 </body>
