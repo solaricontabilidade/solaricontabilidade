@@ -6,11 +6,11 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="description" content="Solari Contabilidade — Calculadoras de folha, rescisão, férias, Simples Nacional, Fator R e mais.">
 <meta name="author" content="Solari Contabilidade — CRC-TO 001085/O-1">
-<meta name="version" content="v1.11">
+<meta name="version" content="v1.12">
 <meta name="theme-color" content="#051221">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Solari Contabilidade — Departamento Pessoal</title>
+<title>Solari Contabilidade — Ferramentas Gratuitas</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -574,7 +574,7 @@ select option{background:var(--bg2)}
   <button class="mob-drawer-btn" onclick="goMob('reformatrib',this)"><span>⚖️</span> Reforma Tributária</button>
   <div class="mob-drawer-section">Simulação &amp; Consulta</div>
   <button class="mob-drawer-btn" onclick="goMob('cnae-consulta',this)"><span>🔍</span> Consulta CNAE</button>
-  <button class="mob-drawer-btn" onclick="goMob('sim-mensal',this)"><span>📅</span> Simulador Mensal</button>
+  <button class="mob-drawer-btn" onclick="goMob('sim-mensal',this)"><span>📅</span> Simulador Reforma + Simples</button>
   <button class="mob-drawer-btn" onclick="goMob('rel-cliente',this)"><span>📋</span> Relatório Cliente</button>
 </div>
 
@@ -606,7 +606,7 @@ select option{background:var(--bg2)}
     <img src="data:image/png;base64,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bAwDAizIaIO+VZt7n9rY4FfHHenmPIecWHm7ID4R8NDVkPuLtjwNzld5HfFs2kFCSYDqB8U+vwLf+16t99Z8xLwTCkrnHVc0rygmL5SSP0jGzFFkLKkUCsYU4YT3T3NPOm0mTZxaJEEayGTh5ZxBqw0plYYUBAG1L5TIBmC939cmH4XITzez//N9kYl8lIJNPisFDPRltJt1AKGosNimtVt6cef9W7XFrKRFvKfV/eqDz7X8ZKgm63APbRoqDitTmExC1NRAlI1w478jCQNUmYAoL6+gt2te/tlLJpSXxO0LIxZfRazPsQhhy7YxdkoZTjp9unviSRNEvCREyObIDOSrAP14jH/T54XLWhPYgI0vfDae/9Q3hgDjbzz1o5oMaLA2xAxmwwA0MYiEUIgXhWjZ6jY88PA2rySmrKxrmrfvyX72iVWdT1YnfONzOPNRg6FLWw8Fo6KE8ghDibzA32rBr6kYN2vyxMjFFvE/GuOdZwuhIvEojpsz2TvtA9MwfWqhgJI0eHihf2sYhtGANgSjAaMBGEBrgLW/0h600Nrk42qa9sXgmAFjCIbhEvGjz+zF0mcaddkY2+ro06u27Mp87Nn13duOtK87XASCHmL2tfmdj7+IMV//4bKTSkvCHxMwlezo4yxboWxSMSZOKfaUUPn21r7LQTBs/LSdnwrNl6UwDLPxV2rsB4U5HyPO+8++/0EwBBC2NvTxti29srRYyuZO74G7lzZfByDzXjwM6EAJBD2MJAGBCoiqGuwr3poCRK66avKlERufgWcWSOLYYCEWkA9X7EvQ+TIeTBL5GXuCgG+MzeBNkPdYTD59L8j3XJQlwCC9ty1X9eDzbbcQAd9lvyrvSMzHSBAIeoQYtNz7P+YvPbV4+owpkVMc10zLeSxZgwz8rCgDZDRADN5/52d+DUiD32cGCWGM1qC/CC9oUNgWmdZO56WnXu1adzQeNB8wOqBEApJHsDvokepxdyQILPQRJAmI+rfEwIecIT7gKCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg4Ojk/wMGMpzG5pKVmAAAAABJRU5ErkJggg==" alt="Solari" style="width:34px;height:34px;flex-shrink:0">
     <div>
     <h1>Solari <span>Contabilidade</span></h1>
-    <p>DEPARTAMENTO PESSOAL <span style="background:rgba(212,160,23,.15);color:var(--accent);font-size:.58rem;padding:1px 5px;border-radius:4px;font-weight:700">v1.11</span> <span style="background:rgba(16,185,129,.15);color:var(--success);font-size:.58rem;padding:1px 5px;border-radius:4px;font-weight:700">BASE LEGAL 2026</span> <span id="mob-panel-title" style="display:none"></span></p>
+    <p>FERRAMENTAS GRATUITAS <span style="background:rgba(212,160,23,.15);color:var(--accent);font-size:.58rem;padding:1px 5px;border-radius:4px;font-weight:700">v1.12</span> <span style="background:rgba(16,185,129,.15);color:var(--success);font-size:.58rem;padding:1px 5px;border-radius:4px;font-weight:700">BASE LEGAL 2026</span> <span id="mob-panel-title" style="display:none"></span></p>
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:12px">
@@ -651,7 +651,7 @@ select option{background:var(--bg2)}
   <button class="nav-btn" onclick="go('reformatrib',this)">⚖️ Reforma Tributária</button>
   <div class="sidebar-section">Simulação &amp; Consulta</div>
   <button class="nav-btn" onclick="go('cnae-consulta',this)">🔍 Consulta CNAE</button>
-  <button class="nav-btn" onclick="go('sim-mensal',this)">📅 Simulador Mensal</button>
+  <button class="nav-btn" onclick="go('sim-mensal',this)">📅 Simulador Reforma + Simples</button>
   <button class="nav-btn" onclick="go('rel-cliente',this)">📋 Relatório Cliente</button>
 </nav>
 
@@ -1414,6 +1414,28 @@ select option{background:var(--bg2)}
 </div>
 </div>
 
+<!-- ── Reforma Tributária na Precificação — 2026-2033 ───────────── -->
+<div class="card" style="margin-top:1.5rem" id="pc-reforma-card">
+  <div class="card-title">⚖️ Impacto da Reforma Tributária no Preço (2026–2033)</div>
+  <div class="ibox">Simule como a CBS e o IBS alteram o preço de venda ao longo da transição da Reforma Tributária (LC 214/2025), diferenciando venda para consumidor final (sem crédito) e venda para empresa (crédito integral não cumulativo). Use o preço calculado no simulador acima ou informe um valor próprio — atualize esta simulação sempre que o cronograma oficial avançar, para manter os clientes alinhados com cada nova fase.</div>
+  <div class="g3">
+    <div class="fg"><label>Valor da operação — base sem imposto (R$)</label>
+      <input id="pcr-valor" class="money" placeholder="Usa o preço calculado acima" oninput="mm(this)"></div>
+    <div class="fg"><label>Tipo de cliente</label>
+      <select id="pcr-cliente">
+        <option value="b2c">Consumidor final (B2C) — sem crédito</option>
+        <option value="b2b">Empresa (B2B) — crédito integral</option>
+      </select>
+    </div>
+    <div class="fg"><label>CNAE / Atividade (opcional — aplica redução setorial)</label>
+      <input id="pcr-cnae" placeholder="Ex: 6920-6/01 ou contabilidade" oninput="buscarCNAEPreco()">
+      <div id="pcr-cnae-info" style="font-size:.68rem;color:var(--muted);margin-top:4px"></div>
+    </div>
+  </div>
+  <button class="btn" onclick="simularReformaPrecificacao()">Simular Impacto da Reforma</button>
+  <div id="pcr-result" style="margin-top:1rem"></div>
+</div>
+
 <!-- ── Tabela CNAE + Margens ─────────────────────────────────── -->
 <div style="margin-top:1.5rem">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.6rem">
@@ -1834,9 +1856,46 @@ select option{background:var(--bg2)}
 
 <!-- ═══════════════════ SIMULADOR MENSAL ════════════════ -->
 <div id="p-sim-mensal" class="panel">
-<div class="panel-title">📅 Simulador Mensal — Evolução do Fator R</div>
+<div class="panel-title">📅 Simulador Reforma Tributária &amp; Simples Nacional</div>
 <div>
-  <div class="section-head">📅 Simulador de Evolução do Fator R — 12 Meses</div>
+  <div class="section-head">🧩 Módulo 1 — Regime Híbrido do Simples Nacional (IBS/CBS por fora)</div>
+  <div class="ibox">A Reforma Tributária (LC 214/2025 · Resolução CGSN 190/2026) permite às empresas do Simples Nacional optar entre o <strong>regime regular</strong> (IBS e CBS continuam embutidos na alíquota do Anexo, dentro do DAS) e o <strong>regime híbrido</strong> (IBS e CBS saem do DAS — que é recalculado com dedução correspondente — e passam a ser apurados separadamente pelo regime não cumulativo, com direito a crédito integral das entradas e crédito integral repassado aos clientes PJ). Informe o CNAE e o perfil de vendas para obter uma recomendação.</div>
+  <div id="simh-prazo"></div>
+
+  <div class="card" style="margin-bottom:1.5rem">
+    <div class="card-title">Dados da Empresa</div>
+    <div class="g3">
+      <div class="fg"><label>CNAE / Atividade principal</label>
+        <input id="simh-cnae" placeholder="Ex: 6920-6/01 ou contabilidade" oninput="buscarCNAESimples()">
+        <div id="simh-cnae-info" style="font-size:.68rem;color:var(--muted);margin-top:4px"></div>
+      </div>
+      <div class="fg"><label>Receita mensal média (R$)</label>
+        <input id="simh-rec" class="money" placeholder="50.000,00" oninput="mm(this)"></div>
+      <div class="fg"><label>Ano de referência da simulação</label>
+        <select id="simh-ano">
+          <option value="2027" selected>2027 — início da cobrança plena de CBS</option>
+          <option value="2028">2028</option>
+          <option value="2029">2029 — IBS a 10%</option>
+          <option value="2030">2030 — IBS a 20%</option>
+          <option value="2031">2031 — IBS a 30%</option>
+          <option value="2032">2032 — IBS a 40%</option>
+          <option value="2033">2033 — sistema pleno</option>
+        </select>
+      </div>
+    </div>
+    <div class="g2f">
+      <div class="fg"><label>% das vendas para empresas (B2B, que aproveitam crédito)</label>
+        <input id="simh-b2b" type="number" min="0" max="100" step="5" value="20"></div>
+      <div class="fg"><label>% das compras/insumos com direito a crédito de CBS/IBS</label>
+        <input id="simh-credito" type="number" min="0" max="100" step="5" value="20"></div>
+    </div>
+    <button class="btn" onclick="analisarRegimeHibrido()">Analisar Regime Recomendado</button>
+    <div id="simh-result" style="margin-top:1rem"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-head">📊 Módulo 2 — Evolução do Fator R e Enquadramento no Simples — 12 Meses</div>
   <div class="ibox">Simule mês a mês a evolução do Fator R para prever quando a empresa atinge ou perde o enquadramento no Anexo III. Ideal para planejamento tributário preventivo.</div>
 
   <div class="card" style="margin-bottom:1.5rem">
@@ -1879,11 +1938,12 @@ select option{background:var(--bg2)}
           <th>Fator R (trunc.)</th>
           <th>Enquadramento</th>
           <th>DAS estimado</th>
+          <th>CBS+IBS estimado<sup>†</sup></th>
         </tr></thead>
         <tbody id="sim-tbody"></tbody>
       </table>
     </div>
-    <p style="font-size:.68rem;color:var(--muted);margin-top:.5rem">DAS estimado = receita mensal × alíquota efetiva do Anexo III ou V para o RBT12 acumulado · Base: Res. CGSN 140/2018 · Tabelas LC 123/2006</p>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:.5rem">DAS estimado = receita mensal × alíquota efetiva do Anexo III ou V para o RBT12 acumulado · Base: Res. CGSN 140/2018 · Tabelas LC 123/2006<br><sup>†</sup> CBS+IBS estimado = receita mensal × alíquota efetiva do ano/CNAE informados no Módulo 1 (botão "Analisar Regime Recomendado"). No regime <strong>híbrido</strong>, esse valor passa a ser apurado separadamente (com direito a crédito) e o DAS é reduzido na parcela correspondente; no regime <strong>regular</strong>, ele já está embutido na alíquota do Anexo mostrada na coluna "DAS estimado".</p>
   </div>
 </div>
 </div>
@@ -2566,6 +2626,7 @@ function simularMensal(){
 
     const alAt = dasAnexo(isIII?'III':'V',rbt12);
     const das  = recMes*alAt;
+    const cbsIbsEst = recMes*SIMH_ALIQ_EF();
 
     rows+=`<tr>
       <td style="font-weight:600">${meses[mesIdx]}</td>
@@ -2576,6 +2637,7 @@ function simularMensal(){
       <td style="font-family:'JetBrains Mono',monospace;font-weight:800;color:${cor}">${(fr*100).toFixed(2)}%</td>
       <td><span style="background:${isIII?'rgba(34,197,94,.15)':'rgba(244,63,94,.15)'};color:${cor};font-size:.65rem;padding:2px 8px;border-radius:99px;font-weight:700">${isIII?'Anexo III':'Anexo V'}</span></td>
       <td style="font-family:'JetBrains Mono',monospace;color:var(--amber)">${fmt(das)}</td>
+      <td style="font-family:'JetBrains Mono',monospace;color:var(--cyan)">${fmt(cbsIbsEst)}</td>
     </tr>`;
   }
 
@@ -2631,7 +2693,7 @@ function exportPDF(){
       <img src="data:image/png;base64,${LOGO_B64_JS}" alt="Solari Contabilidade">
       <div class="lh-info">
         <div class="lh-empresa">Solari <span>Contabilidade</span></div>
-        <div class="lh-sub">Departamento Pessoal</div>
+        <div class="lh-sub">Ferramentas Gratuitas</div>
         ${compLabel?`<div class="lh-comp">Competência: ${compLabel}</div>`:''}
       </div>
     `;
@@ -3962,6 +4024,9 @@ function calcPrecificacao(){
 
   const tots=hTot('Preço de venda sugerido',fmt(precoVenda),'liq')+hTot('Lucro líquido unitário',fmt(lucroLiq),'warn');
   hole('pc-result',rows,tots,'Precificação',`Markup Divisor · ${getComp()}`);
+
+  // Guarda o último cálculo para reuso no simulador de Reforma Tributária abaixo
+  window.PC_LAST={precoVenda,custoBase,pctImposto,margem,reg};
 }
 
 
@@ -4386,6 +4451,189 @@ const CBS_FASES = {
   '2027est': { cbs: 0.0921,ibs: 0.187, label: '2027+ — projeção CGIBS', nota: 'Estimativa CGIBS nº 14/2026: CBS 9,21% + IBS 18,70% = 27,91%. Teto legal: 26,5%. NÃO é alíquota definitiva.' },
   'custom':  { cbs: null, ibs: null, label: 'Personalizado', nota: 'Use para simular cenários específicos.' }
 };
+
+// ═══ CRONOGRAMA COMPLETO DA TRANSIÇÃO — CBS + IBS por ano (2026-2033) ═══
+// Base legal: EC 132/2023 (ADCT art.125-131) · LC 214/2025 · Alíquotas de
+// referência: CBS 8,8% + IBS 17,7% = 26,5% (teto legal — AL_CBS_REF/AL_IBS_REF).
+// CBS entra "de uma vez" em 2027 (federal, substitui PIS/COFINS integralmente).
+// IBS sobe em degraus de 10% a.a. de 2029 a 2032 (ICMS/ISS caem na mesma proporção),
+// completando 100% em 2033 (extinção do ICMS e do ISS).
+const FASES_REFORMA = [
+  {ano:2026, cbs:0.009,  ibs:0.001,  pctIBS:0,   nota:'Ano-teste — valores simbólicos, compensáveis com PIS/COFINS, sem efeito de caixa real. Simples Nacional e MEI isentos (art.348 LC214/2025).'},
+  {ano:2027, cbs:AL_CBS_REF, ibs:0.001,  pctIBS:0,   nota:'CBS passa a ser cobrada em sua totalidade — extinção de PIS e COFINS. IBS ainda em fase de teste (0,1% — art.344 LC214/2025).'},
+  {ano:2028, cbs:AL_CBS_REF, ibs:0.001,  pctIBS:0,   nota:'Igual a 2027 — a transição real do ICMS/ISS para o IBS só começa em 2029.'},
+  {ano:2029, cbs:AL_CBS_REF, ibs:AL_IBS_REF*0.10, pctIBS:10,  nota:'IBS entra com 10% do valor de referência; ICMS/ISS reduzidos em 10% (EC132/2023, ADCT art.128).'},
+  {ano:2030, cbs:AL_CBS_REF, ibs:AL_IBS_REF*0.20, pctIBS:20,  nota:'IBS a 20% do valor de referência; ICMS/ISS reduzidos em 20%.'},
+  {ano:2031, cbs:AL_CBS_REF, ibs:AL_IBS_REF*0.30, pctIBS:30,  nota:'IBS a 30% do valor de referência; ICMS/ISS reduzidos em 30%.'},
+  {ano:2032, cbs:AL_CBS_REF, ibs:AL_IBS_REF*0.40, pctIBS:40,  nota:'IBS a 40% do valor de referência; ICMS/ISS reduzidos em 40%.'},
+  {ano:2033, cbs:AL_CBS_REF, ibs:AL_IBS_REF,      pctIBS:100, nota:'Sistema pleno: IBS 100% do valor de referência. Extinção definitiva do ICMS e do ISS.'},
+];
+function getFaseReforma(ano){ return FASES_REFORMA.find(f=>f.ano===+ano) || FASES_REFORMA[FASES_REFORMA.length-1]; }
+
+// Localiza uma atividade no CNAE_DB por código ou descrição (busca simples, somente leitura)
+function acharCNAE(q){
+  q=(q||'').toLowerCase().trim();
+  if(!q) return null;
+  const qNorm=q.replace(/[-/.]/g,'');
+  return CNAE_DB.find(r=>r[0].replace(/[-/.]/g,'').toLowerCase().includes(qNorm) || r[1].toLowerCase().includes(q)) || null;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PRECIFICAÇÃO — Impacto da Reforma Tributária no preço (2026-2033)
+// ═══════════════════════════════════════════════════════════════════════════
+let PCR_CNAE_SEL=null;
+function buscarCNAEPreco(){
+  const q=document.getElementById('pcr-cnae').value;
+  const info=document.getElementById('pcr-cnae-info');
+  PCR_CNAE_SEL=acharCNAE(q);
+  if(!q){ info.textContent=''; return; }
+  if(PCR_CNAE_SEL){
+    const [cod,nome,,tipo,fator]=PCR_CNAE_SEL;
+    info.innerHTML=`✅ <strong>${cod}</strong> — ${nome} · <span style="color:var(--gold)">${TIPO_LABEL[tipo]}</span> (paga ${(fator*100).toFixed(0)}% da alíquota cheia)`;
+  } else {
+    info.innerHTML=`<span style="color:var(--muted)">Atividade não encontrada na base de reduções setoriais — será usada a alíquota cheia (regra geral).</span>`;
+  }
+}
+
+function simularReformaPrecificacao(){
+  const valorInformado=pm(document.getElementById('pcr-valor').value);
+  const valor = valorInformado>0 ? valorInformado : (window.PC_LAST?.precoVenda||0);
+  if(!valor){ alert('Informe o valor da operação ou calcule o preço de venda no simulador acima.'); return; }
+  const cliente=document.getElementById('pcr-cliente').value;
+  const fator = PCR_CNAE_SEL ? PCR_CNAE_SEL[4] : 1;
+  const nomeCnae = PCR_CNAE_SEL ? `${PCR_CNAE_SEL[0]} — ${PCR_CNAE_SEL[1]}` : 'Atividade geral (sem redução setorial)';
+
+  let rows=hSec(`Base de cálculo — ${nomeCnae}`);
+  rows+=hRow('Valor da operação (base sem CBS/IBS)','',fmt(valor),'n');
+  rows+=hRow('Tipo de cliente',cliente==='b2b'?'Empresa — recupera crédito integral':'Consumidor final — sem direito a crédito',cliente==='b2b'?'B2B':'B2C','n');
+
+  rows+=hSec('Evolução do preço ao longo da transição (2026–2033)');
+  FASES_REFORMA.forEach(f=>{
+    const aliqEf = (f.cbs+f.ibs)*fator;
+    const precoNominal = valor/(1-aliqEf);
+    rows+=`<div class="hole-row"><span class="d">${f.ano}${f.ano===2026?' (hoje)':''}</span><span class="rv">alíq. ef. ${(aliqEf*100).toFixed(3)}%${f.pctIBS?` · IBS ${f.pctIBS}%`:''}</span><span class="v ${cliente==='b2b'?'n':'m'}" style="font-family:'JetBrains Mono',monospace">${fmt(precoNominal)}</span></div>`;
+  });
+
+  if(cliente==='b2b'){
+    rows+=hSec('Para o cliente empresa (B2B) — após recuperar o crédito');
+    rows+=hRow('Custo líquido efetivo do comprador em qualquer fase','crédito de CBS/IBS recupera 100% do tributo destacado',fmt(valor),'p');
+    rows+=`<div class="hole-row"><span class="d" style="color:var(--muted);font-size:.72rem">O preço nominal (destacado na nota) sobe conforme a tabela acima, mas o comprador PJ recupera integralmente o CBS/IBS como crédito não cumulativo — o custo real dele não muda com a reforma, só o fluxo de caixa/nota fiscal.</span></div>`;
+  } else {
+    const fase2033=getFaseReforma(2033);
+    const aliq2033=(fase2033.cbs+fase2033.ibs)*fator;
+    const precoFinal2033=valor/(1-aliq2033);
+    const fase2026=getFaseReforma(2026);
+    const aliq2026=(fase2026.cbs+fase2026.ibs)*fator;
+    const preco2026calc=valor/(1-aliq2026);
+    const aumento=precoFinal2033-preco2026calc;
+    const aumentoPct=preco2026calc>0?(aumento/preco2026calc*100):0;
+    rows+=hSec('Para o consumidor final (B2C) — sem crédito');
+    rows+=hRow('Aumento nominal necessário (2026 → 2033) para manter a mesma margem','se o preço não for reajustado, a margem é quem absorve',`${aumento>=0?'+':''}${fmt(aumento)} (${aumentoPct.toFixed(2)}%)`,aumento>=0?'m':'p');
+  }
+
+  rows+=`<div class="hole-row" style="background:rgba(255,255,255,.03)"><span class="d" style="font-size:.7rem;color:var(--muted)">⚠️ Simulação aplicável a empresas do Lucro Presumido, Lucro Real ou Simples Nacional no <strong>regime híbrido</strong> (que destacam CBS/IBS por fora). No Simples Nacional <strong>regime regular</strong>, esses tributos permanecem embutidos na alíquota do Anexo (DAS) e não são destacados separadamente — consulte o painel "Simulador Reforma + Simples" para avaliar qual regime é mais vantajoso. Alíquotas de referência: CBS 8,8% + IBS 17,7% = 26,5% (teto legal, LC 214/2025); valores de 2027 em diante sujeitos a fixação definitiva pelo Senado.</span></div>`;
+
+  const tots=hTot('Alíquota efetiva em 2033 (referência plena)',fmtPct((FASES_REFORMA[7].cbs+FASES_REFORMA[7].ibs)*fator),'warn');
+  hole('pcr-result',rows,tots,'Reforma Tributária','Simulação 2026–2033');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SIMULADOR MENSAL — Módulo 1: Regime Híbrido do Simples Nacional (IBS/CBS)
+// ═══════════════════════════════════════════════════════════════════════════
+let SIMH_CNAE_SEL=null;
+let SIMH_ULTIMO={ano:2027,fator:1}; // usado pela coluna "CBS+IBS estimado" do Módulo 2
+
+function SIMH_ALIQ_EF(){
+  const f=getFaseReforma(SIMH_ULTIMO.ano);
+  return (f.cbs+f.ibs)*SIMH_ULTIMO.fator;
+}
+
+function buscarCNAESimples(){
+  const q=document.getElementById('simh-cnae').value;
+  const info=document.getElementById('simh-cnae-info');
+  SIMH_CNAE_SEL=acharCNAE(q);
+  if(!q){ info.textContent=''; return; }
+  if(SIMH_CNAE_SEL){
+    const [cod,nome,grupo,tipo,fator]=SIMH_CNAE_SEL;
+    info.innerHTML=`✅ <strong>${cod}</strong> — ${nome} · ${grupo} · <span style="color:var(--gold)">${TIPO_LABEL[tipo]}</span> (${(fator*100).toFixed(0)}% da alíquota cheia)`;
+  } else {
+    info.innerHTML=`<span style="color:var(--muted)">Atividade não encontrada na base de reduções setoriais — será usada a alíquota cheia (regra geral).</span>`;
+  }
+}
+
+// Aviso dinâmico sobre o prazo de opção pelo regime híbrido (Res. CGSN 190/2026:
+// opção de 1º a 30/set/2026, vigência jan-jun/2027; cancelamento até 30/nov/2026,
+// salvo ressarcimento de créditos no ano-calendário corrente ou anterior)
+(function(){
+  const el=document.getElementById('simh-prazo');
+  if(!el) return;
+  const hoje=new Date();
+  const fimOpcao=new Date(2026,8,30,23,59,59); // 30/set/2026
+  if(hoje<=fimOpcao){
+    const dias=Math.ceil((fimOpcao-hoje)/86400000);
+    el.innerHTML=`<div class="wbox">⏰ <strong>Prazo em curso:</strong> a opção pelo regime híbrido para vigência de janeiro a junho de 2027 pode ser feita até <strong>30/09/2026</strong> — faltam <strong>${dias} dia${dias!==1?'s':''}</strong>. Cancelamento possível até 30/11/2026 (exceto se houver ressarcimento de créditos no ano-calendário corrente ou anterior). Base: Resolução CGSN nº 190/2026.</div>`;
+  } else {
+    el.innerHTML=`<div class="ibox">ℹ️ A janela de opção pelo regime híbrido para o 1º semestre de 2027 (1º a 30/09/2026) já se encerrou. Consulte a Receita Federal / CGSN sobre novos prazos de opção para períodos seguintes.</div>`;
+  }
+})();
+
+function analisarRegimeHibrido(){
+  const rec=pm(document.getElementById('simh-rec').value);
+  const ano=+document.getElementById('simh-ano').value;
+  const b2bPct=+document.getElementById('simh-b2b').value||0;
+  const credPct=+document.getElementById('simh-credito').value||0;
+  if(!rec){ alert('Informe a receita mensal média.'); return; }
+
+  const fator = SIMH_CNAE_SEL ? SIMH_CNAE_SEL[4] : 1;
+  const grupo = SIMH_CNAE_SEL ? SIMH_CNAE_SEL[2] : null;
+  const nomeCnae = SIMH_CNAE_SEL ? `${SIMH_CNAE_SEL[0]} — ${SIMH_CNAE_SEL[1]}` : 'Atividade geral (não informada)';
+
+  // Guarda para a coluna "CBS+IBS estimado" do Módulo 2
+  SIMH_ULTIMO={ano,fator};
+
+  const fase=getFaseReforma(ano);
+  const aliqEf=(fase.cbs+fase.ibs)*fator;
+  const cbsIbsMes=rec*aliqEf;
+
+  // Heurística de recomendação — favorece híbrido quando há forte perfil B2B
+  // e volume relevante de créditos de entrada; favorece regular no caso oposto.
+  let score=0;
+  if(b2bPct>=50) score+=2; else if(b2bPct>=20) score+=1;
+  if(credPct>=40) score+=2; else if(credPct>=15) score+=1;
+  const gruposB2B=['Indústria alimentos','Indústria farmacêutica','Agronegócio','Profissões Regulamentadas'];
+  const gruposB2C=['Saúde','Educação','Alimentação','Arte e Cultura'];
+  if(grupo && gruposB2B.includes(grupo)) score+=1;
+  if(grupo && gruposB2C.includes(grupo)) score-=1;
+
+  let veredito,corV,explic;
+  if(score>=3){
+    veredito='Regime HÍBRIDO provavelmente vantajoso'; corV='var(--green)';
+    explic='Perfil com forte proporção de vendas B2B e/ou créditos de entrada relevantes. No híbrido, o crédito é repassado integralmente aos clientes PJ (mais competitivo nessas vendas) e a empresa recupera o crédito de suas próprias compras — o que compensa a maior complexidade de apurar IBS/CBS separadamente.';
+  } else if(score<=0){
+    veredito='Regime REGULAR (Simples puro) provavelmente melhor'; corV='var(--amber)';
+    explic='Perfil predominantemente B2C e/ou com poucas entradas creditáveis. Nesse caso, o benefício do crédito integral do híbrido é pequeno e não compensa a complexidade adicional de apurar IBS/CBS fora do DAS — o Simples Nacional tradicional tende a ser mais simples e igualmente vantajoso.';
+  } else {
+    veredito='Indiferente — avaliar caso a caso'; corV='var(--muted)';
+    explic='O perfil informado não indica claramente qual regime é mais vantajoso. Recomenda-se simular os dois cenários com os números reais da empresa antes de decidir (ou aguardar mais um período de apuração para reavaliar).';
+  }
+
+  let rows=hSec(`Atividade — ${nomeCnae}`);
+  rows+=hRow('Ano de referência','Cronograma de transição LC 214/2025',String(ano),'n');
+  rows+=hRow('Alíquota efetiva CBS+IBS','após redução setorial',fmtPct(aliqEf),'n');
+  rows+=hRow('CBS+IBS estimado no mês','receita × alíquota efetiva',fmt(cbsIbsMes),'m');
+  rows+=hSec('Perfil informado');
+  rows+=hRow('Vendas para empresas (B2B)','aproveitam crédito integral',`${b2bPct.toFixed(0)}%`,'n');
+  rows+=hRow('Compras/insumos com crédito','reduz o CBS/IBS a recolher',`${credPct.toFixed(0)}%`,'n');
+  rows+=hSec('Mecânica do regime híbrido (Res. CGSN 190/2026)');
+  rows+=hRow('Base de cálculo do Simples','IBS e CBS apurados no híbrido são excluídos da receita bruta do Simples','—','n');
+  rows+=hRow('DAS no híbrido','recalculado com dedução da parcela de IBS/CBS','DAS reduzido','n');
+  rows+=hRow('Créditos no híbrido','entradas geram crédito integral, aproveitável e repassável ao cliente PJ','não cumulativo','p');
+
+  const tots=hTot(veredito,fmtPct(aliqEf),'liq');
+  hole('simh-result',rows,tots,'Regime Simples Nacional',`${ano} · Análise`);
+  const resEl=document.getElementById('simh-result');
+  if(resEl) resEl.insertAdjacentHTML('afterbegin',`<div class="sbox" style="border-color:${corV};color:${corV};margin-bottom:.75rem"><strong>${veredito}</strong><br><span style="font-size:.75rem">${explic}</span></div>`);
+}
 
 // Alíquotas reduzidas por setor (LC 214/2025 arts.107-111 CBS / 183-188 IBS)
 const REDUCOES_CBS = {
