@@ -87,6 +87,29 @@ header::after{content:'';position:absolute;left:0;bottom:-1px;width:150px;height
 .home-tile-ic{font-size:1rem;flex-shrink:0;width:1.2rem;text-align:center}
 @media(max-width:700px){.home-sectors{grid-template-columns:1fr}}
 
+/* AUDITORIA DE NOTA FISCAL */
+.ebox{position:relative;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-left:3px solid var(--danger);border-radius:var(--rs);padding:.65rem .9rem;font-size:.76rem;color:var(--danger);margin-bottom:.9rem;line-height:1.5}
+.nf-drop{display:block;border:2px dashed var(--border2);border-radius:var(--r);padding:1.8rem 1rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:var(--bg2)}
+.nf-drop:hover,.nf-drop.drag{border-color:var(--accent);background:var(--bg3)}
+.nf-drop input{display:none}
+.nf-drop-ic{font-size:1.8rem;margin-bottom:.5rem}
+.nf-drop-sub{font-size:.72rem;color:var(--muted);margin-top:.3rem;line-height:1.5}
+.nf-file-info{display:flex;align-items:center;gap:.6rem;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rs);padding:.6rem .9rem;margin-top:.8rem;font-size:.8rem}
+.nf-file-info button{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;padding:2px 6px}
+.nf-file-info button:hover{color:var(--danger)}
+.nf-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:.2rem}
+.nf-stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:.7rem .5rem;text-align:center}
+.nf-stat .n{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700}
+.nf-stat .l{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.nf-check{display:flex;gap:.7rem;padding:.65rem 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.nf-check:last-child{border-bottom:none}
+.nf-check-ic{flex-shrink:0;font-size:1rem;width:1.3rem;text-align:center;margin-top:1px}
+.nf-check-body .t{font-size:.82rem;font-weight:600;color:var(--text)}
+.nf-check-body .d{font-size:.74rem;color:var(--muted);margin-top:2px;line-height:1.5}
+.nf-check.ok .nf-check-ic{color:var(--success)}
+.nf-check.warn .nf-check-ic{color:var(--warning)}
+.nf-check.err .nf-check-ic{color:var(--danger)}
+
 /* FORM */
 .fg{margin-bottom:.85rem}
 label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:4px;font-weight:500}
@@ -587,6 +610,8 @@ select option{background:var(--bg2)}
   <button class="mob-drawer-btn" onclick="goMob('cnae-consulta',this)"><span>🔍</span> Consulta CNAE</button>
   <button class="mob-drawer-btn" onclick="goMob('sim-mensal',this)"><span>📅</span> Simulador Reforma + Simples</button>
   <button class="mob-drawer-btn" onclick="goMob('rel-cliente',this)"><span>📋</span> Relatório Cliente</button>
+  <div class="mob-drawer-section">Auditoria Fiscal</div>
+  <button class="mob-drawer-btn" onclick="goMob('auditoria-nf',this)"><span>🔎</span> Verificar Nota Fiscal</button>
 </div>
 
 <!-- Bottom Navigation Bar (5 atalhos + "mais") -->
@@ -665,6 +690,8 @@ select option{background:var(--bg2)}
   <button class="nav-btn" onclick="go('cnae-consulta',this)">🔍 Consulta CNAE</button>
   <button class="nav-btn" onclick="go('sim-mensal',this)">📅 Simulador Reforma + Simples</button>
   <button class="nav-btn" onclick="go('rel-cliente',this)">📋 Relatório Cliente</button>
+  <div class="sidebar-section">Auditoria Fiscal</div>
+  <button class="nav-btn" onclick="go('auditoria-nf',this)">🔎 Verificar Nota Fiscal</button>
 </nav>
 
 <!-- PAINÉIS -->
@@ -724,6 +751,12 @@ select option{background:var(--bg2)}
         <button class="home-tile" onclick="goMob('cnae-consulta')"><span class="home-tile-ic">🔍</span>Consulta CNAE</button>
         <button class="home-tile" onclick="goMob('sim-mensal')"><span class="home-tile-ic">📅</span>Simulador Reforma + Simples</button>
         <button class="home-tile" onclick="goMob('rel-cliente')"><span class="home-tile-ic">📋</span>Relatório Cliente</button>
+      </div>
+    </div>
+    <div class="home-sector">
+      <div class="home-sector-title">Auditoria Fiscal <span style="background:rgba(16,185,129,.15);color:var(--success);font-size:.55rem;padding:1px 6px;border-radius:4px;margin-left:4px;letter-spacing:.5px;vertical-align:middle">novo</span></div>
+      <div class="home-tiles">
+        <button class="home-tile" onclick="goMob('auditoria-nf')"><span class="home-tile-ic">🔎</span>Verificar Nota Fiscal</button>
       </div>
     </div>
   </div>
@@ -2061,6 +2094,32 @@ select option{background:var(--bg2)}
     <div class="ph card"><div class="icon">📋</div><p>Preencha os dados e gere<br>o relatório personalizado</p></div>
   </div>
   </div>
+</div>
+</div>
+
+<!-- ═══════════════════ AUDITORIA DE NOTA FISCAL (NF-e / NFS-e) ═══════════════ -->
+<div id="p-auditoria-nf" class="panel">
+<div class="panel-title">🔎 Auditoria de Nota Fiscal — NF-e / NFS-e</div>
+<div class="ibox">Envie o <strong>XML</strong> da nota (recomendado, permite a análise completa) ou o <strong>PDF</strong> (análise parcial, limitada ao texto legível do arquivo) para uma verificação automática: dígito verificador da chave de acesso, CNPJ/CPF, CFOP, cálculo de impostos e totais. <strong>Tudo roda no seu navegador</strong> — nenhum arquivo é enviado a servidor algum — e esta análise não substitui a consulta oficial no portal da SEFAZ ou da Prefeitura quando houver qualquer dúvida.</div>
+
+<div class="g2">
+<div class="card">
+  <div class="card-title">Arquivo da Nota</div>
+  <label class="nf-drop" id="nf-drop" for="nf-file">
+    <div class="nf-drop-ic">📤</div>
+    <div style="font-size:.85rem;font-weight:600">Clique ou arraste o arquivo aqui</div>
+    <div class="nf-drop-sub">XML da NF-e ou NFS-e, ou PDF da nota<br>Nada é enviado — a análise é 100% local</div>
+    <input type="file" id="nf-file" accept=".xml,text/xml,application/xml,.pdf,application/pdf" onchange="nfHandleFile(this.files[0])">
+  </label>
+  <div id="nf-file-info" style="display:none"></div>
+  <div id="nf-status"></div>
+  <div class="wbox" style="margin-top:.9rem">⚠️ PDFs <strong>escaneados/fotografados</strong> (sem texto digital selecionável) não podem ser lidos automaticamente. Nesse caso, peça o XML da nota ao emitente para a análise completa.</div>
+</div>
+<div>
+  <div id="nf-result">
+    <div class="ph card"><div class="icon">🔎</div><p>Envie o XML ou PDF da nota<br>para iniciar a análise</p></div>
+  </div>
+</div>
 </div>
 </div>
 
@@ -4120,7 +4179,7 @@ function calcPrecificacao(){
 // MOBILE — Drawer + Bottom Nav
 // ═══════════════════════════════════════════════════════════════════════════
 
-const PANEL_NAMES={'holerite': '• Holerite CLT', 'rescisao': '• Rescisão', 'ferias': '• Férias', 'aviso': '• Aviso Prévio', 'horas': '• Horas Extras', 'jornada': '• Jornada Noturna', 'intermitente': '• Intermitente', 'seguro': '• Seg. Desemprego', 'custo': '• Custo Empregado', 'prolabore': '• Pró-Labore', 'rpa': '• RPA', 'aluguel': '• IR Aluguel', 'mei': '• MEI', 'presumido': '• L. Presumido', 'real': '• L. Real', 'simples': '• Simples Nacional', 'irpfm': '• IR Dividendos', 'precificacao': '• Precificação', 'tabelas': '• Tabelas 2026', 'reformatrib': '• Reforma Trib.','cnae-consulta':'• Consulta CNAE','sim-mensal':'• Sim. Fator R','rel-cliente':'• Rel. Cliente'};
+const PANEL_NAMES={'holerite': '• Holerite CLT', 'rescisao': '• Rescisão', 'ferias': '• Férias', 'aviso': '• Aviso Prévio', 'horas': '• Horas Extras', 'jornada': '• Jornada Noturna', 'intermitente': '• Intermitente', 'seguro': '• Seg. Desemprego', 'custo': '• Custo Empregado', 'prolabore': '• Pró-Labore', 'rpa': '• RPA', 'aluguel': '• IR Aluguel', 'mei': '• MEI', 'presumido': '• L. Presumido', 'real': '• L. Real', 'simples': '• Simples Nacional', 'irpfm': '• IR Dividendos', 'precificacao': '• Precificação', 'tabelas': '• Tabelas 2026', 'reformatrib': '• Reforma Trib.','cnae-consulta':'• Consulta CNAE','sim-mensal':'• Sim. Fator R','rel-cliente':'• Rel. Cliente','auditoria-nf':'• Auditoria NF'};
 // IDs que têm atalho direto na bottom nav
 const MOB_NAV_IDS = ['holerite','rescisao','prolabore','simples','tabelas'];
 
@@ -4175,6 +4234,558 @@ function goMob(id, el){
   }
   // 7. Scroll ao topo
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// AUDITORIA DE NOTA FISCAL — NF-e / NFS-e (XML) + leitura best-effort de PDF
+// Validação 100% local no navegador. Não envia nenhum arquivo a servidor.
+// ═══════════════════════════════════════════════════════════════════════════
+
+const NF_UF_MAP={11:'RO',12:'AC',13:'AM',14:'RR',15:'PA',16:'AP',17:'TO',21:'MA',22:'PI',23:'CE',24:'RN',25:'PB',26:'PE',27:'AL',28:'SE',29:'BA',31:'MG',32:'ES',33:'RJ',35:'SP',41:'PR',42:'SC',43:'RS',50:'MS',51:'MT',52:'GO',53:'DF'};
+let NF_CURRENT_FILE=null;
+
+function nfOnlyDigits(s){ return (s||'').toString().replace(/\D/g,''); }
+
+function nfValidaCNPJ(cnpjRaw){
+  const cnpj=nfOnlyDigits(cnpjRaw);
+  if(cnpj.length!==14) return false;
+  if(/^(\d)\1{13}$/.test(cnpj)) return false;
+  const calc=(base)=>{
+    const weights = base.length===12 ? [5,4,3,2,9,8,7,6,5,4,3,2] : [6,5,4,3,2,9,8,7,6,5,4,3,2];
+    let sum=0;
+    for(let i=0;i<base.length;i++) sum+=parseInt(base[i],10)*weights[i];
+    const r=sum%11;
+    return r<2?0:11-r;
+  };
+  const d1=calc(cnpj.slice(0,12));
+  const d2=calc(cnpj.slice(0,12)+d1);
+  return cnpj.slice(12)===(''+d1+d2);
+}
+
+function nfValidaCPF(cpfRaw){
+  const cpf=nfOnlyDigits(cpfRaw);
+  if(cpf.length!==11) return false;
+  if(/^(\d)\1{10}$/.test(cpf)) return false;
+  let sum=0;
+  for(let i=0;i<9;i++) sum+=parseInt(cpf[i],10)*(10-i);
+  let r=(sum*10)%11; if(r===10) r=0;
+  if(r!==parseInt(cpf[9],10)) return false;
+  sum=0;
+  for(let i=0;i<10;i++) sum+=parseInt(cpf[i],10)*(11-i);
+  r=(sum*10)%11; if(r===10) r=0;
+  return r===parseInt(cpf[10],10);
+}
+
+function nfCalculaDVChave(chave43){
+  const pesos=[2,3,4,5,6,7,8,9];
+  let soma=0, pi=0;
+  for(let i=chave43.length-1;i>=0;i--){
+    soma += parseInt(chave43[i],10) * pesos[pi%8];
+    pi++;
+  }
+  const resto = soma%11;
+  return resto<2 ? 0 : 11-resto;
+}
+
+function nfFormatChave(k){ return k.replace(/(\d{4})(?=\d)/g,'$1 ').trim(); }
+function nfFormatCNPJ(v){ v=nfOnlyDigits(v); return v.length===14 ? v.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5') : v; }
+function nfFormatCPF(v){ v=nfOnlyDigits(v); return v.length===11 ? v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4') : v; }
+
+// ─── Entrada de arquivo (clique ou drag&drop) ───
+function nfHandleFile(file){
+  if(!file) return;
+  NF_CURRENT_FILE=file;
+  nfShowFileInfo(file);
+  document.getElementById('nf-result').innerHTML='<div class="ph card"><div class="icon">⏳</div><p>Analisando…</p></div>';
+  const name=(file.name||'').toLowerCase();
+  if(name.endsWith('.xml') || (file.type||'').includes('xml')){
+    const reader=new FileReader();
+    reader.onload=(e)=>{
+      try{ nfProcessXML(e.target.result); }
+      catch(err){ nfShowError('Erro ao interpretar o XML: '+err.message); }
+    };
+    reader.onerror=()=>nfShowError('Não foi possível ler o arquivo.');
+    reader.readAsText(file,'utf-8');
+  } else if(name.endsWith('.pdf') || (file.type||'').includes('pdf')){
+    nfSetStatus('Carregando leitor de PDF…');
+    nfLoadPdfJs(async ()=>{
+      try{
+        nfSetStatus('Extraindo texto do PDF…');
+        const text = await nfExtractPdfText(file);
+        nfProcessPDFText(text);
+      }catch(err){ nfShowError('Erro ao ler o PDF: '+err.message); }
+    });
+  } else {
+    nfShowError('Formato não suportado. Envie um arquivo .xml ou .pdf.');
+  }
+}
+
+function nfShowFileInfo(file){
+  const el=document.getElementById('nf-file-info');
+  const kb=(file.size/1024).toFixed(1);
+  el.style.display='flex';
+  el.innerHTML=`<span>📄</span><span style="flex:1">${file.name} · ${kb} KB</span><button onclick="nfReset()" title="Remover arquivo">✕</button>`;
+}
+
+function nfReset(){
+  NF_CURRENT_FILE=null;
+  const inp=document.getElementById('nf-file'); if(inp) inp.value='';
+  document.getElementById('nf-file-info').style.display='none';
+  document.getElementById('nf-status').innerHTML='';
+  document.getElementById('nf-result').innerHTML='<div class="ph card"><div class="icon">🔎</div><p>Envie o XML ou PDF da nota<br>para iniciar a análise</p></div>';
+}
+
+function nfSetStatus(msg){ document.getElementById('nf-status').innerHTML = msg?`<div class="ibox" style="margin-top:.9rem">${msg}</div>`:''; }
+function nfShowError(msg){
+  document.getElementById('nf-status').innerHTML = `<div class="ebox" style="margin-top:.9rem">⚠️ ${msg}</div>`;
+  document.getElementById('nf-result').innerHTML='<div class="ph card"><div class="icon">❌</div><p>Não foi possível concluir a análise</p></div>';
+}
+
+// Drag & drop no dropzone
+(function nfInitDrop(){
+  document.addEventListener('DOMContentLoaded',()=>{
+    const drop=document.getElementById('nf-drop');
+    if(!drop) return;
+    ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,(e)=>{e.preventDefault();drop.classList.add('drag');}));
+    ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,(e)=>{e.preventDefault();drop.classList.remove('drag');}));
+    drop.addEventListener('drop',(e)=>{
+      const f=e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      if(f) nfHandleFile(f);
+    });
+  });
+})();
+
+// ─── XML: detectar NF-e x NFS-e e despachar ───
+function nfProcessXML(xmlStr){
+  nfSetStatus('');
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(xmlStr,'application/xml');
+  if(doc.getElementsByTagName('parsererror').length){
+    nfShowError('O arquivo XML está corrompido ou mal formado — não foi possível interpretá-lo.');
+    return;
+  }
+  if(doc.getElementsByTagName('infNFe').length){
+    nfRenderReport(nfAnalisarNFe(doc));
+  } else if(nfLooksLikeNFSe(doc)){
+    nfRenderReport(nfAnalisarNFSe(doc));
+  } else {
+    nfShowError('Não foi possível identificar este XML como NF-e ou NFS-e. Confirme se é realmente o arquivo da nota fiscal (e não, por exemplo, um boleto ou XML de outro sistema).');
+  }
+}
+
+function nfLooksLikeNFSe(doc){
+  const tags=['nfse','infnfse','compnfse','dps','infdps','rps','infdeclaracaoprestacaoservico'];
+  return Array.from(doc.getElementsByTagName('*')).some(el=>tags.includes(el.tagName.toLowerCase()));
+}
+
+// ─── NF-e (produtos) ───
+function nfAnalisarNFe(doc){
+  const g1=(tag)=>doc.getElementsByTagName(tag)[0]||null;
+  const txt=(el)=>el?(el.textContent||'').trim():'';
+  const num=(el)=>{ const t=txt(el); return t===''?NaN:parseFloat(t); };
+
+  const infNFe=g1('infNFe'), ide=g1('ide'), emit=g1('emit'), dest=g1('dest'), total=g1('ICMSTot'), infProt=g1('infProt');
+  const dets=Array.from(doc.getElementsByTagName('det'));
+
+  const checks=[];
+  const add=(status,title,detail)=>checks.push({status,title,detail});
+
+  let chave=(infNFe?infNFe.getAttribute('Id'):'')||'';
+  chave=chave.replace(/^NFe/i,'').replace(/\D/g,'');
+  if(!chave) chave=nfOnlyDigits(txt(g1('chNFe')));
+
+  if(chave.length!==44){
+    add('err','Chave de acesso','Não foi localizada uma chave de acesso de 44 dígitos no XML (encontrado: '+(chave.length||0)+' dígito(s)). Confirme se o arquivo é realmente o XML da NF-e.');
+  } else {
+    const dv=parseInt(chave[43],10), dvCalc=nfCalculaDVChave(chave.slice(0,43));
+    if(dv===dvCalc){
+      add('ok','Dígito verificador da chave de acesso','Chave '+nfFormatChave(chave)+' — dígito verificador válido.');
+    } else {
+      add('err','Dígito verificador da chave de acesso','Chave '+nfFormatChave(chave)+' — dígito informado ('+dv+') não corresponde ao calculado ('+dvCalc+'). A chave pode estar incorreta.');
+    }
+    const cUF=chave.slice(0,2), cnpjChave=chave.slice(6,20), mod=chave.slice(20,22), serieChave=chave.slice(22,25), nNFChave=chave.slice(25,34), tpEmisChave=chave.slice(34,35), cNFChave=chave.slice(35,43);
+    const ufNome=NF_UF_MAP[parseInt(cUF,10)]||('código '+cUF);
+    add('ok','UF emissora (pela chave)', ufNome);
+
+    const mismatches=[];
+    const cUFxml=txt(ide?ide.getElementsByTagName('cUF')[0]:null);
+    if(cUFxml && parseInt(cUFxml,10)!==parseInt(cUF,10)) mismatches.push('UF');
+    const cnpjEmitXml=nfOnlyDigits(txt(emit?emit.getElementsByTagName('CNPJ')[0]:null));
+    if(cnpjEmitXml && cnpjEmitXml!==cnpjChave) mismatches.push('CNPJ do emitente');
+    const modXml=txt(ide?ide.getElementsByTagName('mod')[0]:null);
+    if(modXml && parseInt(modXml,10)!==parseInt(mod,10)) mismatches.push('Modelo do documento');
+    const serieXml=txt(ide?ide.getElementsByTagName('serie')[0]:null);
+    if(serieXml && parseInt(serieXml,10)!==parseInt(serieChave,10)) mismatches.push('Série');
+    const nNFXml=txt(ide?ide.getElementsByTagName('nNF')[0]:null);
+    if(nNFXml && parseInt(nNFXml,10)!==parseInt(nNFChave,10)) mismatches.push('Número da NF');
+    const tpEmisXml=txt(ide?ide.getElementsByTagName('tpEmis')[0]:null);
+    if(tpEmisXml && parseInt(tpEmisXml,10)!==parseInt(tpEmisChave,10)) mismatches.push('Tipo de emissão');
+    const cNFXml=txt(ide?ide.getElementsByTagName('cNF')[0]:null);
+    if(cNFXml && parseInt(cNFXml,10)!==parseInt(cNFChave,10)) mismatches.push('Código numérico (cNF)');
+
+    if(mismatches.length){
+      add('err','Consistência da chave com os dados do XML','Campos que não coincidem entre a chave de acesso e o XML: '+mismatches.join(', ')+'.');
+    } else {
+      add('ok','Consistência da chave com os dados do XML','UF, CNPJ do emitente, modelo, série, número e tipo de emissão codificados na chave coincidem com os dados declarados.');
+    }
+  }
+
+  const cnpjEmit=txt(emit?emit.getElementsByTagName('CNPJ')[0]:null);
+  if(cnpjEmit){
+    const ok=nfValidaCNPJ(cnpjEmit);
+    add(ok?'ok':'err','CNPJ do emitente', nfFormatCNPJ(cnpjEmit)+(ok?' — dígitos verificadores válidos.':' — dígitos verificadores INVÁLIDOS.'));
+  }
+
+  const cnpjDest=txt(dest?dest.getElementsByTagName('CNPJ')[0]:null);
+  const cpfDest=txt(dest?dest.getElementsByTagName('CPF')[0]:null);
+  if(cnpjDest){
+    const ok=nfValidaCNPJ(cnpjDest);
+    add(ok?'ok':'err','CNPJ do destinatário', nfFormatCNPJ(cnpjDest)+(ok?' — válido.':' — dígitos verificadores INVÁLIDOS.'));
+  } else if(cpfDest){
+    const ok=nfValidaCPF(cpfDest);
+    add(ok?'ok':'err','CPF do destinatário', nfFormatCPF(cpfDest)+(ok?' — válido.':' — dígitos verificadores INVÁLIDOS.'));
+  }
+
+  if(infProt){
+    const cStat=txt(infProt.getElementsByTagName('cStat')[0]);
+    const xMotivo=txt(infProt.getElementsByTagName('xMotivo')[0]);
+    const nProt=txt(infProt.getElementsByTagName('nProt')[0]);
+    if(cStat==='100'){
+      add('ok','Status de autorização (cStat)','100 — Autorizado o uso da NF-e. Protocolo: '+(nProt||'—')+'.');
+    } else if(['101','151','155'].includes(cStat)){
+      add('err','Status de autorização (cStat)',cStat+' — '+(xMotivo||'Nota cancelada')+'. Esta nota NÃO deve ser considerada válida.');
+    } else if(['110','301','302'].includes(cStat)){
+      add('err','Status de autorização (cStat)',cStat+' — '+(xMotivo||'Uso denegado')+'.');
+    } else {
+      add('warn','Status de autorização (cStat)',cStat+' — '+(xMotivo||'Verifique o código de status.'));
+    }
+  } else {
+    add('warn','Status de autorização','O XML não contém o protocolo de autorização (bloco protNFe). Pode ser uma NF-e ainda não autorizada ou um XML parcial — confirme consultando a chave no portal da SEFAZ.');
+  }
+
+  const dhEmi=txt(ide?ide.getElementsByTagName('dhEmi')[0]:null)||txt(ide?ide.getElementsByTagName('dEmi')[0]:null);
+  if(dhEmi){
+    const dEmi=new Date(dhEmi), agora=new Date();
+    if(!isNaN(dEmi.getTime())){
+      if(dEmi.getTime()>agora.getTime()+24*3600*1000){
+        add('err','Data de emissão','Data de emissão ('+dEmi.toLocaleDateString('pt-BR')+') está no futuro.');
+      } else {
+        add('ok','Data de emissão', dEmi.toLocaleDateString('pt-BR')+' '+dEmi.toLocaleTimeString('pt-BR'));
+      }
+    }
+  }
+
+  let somaProd=0, itensComErro=[];
+  dets.forEach((det,idx)=>{
+    const prod=det.getElementsByTagName('prod')[0];
+    if(!prod) return;
+    const nItem=det.getAttribute('nItem')||(idx+1);
+    const cfop=txt(prod.getElementsByTagName('CFOP')[0]);
+    const ncm=txt(prod.getElementsByTagName('NCM')[0]);
+    const qCom=num(prod.getElementsByTagName('qCom')[0]);
+    const vUnCom=num(prod.getElementsByTagName('vUnCom')[0]);
+    const vProd=num(prod.getElementsByTagName('vProd')[0]);
+    somaProd += isNaN(vProd)?0:vProd;
+    if(!/^\d{4}$/.test(cfop) || !['1','2','3','5','6','7'].includes(cfop[0])){
+      itensComErro.push('Item '+nItem+': CFOP "'+cfop+'" fora do padrão esperado (4 dígitos, iniciando em 1, 2, 3, 5, 6 ou 7).');
+    }
+    if(ncm && !/^\d{8}$/.test(ncm)){
+      itensComErro.push('Item '+nItem+': NCM "'+ncm+'" não possui 8 dígitos.');
+    }
+    if(!isNaN(qCom) && !isNaN(vUnCom) && !isNaN(vProd)){
+      const calc=qCom*vUnCom;
+      if(Math.abs(calc-vProd)>0.02){
+        itensComErro.push('Item '+nItem+': valor do produto informado (R$ '+vProd.toFixed(2)+') não corresponde a quantidade × valor unitário (R$ '+calc.toFixed(2)+').');
+      }
+    }
+  });
+  if(dets.length===0){
+    add('warn','Itens da nota','Não foram encontrados itens (bloco &lt;det&gt;) no XML.');
+  } else if(itensComErro.length){
+    add('err','Itens — CFOP / NCM / cálculo', itensComErro.join(' '));
+  } else {
+    add('ok','Itens — CFOP / NCM / cálculo', dets.length+' item(ns) verificado(s), sem inconsistências encontradas.');
+  }
+
+  const vProdTotal=num(total?total.getElementsByTagName('vProd')[0]:null);
+  if(!isNaN(vProdTotal)){
+    if(Math.abs(vProdTotal-somaProd)>0.05){
+      add('err','Soma dos itens vs. total declarado','Soma dos itens (R$ '+somaProd.toFixed(2)+') não coincide com o total de produtos declarado (R$ '+vProdTotal.toFixed(2)+').');
+    } else {
+      add('ok','Soma dos itens vs. total declarado','Soma dos itens confere com o total de produtos (R$ '+vProdTotal.toFixed(2)+').');
+    }
+  }
+
+  const vNF=num(total?total.getElementsByTagName('vNF')[0]:null);
+  const vFrete=num(total?total.getElementsByTagName('vFrete')[0]:null)||0;
+  const vSeg=num(total?total.getElementsByTagName('vSeg')[0]:null)||0;
+  const vOutro=num(total?total.getElementsByTagName('vOutro')[0]:null)||0;
+  const vDesc=num(total?total.getElementsByTagName('vDesc')[0]:null)||0;
+  const vIPI=num(total?total.getElementsByTagName('vIPI')[0]:null)||0;
+  const vII=num(total?total.getElementsByTagName('vII')[0]:null)||0;
+  if(!isNaN(vNF) && !isNaN(vProdTotal)){
+    const calcVNF=vProdTotal+vFrete+vSeg+vOutro+vII+vIPI-vDesc;
+    if(Math.abs(calcVNF-vNF)>0.05){
+      add('warn','Valor total da nota (vNF)','Valor total informado (R$ '+vNF.toFixed(2)+') difere do recalculado a partir dos componentes (R$ '+calcVNF.toFixed(2)+'). Pode haver outros ajustes (ex: ICMS-ST) não considerados nesta verificação simplificada.');
+    } else {
+      add('ok','Valor total da nota (vNF)','Valor total confere com a soma dos componentes (R$ '+vNF.toFixed(2)+').');
+    }
+  }
+
+  const versao=infNFe?infNFe.getAttribute('versao'):null;
+  if(versao && versao!=='4.00'){
+    add('warn','Versão do leiaute','XML na versão '+versao+'. O leiaute vigente é a versão 4.00 — confirme se a nota foi emitida corretamente.');
+  }
+
+  if(doc.getElementsByTagName('Signature').length===0){
+    add('warn','Assinatura digital','Não foi encontrada a tag de assinatura digital (Signature) no XML. O arquivo original autorizado pela SEFAZ deve conter assinatura.');
+  } else {
+    add('ok','Assinatura digital','Presente no XML (a validade criptográfica da assinatura não é verificada por esta ferramenta).');
+  }
+
+  return {
+    tipo:'NF-e',
+    checks,
+    meta:{
+      chave: chave.length===44?nfFormatChave(chave):'—',
+      numero: txt(ide?ide.getElementsByTagName('nNF')[0]:null),
+      serie: txt(ide?ide.getElementsByTagName('serie')[0]:null),
+      emitente: txt(emit?emit.getElementsByTagName('xNome')[0]:null),
+      destinatario: txt(dest?dest.getElementsByTagName('xNome')[0]:null),
+      valorTotal: isNaN(vNF)?null:vNF,
+      dataEmissao: dhEmi
+    }
+  };
+}
+
+// ─── NFS-e (serviços) — leiaute varia por município: reconhecimento genérico ───
+function nfAnalisarNFSe(doc){
+  const txt=(el)=>el?(el.textContent||'').trim():'';
+  const num=(el)=>{ const t=(txt(el)||'').replace(',','.'); return t===''?NaN:parseFloat(t); };
+  const findAny=(root,regs)=>{
+    const scope=root||doc;
+    const all=Array.from(scope.getElementsByTagName('*'));
+    for(const re of regs){
+      const m=all.find(el=>re.test(el.tagName));
+      if(m) return m;
+    }
+    return null;
+  };
+
+  const checks=[]; const add=(status,title,detail)=>checks.push({status,title,detail});
+
+  const prestadorEl=findAny(doc,[/^(prestadorservico|prestador|prest)$/i]);
+  const tomadorEl=findAny(doc,[/^(tomadorservico|tomador|toma)$/i]);
+
+  const cnpjPrest=txt(findAny(prestadorEl,[/^cnpj$/i]));
+  const cnpjToma=txt(findAny(tomadorEl,[/^cnpj$/i]));
+  const cpfToma=txt(findAny(tomadorEl,[/^cpf$/i]));
+
+  if(cnpjPrest){
+    const ok=nfValidaCNPJ(cnpjPrest);
+    add(ok?'ok':'err','CNPJ do prestador', nfFormatCNPJ(cnpjPrest)+(ok?' — válido.':' — dígitos verificadores INVÁLIDOS.'));
+  } else {
+    add('warn','CNPJ do prestador','Não foi possível localizar o CNPJ do prestador neste XML (layout não reconhecido).');
+  }
+  if(cnpjToma){
+    const ok=nfValidaCNPJ(cnpjToma);
+    add(ok?'ok':'err','CNPJ do tomador', nfFormatCNPJ(cnpjToma)+(ok?' — válido.':' — dígitos verificadores INVÁLIDOS.'));
+  } else if(cpfToma){
+    const ok=nfValidaCPF(cpfToma);
+    add(ok?'ok':'err','CPF do tomador', nfFormatCPF(cpfToma)+(ok?' — válido.':' — dígitos verificadores INVÁLIDOS.'));
+  }
+
+  const vServ=num(findAny(doc,[/^(valorservicos|vserv)$/i]));
+  const vIss=num(findAny(doc,[/^(valoriss|viss)$/i]));
+  let aliquota=num(findAny(doc,[/^(aliquota|paliq)$/i]));
+  const vLiquido=num(findAny(doc,[/^(valorliquidonfse|vliq|valorliquido)$/i]));
+  const issRetido=txt(findAny(doc,[/^(issretido|indissretido)$/i]));
+  const item=txt(findAny(doc,[/^(itemlistaservico|clistservtribmun|cservico|codigoservico|citemservico)$/i]));
+  const dataEmissao=txt(findAny(doc,[/^(dataemissao|dataemissaorps|dhemi|datacompetencia)$/i]));
+  const numeroNota=txt(findAny(doc,[/^(numero|nnfse|numeronfse)$/i]));
+  const codVerif=txt(findAny(doc,[/^(codigoverificacao|codverificacao)$/i]));
+
+  let aliqNorm=aliquota;
+  if(!isNaN(aliqNorm) && aliqNorm>1) aliqNorm=aliqNorm/100;
+
+  if(!isNaN(aliqNorm)){
+    if(aliqNorm<0.02-1e-6 || aliqNorm>0.05+1e-6){
+      add('warn','Alíquota do ISS','Alíquota informada ('+(aliqNorm*100).toFixed(2)+'%) está fora da faixa prevista na legislação nacional (mínimo 2% — LC 157/2016; máximo 5% — LC 116/2003, art. 8º). Confira se o valor foi lido corretamente ou se há exceção aplicável.');
+    } else {
+      add('ok','Alíquota do ISS',(aliqNorm*100).toFixed(2)+'% — dentro da faixa legal (2% a 5%).');
+    }
+  }
+
+  if(!isNaN(vServ) && !isNaN(vIss) && !isNaN(aliqNorm)){
+    const calc=vServ*aliqNorm;
+    if(Math.abs(calc-vIss)>Math.max(0.05,vServ*0.001)){
+      add('err','Cálculo do ISS','ISS informado (R$ '+vIss.toFixed(2)+') não corresponde a valor dos serviços × alíquota (R$ '+calc.toFixed(2)+').');
+    } else {
+      add('ok','Cálculo do ISS','ISS confere com valor dos serviços × alíquota (R$ '+vIss.toFixed(2)+').');
+    }
+  }
+
+  if(!isNaN(vServ) && !isNaN(vLiquido)){
+    const retido=/^(1|true|sim)$/i.test(issRetido);
+    const calcLiq=(retido && !isNaN(vIss))?vServ-vIss:vServ;
+    if(Math.abs(calcLiq-vLiquido)>0.05){
+      add('warn','Valor líquido da nota','Valor líquido informado (R$ '+vLiquido.toFixed(2)+') difere do esperado (R$ '+calcLiq.toFixed(2)+'). Pode haver outras deduções não consideradas nesta verificação simplificada.');
+    } else {
+      add('ok','Valor líquido da nota','Confere com o esperado (R$ '+vLiquido.toFixed(2)+').');
+    }
+  }
+
+  if(item){
+    if(/^\d{1,2}\.\d{2}$/.test(item)){
+      add('ok','Item da Lista de Serviços (LC 116/2003)','Código "'+item+'" no formato padrão.');
+    } else {
+      add('warn','Item da Lista de Serviços (LC 116/2003)','Código "'+item+'" não está no formato padrão esperado (ex: 1.04, 7.02) — pode ser um código municipal específico.');
+    }
+  } else {
+    add('warn','Item da Lista de Serviços','Não foi possível localizar o item/código de tributação do serviço neste XML.');
+  }
+
+  if(dataEmissao){
+    const d=new Date(dataEmissao);
+    if(!isNaN(d.getTime())){
+      const agora=new Date();
+      if(d.getTime()>agora.getTime()+24*3600*1000){
+        add('err','Data de emissão','Data de emissão ('+d.toLocaleDateString('pt-BR')+') está no futuro.');
+      } else {
+        add('ok','Data de emissão', d.toLocaleDateString('pt-BR'));
+      }
+    }
+  }
+
+  if(!codVerif){
+    add('warn','Código de verificação','Não foi localizado um código de verificação/autenticidade no XML. Em muitos municípios esse código é necessário para validar a nota no portal da prefeitura.');
+  } else {
+    add('ok','Código de verificação','Presente: '+codVerif+'.');
+  }
+
+  add('warn','Atenção — layout municipal','O leiaute de NFS-e varia conforme o município emissor. Esta análise usa reconhecimento genérico de campos e pode não cobrir 100% dos casos — em caso de dúvida, confirme também no portal da prefeitura emissora.');
+
+  return {
+    tipo:'NFS-e',
+    checks,
+    meta:{
+      numero: numeroNota||'—',
+      prestador: txt(findAny(prestadorEl,[/^(razaosocial|xnome|nome)$/i]))||'—',
+      tomador: txt(findAny(tomadorEl,[/^(razaosocial|xnome|nome)$/i]))||'—',
+      valorTotal: isNaN(vServ)?null:vServ,
+      dataEmissao
+    }
+  };
+}
+
+// ─── PDF: leitura best-effort via pdf.js (apenas texto selecionável) ───
+function nfLoadPdfJs(cb){
+  if(window.pdfjsLib){ cb(); return; }
+  const s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  s.onload=()=>{
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    cb();
+  };
+  s.onerror=()=>nfShowError('Não foi possível carregar o leitor de PDF (verifique sua conexão com a internet) — tente enviar o XML da nota.');
+  document.head.appendChild(s);
+}
+
+async function nfExtractPdfText(file){
+  const buf=await file.arrayBuffer();
+  const pdf=await window.pdfjsLib.getDocument({data:buf}).promise;
+  let text='';
+  for(let i=1;i<=pdf.numPages;i++){
+    const page=await pdf.getPage(i);
+    const content=await page.getTextContent();
+    text += content.items.map(it=>it.str).join(' ') + '\n';
+  }
+  return text;
+}
+
+function nfFindChaveInText(text){
+  const compact=text.replace(/[^\d]/g,'');
+  for(let i=0;i<=compact.length-44;i++){
+    const slice=compact.substr(i,44);
+    const uf=parseInt(slice.substr(0,2),10);
+    if(uf>=11 && uf<=53 && NF_UF_MAP[uf]){
+      const dv=parseInt(slice[43],10);
+      if(dv===nfCalculaDVChave(slice.slice(0,43))) return slice;
+    }
+  }
+  // fallback: pega a primeira sequência de 44 que ao menos comece com UF plausível, mesmo sem DV conferir
+  for(let i=0;i<=compact.length-44;i++){
+    const slice=compact.substr(i,44);
+    const uf=parseInt(slice.substr(0,2),10);
+    if(uf>=11 && uf<=53 && NF_UF_MAP[uf]) return slice;
+  }
+  return null;
+}
+
+function nfProcessPDFText(text){
+  nfSetStatus('');
+  const chave=nfFindChaveInText(text);
+  if(!chave){
+    nfShowError('Não foi possível localizar uma chave de acesso de NF-e neste PDF. Se for uma NFS-e, ou se o arquivo for uma imagem escaneada (sem texto digital), a leitura automática não é possível por aqui — envie o XML da nota para a análise completa.');
+    return;
+  }
+  const checks=[];
+  const add=(status,title,detail)=>checks.push({status,title,detail});
+
+  const dv=parseInt(chave[43],10), dvCalc=nfCalculaDVChave(chave.slice(0,43));
+  add(dv===dvCalc?'ok':'err','Dígito verificador da chave de acesso', 'Chave '+nfFormatChave(chave)+' — '+(dv===dvCalc?'dígito verificador válido.':'dígito informado ('+dv+') não corresponde ao calculado ('+dvCalc+'). A chave pode estar incorreta.'));
+
+  const cUF=chave.slice(0,2), aamm=chave.slice(2,6), cnpjChave=chave.slice(6,20), mod=chave.slice(20,22), serieChave=chave.slice(22,25), nNFChave=chave.slice(25,34), cNFChave=chave.slice(35,43);
+  add('ok','UF emissora (pela chave)', NF_UF_MAP[parseInt(cUF,10)]||('código '+cUF));
+  add(nfValidaCNPJ(cnpjChave)?'ok':'err','CNPJ do emitente (pela chave)', nfFormatCNPJ(cnpjChave)+(nfValidaCNPJ(cnpjChave)?' — dígitos verificadores válidos.':' — dígitos verificadores INVÁLIDOS.'));
+  const mesAno = '20'+aamm.slice(0,2)+'/'+aamm.slice(2,4);
+  add('ok','Mês/ano de emissão (pela chave)', aamm.slice(2,4)+'/20'+aamm.slice(0,2));
+  add('ok','Modelo / Série / Número (pela chave)', 'Modelo '+mod+' · Série '+parseInt(serieChave,10)+' · Número '+parseInt(nNFChave,10));
+
+  add('warn','Análise parcial (origem: PDF)','Estes dados foram extraídos apenas do texto do PDF e da própria chave de acesso. Para verificar valores, itens, impostos e o status oficial de autorização, envie o arquivo XML da nota.');
+
+  nfRenderReport({tipo:'NF-e (via PDF — parcial)', checks, meta:{chave:nfFormatChave(chave)}});
+}
+
+// ─── Renderização do relatório (comum a NF-e e NFS-e) ───
+function nfRenderReport(result){
+  const okCount=result.checks.filter(c=>c.status==='ok').length;
+  const warnCount=result.checks.filter(c=>c.status==='warn').length;
+  const errCount=result.checks.filter(c=>c.status==='err').length;
+  const icon={ok:'✅',warn:'⚠️',err:'❌'};
+
+  const labels={chave:'Chave de acesso',numero:'Número',serie:'Série',emitente:'Emitente',destinatario:'Destinatário',prestador:'Prestador',tomador:'Tomador',valorTotal:'Valor total',dataEmissao:'Emissão'};
+  const metaRows=Object.entries(result.meta||{}).filter(([k,v])=>v!==null && v!==undefined && v!=='').map(([k,v])=>{
+    let val=v;
+    if(k==='valorTotal' && typeof v==='number') val='R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+    return `<div class="hole-row"><span class="d">${labels[k]||k}</span><span class="rv"></span><span class="v p">${val}</span></div>`;
+  }).join('');
+
+  const checksHtml=result.checks.map(c=>`
+    <div class="nf-check ${c.status}">
+      <div class="nf-check-ic">${icon[c.status]}</div>
+      <div class="nf-check-body">
+        <div class="t">${c.title}</div>
+        <div class="d">${c.detail}</div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('nf-result').innerHTML = `
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-title">Resultado — ${result.tipo}</div>
+      <div class="nf-summary">
+        <div class="nf-stat"><div class="n" style="color:var(--success)">${okCount}</div><div class="l">Conformes</div></div>
+        <div class="nf-stat"><div class="n" style="color:var(--warning)">${warnCount}</div><div class="l">Atenção</div></div>
+        <div class="nf-stat"><div class="n" style="color:var(--danger)">${errCount}</div><div class="l">Inconsistências</div></div>
+      </div>
+      ${metaRows?`<div class="divider"></div><div class="hole">${metaRows}</div>`:''}
+    </div>
+    <div class="card">
+      <div class="card-title">Checklist detalhado</div>
+      ${checksHtml}
+    </div>
+    <div class="ibox" style="margin-top:1rem">ℹ️ Verificação estrutural e matemática automática, feita localmente no seu navegador. Não substitui a consulta oficial da nota no portal da SEFAZ (NF-e) ou da prefeitura (NFS-e) quando houver qualquer dúvida sobre autenticidade.</div>
+  `;
 }
 
 // Swipe para fechar drawer
