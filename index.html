@@ -218,6 +218,32 @@
         .nav-brand { display: flex; align-items: center; }
         .nav-brand img { height: 92px; width: auto; }
 
+        .beta-tag {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 999;
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 8px;
+            background: rgba(5, 18, 33, 0.75);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid var(--border-gold);
+            border-radius: 99px;
+            color: var(--gold);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: var(--font-sans);
+            pointer-events: none;
+        }
+
+        @media (max-width: 880px) {
+            .beta-tag { top: 8px; right: 8px; font-size: 0.56rem; padding: 2px 7px; }
+        }
+
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -783,6 +809,42 @@
             margin-right: auto;
         }
 
+        .tool-chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            border: 1px solid var(--border-gold);
+            border-radius: 99px;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.8rem;
+            color: var(--off-white);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tool-chip-new {
+            border-color: rgba(212, 160, 23, 0.55);
+            color: var(--gold);
+        }
+
+        .tool-chip-new small {
+            background: var(--gold);
+            color: var(--navy);
+            font-size: 0.56rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 1px 5px;
+            border-radius: 99px;
+        }
+
         /* ---------- Solari para MEI (premium) ---------- */
         .mei-tech-section {
             background: radial-gradient(ellipse 900px 420px at 50% 0%, rgba(212, 160, 23, 0.08), transparent 70%);
@@ -1100,6 +1162,8 @@
 </head>
 <body>
 
+    <span class="beta-tag" aria-hidden="true">Beta</span>
+
     <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 
     <nav class="navbar" id="navbar">
@@ -1318,14 +1382,22 @@
         <section class="tool-section" id="ferramentas">
             <div class="container">
                 <div class="section-head reveal">
-                    <span class="eyebrow">Ferramentas</span>
+                    <span class="eyebrow">Ferramentas Gratuitas</span>
                     <h2 class="section-title">Ferramentas que simplificam suas decisões.</h2>
-                    <p class="section-sub">Tenha acesso a ferramentas práticas para simular e entender situações do dia a dia empresarial.</p>
+                    <p class="section-sub">Calculadoras com base legal sempre atualizada — direto no navegador, sem custo e sem cadastro.</p>
                 </div>
                 <div class="tool-box reveal">
-                    <p>Calcule holerite, rescisão, férias, pró-labore e mais direto no navegador — sem custo.</p>
+                    <div class="tool-chip-row">
+                        <span class="tool-chip">📋 Holerite CLT</span>
+                        <span class="tool-chip">📄 Rescisão</span>
+                        <span class="tool-chip">🟢 Simples Nacional</span>
+                        <span class="tool-chip">📐 Fator R</span>
+                        <span class="tool-chip">🏷 Precificação</span>
+                        <span class="tool-chip tool-chip-new">⚖️ Reforma Tributária <small>novo</small></span>
+                    </div>
+                    <p>Holerite, rescisão, Simples Nacional, Fator R, precificação e o simulador da Reforma Tributária (2026–2033) acompanhando a transição para o IBS/CBS — tudo em um só lugar.</p>
                     <a href="/ferramentas/dp.html" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-calculator" aria-hidden="true"></i> Acessar ferramenta <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                        <i class="fas fa-calculator" aria-hidden="true"></i> Acessar ferramentas gratuitas <i class="fas fa-chevron-right" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
@@ -1448,7 +1520,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <span>© 2025 Solari Contabilidade. Todos os direitos reservados.</span>
+                <span>© 2026 Solari Contabilidade. Todos os direitos reservados.</span>
                 <span>CNPJ: 63.085.577/0001-63 · CRC-TO 001085/O-1</span>
             </div>
         </div>
