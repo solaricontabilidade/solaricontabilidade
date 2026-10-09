@@ -57,6 +57,7 @@ header::after{content:'';position:absolute;left:0;bottom:-1px;width:150px;height
 .sidebar-section:first-child{margin-top:0}
 .nav-btn{position:relative;display:block;width:100%;text-align:left;background:transparent;border:none;color:var(--muted);font-family:'Syne',sans-serif;font-size:.78rem;padding:.48rem .6rem .48rem .68rem;border-radius:7px;cursor:pointer;transition:background .15s,color .15s,padding-left .15s;margin-bottom:1px}
 .nav-btn:hover{color:var(--text);background:var(--bg2)}
+.nav-btn:active{background:var(--bg3)}
 .nav-btn.active{color:var(--text);background:var(--bg3);font-weight:600;padding-left:.85rem}
 .nav-btn.active::before{content:'';position:absolute;left:0;top:.35rem;bottom:.35rem;width:3px;border-radius:3px;background:var(--accent)}
 
@@ -78,12 +79,13 @@ header::after{content:'';position:absolute;left:0;bottom:-1px;width:150px;height
 
 /* HOME — MENU POR SETOR */
 .home-sectors{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.1rem}
-.home-sector{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1rem 1.1rem;transition:border-color .2s,box-shadow .2s}
-.home-sector:hover{border-color:var(--border2)}
+.home-sector{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1rem 1.1rem;transition:border-color .2s,box-shadow .2s,transform .2s}
+.home-sector:hover{border-color:var(--border2);box-shadow:var(--shadow-sm);transform:translateY(-2px)}
 .home-sector-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
 .home-tiles{display:flex;flex-direction:column;gap:.35rem}
 .home-tile{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;background:var(--bg2);border:1px solid transparent;color:var(--text);font-family:'Syne',sans-serif;font-size:.82rem;padding:.55rem .7rem;border-radius:var(--rs);cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
 .home-tile:hover{background:var(--bg3);border-color:var(--border2);transform:translateX(2px)}
+.home-tile:active{transform:translateX(2px) scale(.97)}
 .home-tile-ic{font-size:1rem;flex-shrink:0;width:1.2rem;text-align:center}
 @media(max-width:700px){.home-sectors{grid-template-columns:1fr}}
 
@@ -109,6 +111,7 @@ header::after{content:'';position:absolute;left:0;bottom:-1px;width:150px;height
 .nf-check.ok .nf-check-ic{color:var(--success)}
 .nf-check.warn .nf-check-ic{color:var(--warning)}
 .nf-check.err .nf-check-ic{color:var(--danger)}
+.nf-check{animation:panelIn .3s ease both}
 
 /* FORM */
 .fg{margin-bottom:.85rem}
@@ -123,13 +126,14 @@ select option{background:var(--bg2)}
 /* BUTTONS */
 .btn{width:100%;padding:.68rem;background:linear-gradient(135deg,var(--accent),#b8860f);color:#fff;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;border:none;border-radius:var(--rs);cursor:pointer;transition:opacity .2s,transform .1s,box-shadow .2s;margin-top:.4rem;box-shadow:0 2px 10px -2px rgba(212,160,23,.4)}
 .btn:hover{opacity:.92;box-shadow:0 4px 14px -2px rgba(212,160,23,.55)}.btn:active{transform:scale(.99)}
+.btn:focus-visible,.nav-btn:focus-visible,.home-tile:focus-visible,.mob-nav-btn:focus-visible,.mob-drawer-btn:focus-visible,.nf-drop:focus-visible,.tool-chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .btn.sec{background:transparent;border:1px solid var(--border2);color:var(--muted);margin-top:5px;box-shadow:none}
 .btn.sec:hover{color:var(--text);border-color:var(--accent);box-shadow:none}
 .btn.danger{background:var(--danger);box-shadow:0 2px 10px -2px rgba(239,68,68,.4)}
 .divider{height:1px;background:var(--border);margin:1rem 0}
 
 /* HOLERITE / RESULTADO */
-.hole{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-top:.9rem;box-shadow:var(--shadow-sm)}
+.hole{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-top:.9rem;box-shadow:var(--shadow-sm);animation:panelIn .3s ease}
 .hole-hd{background:linear-gradient(135deg,var(--bg3),var(--card2));padding:.85rem 1.1rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .hole-hd h3{font-size:.88rem;font-weight:600}
 .hole-hd .ref{font-size:.68rem;font-family:'JetBrains Mono',monospace;color:var(--muted)}
@@ -255,14 +259,17 @@ select option{background:var(--bg2)}
 
   /* ── Drawer de menu completo (hamburger) ── */
   .mob-menu-overlay{
-    display:none;
     position:fixed;
     inset:0;
     background:rgba(0,0,0,.55);
     z-index:1100;
     backdrop-filter:blur(3px);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .25s ease,visibility .25s ease;
   }
-  .mob-menu-overlay.open{display:block}
+  .mob-menu-overlay.open{opacity:1;visibility:visible;pointer-events:auto}
   .mob-drawer{
     position:fixed;
     bottom:0;left:0;right:0;
@@ -1708,6 +1715,38 @@ select option{background:var(--bg2)}
       </tbody>
     </table></div>
     <p style="font-size:.73rem;color:var(--muted);margin-top:.5rem">Base legal: LC 214/2025 art. 348 + Resolução CGSN nº 183/2025 + LC 123/2006 (alterada).</p>
+  </div>
+
+  <!-- PRAZOS URGENTES — RESOLUÇÃO CGSN 194/2026 -->
+  <div class="card" style="margin-bottom:1.2rem;border-color:var(--warning)">
+    <div class="card-title" style="color:var(--warning)">⏰ Prazos em curso — Opção para 2027</div>
+    <div id="prazos-cgsn-194"></div>
+    <div class="tref" style="margin-top:.8rem"><table>
+      <thead><tr><th>Prazo</th><th>Período</th></tr></thead>
+      <tbody>
+        <tr><td>Opção pelo Simples Nacional 2027 (novas inclusões/manutenção)</td><td class="aq">01/09 a 15/10/2026</td></tr>
+        <tr><td>Opção pelo regime regular (híbrido) de apuração do IBS/CBS — jan a jun/2027</td><td class="aq">01/09 a 30/10/2026</td></tr>
+        <tr><td>Regularização de pendências (em caso de indeferimento da opção pelo Simples)</td><td class="aq">até 30/10/2026</td></tr>
+        <tr><td>Cancelamento irretratável da opção (Simples ou regime regular do IBS/CBS)</td><td class="aq">03/11 a 20/12/2026</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:.73rem;color:var(--muted);margin-top:.5rem">Base legal: Resolução CGSN nº 194/2026 (DOU 28/09/2026), que alterou os prazos originalmente fixados pela Resolução CGSN nº 190/2026. Confirme sempre no portal do Simples Nacional (gov.br) antes de orientar o cliente.</p>
+  </div>
+
+  <!-- NFS-e NACIONAL — OBRIGATORIEDADE -->
+  <div class="card" style="margin-bottom:1.2rem">
+    <div class="card-title">NFS-e Nacional — obrigatoriedade para ME/EPP</div>
+    <div class="wbox" style="margin-bottom:.7rem">⚠️ O Emissor Nacional da NFS-e passa a ser <strong>obrigatório para ME e EPP optantes do Simples Nacional a partir de 1º/11/2026</strong> (Resolução CGSN nº 191/2026, de 04/08/2026 — que revogou o prazo anterior, 01/09/2026, previsto na Resolução CGSN nº 189/2026).</div>
+    <div class="tref"><table>
+      <thead><tr><th>Período</th><th>Regra</th></tr></thead>
+      <tbody>
+        <tr><td>Até 31/10/2026</td><td style="color:var(--muted)">Emissão pelas regras/emissores municipais ainda válida</td></tr>
+        <tr><td>A partir de 01/11/2026</td><td class="aq">Emissor Nacional da NFS-e obrigatório para ME/EPP do Simples</td></tr>
+        <tr><td>01/11 a 31/12/2026</td><td style="color:var(--muted)">Emissão pelo Emissor Nacional, sem destaque de CBS/IBS</td></tr>
+        <tr><td>A partir de 01/01/2027</td><td class="aq">Passam a valer as regras de CBS/IBS (quando aplicável) também na NFS-e</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:.73rem;color:var(--muted);margin-top:.5rem">Use a aba <strong>🔎 Auditoria Fiscal → Verificar Nota Fiscal</strong> para conferir notas emitidas nesse período de transição.</p>
   </div>
 
   <!-- SPLIT PAYMENT -->
@@ -5257,20 +5296,44 @@ function buscarCNAESimples(){
   }
 }
 
-// Aviso dinâmico sobre o prazo de opção pelo regime híbrido (Res. CGSN 190/2026:
-// opção de 1º a 30/set/2026, vigência jan-jun/2027; cancelamento até 30/nov/2026,
-// salvo ressarcimento de créditos no ano-calendário corrente ou anterior)
+// Aviso dinâmico sobre o prazo de opção pelo regime regular/híbrido do IBS/CBS.
+// Prazo original: Res. CGSN 190/2026 (1º a 30/set/2026). ATUALIZADO pela
+// Res. CGSN 194/2026 (DOU 28/09/2026): opção estendida até 30/10/2026;
+// cancelamento irretratável passou para 03/11 a 20/12/2026.
 (function(){
   const el=document.getElementById('simh-prazo');
   if(!el) return;
   const hoje=new Date();
-  const fimOpcao=new Date(2026,8,30,23,59,59); // 30/set/2026
+  const fimOpcao=new Date(2026,9,30,23,59,59); // 30/out/2026 (prorrogado pela Res. CGSN 194/2026)
   if(hoje<=fimOpcao){
     const dias=Math.ceil((fimOpcao-hoje)/86400000);
-    el.innerHTML=`<div class="wbox">⏰ <strong>Prazo em curso:</strong> a opção pelo regime híbrido para vigência de janeiro a junho de 2027 pode ser feita até <strong>30/09/2026</strong> — faltam <strong>${dias} dia${dias!==1?'s':''}</strong>. Cancelamento possível até 30/11/2026 (exceto se houver ressarcimento de créditos no ano-calendário corrente ou anterior). Base: Resolução CGSN nº 190/2026.</div>`;
+    el.innerHTML=`<div class="wbox">⏰ <strong>Prazo em curso (prorrogado):</strong> a opção pelo regime regular/híbrido de apuração do IBS/CBS, para vigência de janeiro a junho de 2027, pode ser feita até <strong>30/10/2026</strong> — faltam <strong>${dias} dia${dias!==1?'s':''}</strong>. Cancelamento irretratável possível de 03/11 a 20/12/2026. Base: Resolução CGSN nº 194/2026 (DOU 28/09/2026), que prorrogou o prazo original da Resolução CGSN nº 190/2026 (que terminava em 30/09/2026).</div>`;
   } else {
-    el.innerHTML=`<div class="ibox">ℹ️ A janela de opção pelo regime híbrido para o 1º semestre de 2027 (1º a 30/09/2026) já se encerrou. Consulte a Receita Federal / CGSN sobre novos prazos de opção para períodos seguintes.</div>`;
+    el.innerHTML=`<div class="ibox">ℹ️ A janela de opção pelo regime regular/híbrido do IBS/CBS para o 1º semestre de 2027 (até 30/10/2026, conforme Resolução CGSN nº 194/2026) já se encerrou. Cancelamento irretratável: 03/11 a 20/12/2026. Consulte a Receita Federal / CGSN sobre novos prazos para períodos seguintes.</div>`;
   }
+})();
+
+// Aviso dinâmico — card "Prazos em curso — Opção para 2027" (painel Reforma Tributária)
+(function(){
+  const el=document.getElementById('prazos-cgsn-194');
+  if(!el) return;
+  const hoje=new Date();
+  const fimSimples=new Date(2026,9,15,23,59,59);   // 15/out/2026
+  const fimRegimeReg=new Date(2026,9,30,23,59,59); // 30/out/2026
+  const partes=[];
+  if(hoje<=fimSimples){
+    const dias=Math.ceil((fimSimples-hoje)/86400000);
+    partes.push(`<strong>Opção pelo Simples Nacional 2027:</strong> até 15/10/2026 — faltam <strong>${dias} dia${dias!==1?'s':''}</strong>.`);
+  } else {
+    partes.push(`<strong>Opção pelo Simples Nacional 2027:</strong> prazo (até 15/10/2026) encerrado.`);
+  }
+  if(hoje<=fimRegimeReg){
+    const dias=Math.ceil((fimRegimeReg-hoje)/86400000);
+    partes.push(`<strong>Opção pelo regime regular/híbrido do IBS/CBS:</strong> até 30/10/2026 — faltam <strong>${dias} dia${dias!==1?'s':''}</strong>.`);
+  } else {
+    partes.push(`<strong>Opção pelo regime regular/híbrido do IBS/CBS:</strong> prazo (até 30/10/2026) encerrado.`);
+  }
+  el.innerHTML = `<div class="wbox">⏰ ${partes.join(' ')}</div>`;
 })();
 
 function analisarRegimeHibrido(){
