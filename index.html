@@ -51,6 +51,63 @@
     }
     </script>
 
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Qual a diferença entre MEI, Simples Nacional, Lucro Presumido e Lucro Real?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "São regimes de tributação diferentes, cada um com limites de faturamento e regras próprias. O MEI é para faturamento de até R$ 81.000/ano, com tributo fixo mensal. O Simples Nacional unifica tributos para empresas de menor porte, com alíquotas progressivas por faixa de receita. Lucro Presumido e Lucro Real são regimes para empresas maiores ou com margens específicas, calculados sobre uma base presumida ou sobre o lucro contábil efetivo, respectivamente. A escolha certa depende do seu faturamento, da margem de lucro e da folha de pagamento."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Como a Reforma Tributária (IBS/CBS) afeta a minha empresa?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A Reforma Tributária está sendo implementada de forma gradual, substituindo tributos como PIS, COFINS, ICMS e ISS pelo IBS e pela CBS. Empresas do Simples Nacional podem optar por permanecer no regime unificado ou migrar para a apuração regular do IBS/CBS em janelas específicas definidas pelo Comitê Gestor do Simples Nacional todos os anos."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Posso trocar de contador a qualquer momento?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Sim. A troca de contabilidade pode ser feita a qualquer momento do ano, sem multas ou carência. Cuidamos de toda a transição — solicitação de arquivos e procurações ao contador anterior, conferência da situação fiscal e migração dos sistemas."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "O atendimento da Solari é 100% remoto?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Sim, atendemos empresas em todo o Brasil por meio de processos digitais. Para clientes de Palmas e região também oferecemos atendimento presencial, quando necessário."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Por que o pró-labore é tão importante para quem tem empresa?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "O pró-labore é a remuneração formal do sócio pelo trabalho na empresa, sujeita a INSS e IRRF. Defini-lo corretamente impacta o enquadramento no Fator R do Simples Nacional, o histórico de contribuição ao INSS do sócio e a forma mais eficiente de combinar pró-labore com distribuição de lucros."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "As calculadoras gratuitas do site substituem o acompanhamento contábil?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "As ferramentas gratuitas ajudam a simular folha, impostos e enquadramentos para apoiar decisões rápidas, mas não substituem a apuração oficial nem a responsabilidade técnica de um contador sobre a escrituração da empresa."
+                }
+            }
+        ]
+    }
+    </script>
+
     <style>
         :root {
             --navy: #051221;
@@ -598,6 +655,80 @@
         .section-sub {
             color: var(--muted);
             font-size: 1rem;
+        }
+
+        /* ---------- FAQ accordion ---------- */
+        .faq-list {
+            max-width: 760px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .faq-item[open] {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--gold);
+        }
+
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            font-family: var(--font-serif);
+            font-size: 1.02rem;
+            color: var(--off-white);
+        }
+
+        .faq-item summary::-webkit-details-marker,
+        .faq-item summary::marker {
+            display: none;
+            content: '';
+        }
+
+        .faq-item summary .faq-ic {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+        }
+
+        .faq-item[open] summary .faq-ic {
+            transform: rotate(135deg);
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        .faq-item-body {
+            padding: 0 1.5rem 1.4rem;
+            color: var(--muted);
+            line-height: 1.75;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 650px) {
+            .faq-item summary { padding: 1.05rem 1.2rem; font-size: 0.96rem; }
+            .faq-item-body { padding: 0 1.2rem 1.2rem; }
         }
 
         /* ---------- Cards ---------- */
@@ -1177,6 +1308,7 @@
                 <li><a href="#ferramentas">Ferramentas</a></li>
                 <li><a href="#localizacao">Localização</a></li>
                 <li><a href="#sobre">Sobre a Solari</a></li>
+                <li><a href="#faq">Dúvidas</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
             <div class="nav-actions">
@@ -1471,6 +1603,42 @@
             </div>
         </section>
 
+        <section class="faq-section" id="faq">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="eyebrow">Dúvidas frequentes</span>
+                    <h2 class="section-title">Perguntas que recebemos todos os dias.</h2>
+                    <p class="section-sub">Respostas diretas para quem está avaliando trocar de contabilidade ou entender melhor seu regime tributário.</p>
+                </div>
+                <div class="faq-list reveal">
+                    <details class="faq-item">
+                        <summary><span>Qual a diferença entre MEI, Simples Nacional, Lucro Presumido e Lucro Real?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+                        <div class="faq-item-body">São regimes de tributação diferentes, cada um com limites de faturamento e regras próprias. O MEI é para faturamento de até R$ 81.000/ano, com tributo fixo mensal. O Simples Nacional unifica tributos para empresas de menor porte, com alíquotas progressivas por faixa de receita. Lucro Presumido e Lucro Real são regimes para empresas maiores ou com margens específicas, calculados sobre uma base presumida ou sobre o lucro contábil efetivo, respectivamente. A escolha certa depende do seu faturamento, da margem de lucro e da folha de pagamento — é exatamente esse diagnóstico que fazemos antes de qualquer migração.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary><span>Como a Reforma Tributária (IBS/CBS) afeta a minha empresa?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+                        <div class="faq-item-body">A Reforma Tributária está sendo implementada de forma gradual, substituindo tributos como PIS, COFINS, ICMS e ISS pelo IBS e pela CBS. Empresas do Simples Nacional podem optar por permanecer no regime unificado ou migrar para a apuração regular do IBS/CBS em janelas específicas definidas pelo Comitê Gestor do Simples Nacional todos os anos. Acompanhamos essas mudanças de perto e avisamos nossos clientes sempre que um prazo relevante se aproxima.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary><span>Posso trocar de contador a qualquer momento?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+                        <div class="faq-item-body">Sim. A troca de contabilidade pode ser feita a qualquer momento do ano, sem multas ou carência. Cuidamos de toda a transição — solicitação de arquivos e procurações ao contador anterior, conferência da situação fiscal e migração dos sistemas — para que sua empresa não tenha nenhuma interrupção nas obrigações.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary><span>O atendimento da Solari é 100% remoto?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+                        <div class="faq-item-body">Sim, atendemos empresas em todo o Brasil por meio de processos digitais — troca de documentos, assinaturas e reuniões acontecem online. Para clientes de Palmas e região também oferecemos atendimento presencial, quando necessário.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary><span>Por que o pró-labore é tão importante para quem tem empresa?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+                        <div class="faq-item-body">O pró-labore é a remuneração formal do sócio pelo trabalho na empresa, sujeita a INSS e IRRF. Defini-lo corretamente impacta diretamente o enquadramento no Fator R do Simples Nacional, o histórico de contribuição ao INSS do sócio (aposentadoria) e a forma mais eficiente de combinar pró-labore com distribuição de lucros. É uma decisão que vale a pena revisar com frequência.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary><span>As calculadoras gratuitas do site substituem o acompanhamento contábil?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+                        <div class="faq-item-body">Nossas <a href="ferramentas/dp.html" style="color:var(--gold)">ferramentas gratuitas</a> ajudam a simular folha, impostos e enquadramentos para apoiar decisões rápidas, mas não substituem a apuração oficial nem a responsabilidade técnica de um contador sobre a escrituração da sua empresa. Pense nelas como uma segunda opinião instantânea — a entrega formal das obrigações continua sendo feita pela nossa equipe.</div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
         <section class="cta-final" id="contato">
             <div class="container reveal">
                 <span class="eyebrow">Contato</span>
@@ -1507,6 +1675,7 @@
                         <li><a href="#diferencial">Soluções</a></li>
                         <li><a href="#ferramentas">Ferramentas</a></li>
                         <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="#faq">Dúvidas</a></li>
                         <li><a href="#contato">Contato</a></li>
                     </ul>
                 </div>

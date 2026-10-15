@@ -592,6 +592,7 @@ select option{background:var(--bg2)}
   <button class="mob-drawer-btn" onclick="goMob('holerite',this)"><span>📋</span> Holerite CLT</button>
   <button class="mob-drawer-btn" onclick="goMob('rescisao',this)"><span>📄</span> Rescisão</button>
   <button class="mob-drawer-btn" onclick="goMob('ferias',this)"><span>🏖</span> Férias</button>
+  <button class="mob-drawer-btn" onclick="goMob('13sal',this)"><span>🎁</span> 13º Salário</button>
   <button class="mob-drawer-btn" onclick="goMob('aviso',this)"><span>📅</span> Aviso Prévio</button>
   <button class="mob-drawer-btn" onclick="goMob('horas',this)"><span>⏱</span> Horas Extras</button>
   <button class="mob-drawer-btn" onclick="goMob('jornada',this)"><span>🕐</span> Jornada Noturna</button>
@@ -672,6 +673,7 @@ select option{background:var(--bg2)}
   <button class="nav-btn" onclick="go('holerite',this)">📋 Holerite CLT</button>
   <button class="nav-btn" onclick="go('rescisao',this)">📄 Rescisão</button>
   <button class="nav-btn" onclick="go('ferias',this)">🏖 Férias</button>
+  <button class="nav-btn" onclick="go('13sal',this)">🎁 13º Salário</button>
   <button class="nav-btn" onclick="go('aviso',this)">📅 Aviso Prévio</button>
   <button class="nav-btn" onclick="go('horas',this)">⏱ Horas Extras</button>
   <button class="nav-btn" onclick="go('jornada',this)">🕐 Jornada Noturna</button>
@@ -717,6 +719,7 @@ select option{background:var(--bg2)}
         <button class="home-tile" onclick="goMob('holerite')"><span class="home-tile-ic">📋</span>Holerite CLT</button>
         <button class="home-tile" onclick="goMob('rescisao')"><span class="home-tile-ic">📄</span>Rescisão</button>
         <button class="home-tile" onclick="goMob('ferias')"><span class="home-tile-ic">🏖</span>Férias</button>
+        <button class="home-tile" onclick="goMob('13sal')"><span class="home-tile-ic">🎁</span>13º Salário</button>
         <button class="home-tile" onclick="goMob('aviso')"><span class="home-tile-ic">📅</span>Aviso Prévio</button>
         <button class="home-tile" onclick="goMob('horas')"><span class="home-tile-ic">⏱</span>Horas Extras</button>
         <button class="home-tile" onclick="goMob('jornada')"><span class="home-tile-ic">🕐</span>Jornada Noturna</button>
@@ -917,6 +920,34 @@ select option{background:var(--bg2)}
 </div>
 <div id="f-result">
   <div class="ph"><span>🏖</span><p>Preencha os dados<br>para calcular as férias</p></div>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     3-B. 13º SALÁRIO
+════════════════════════════════════════════════════════════ -->
+<div id="p-13sal" class="panel">
+<div class="panel-title">🎁 Calculadora de 13º Salário</div>
+<div class="g2">
+<div class="card">
+  <div class="card-title">Dados do 13º</div>
+  <div class="fg"><label>Nome</label><input id="dt-nome" placeholder="Funcionário"></div>
+  <div class="g2f">
+    <div class="fg"><label>Salário bruto mensal (R$)</label><input id="dt-sal" class="money" placeholder="3.000,00" oninput="mm(this)"></div>
+    <div class="fg"><label>Dependentes (IRRF)</label><input id="dt-dep" type="number" min="0" value="0"></div>
+  </div>
+  <div class="g2f">
+    <div class="fg"><label>Meses trabalhados no ano</label><input id="dt-meses" type="number" min="1" max="12" value="12"></div>
+    <div class="fg"><label>Pensão alimentícia (%)</label><input id="dt-pensao" type="number" min="0" max="100" step="0.1" value="0"></div>
+  </div>
+  <div class="fg"><label>Valor já adiantado — 1ª parcela (R$)</label><input id="dt-adto" class="money" value="0,00" oninput="mm(this)"></div>
+  <div class="ibox">Fração ≥ 15 dias trabalhados no mês conta como mês integral (Lei 4.090/62 art.1º §1º). 1ª parcela: até 30/11, sem descontos (deixe "valor já adiantado" em 0,00 para usar 50% automático). 2ª parcela: até 20/12, com INSS e IRRF sobre o valor bruto integral do 13º.</div>
+  <button class="btn" onclick="calc13Salario()">Calcular 13º Salário</button>
+  <button class="btn sec" onclick="limpar('dt-nome','dt-sal','dt-dep','dt-pensao','dt-adto')">Limpar</button>
+</div>
+<div id="dt-result">
+  <div class="ph"><span>🎁</span><p>Preencha os dados<br>para calcular o 13º salário</p></div>
 </div>
 </div>
 </div>
@@ -3243,6 +3274,53 @@ function calcFerias(){
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
+// 3-B. 13º SALÁRIO — Lei 4.090/1962 · Lei 4.749/1965 · CLT
+// ═══════════════════════════════════════════════════════════════════════════
+function calc13Salario(){
+  const nome=document.getElementById('dt-nome').value||'Funcionário';
+  const sal=pm(document.getElementById('dt-sal').value);
+  const dep=+document.getElementById('dt-dep').value||0;
+  const meses=Math.min(12,Math.max(1,+document.getElementById('dt-meses').value||12));
+  const pctPensao=(+document.getElementById('dt-pensao').value||0)/100;
+  let adto=pm(document.getElementById('dt-adto').value);
+  if(!sal){alert('Informe o salário bruto mensal.');return}
+
+  // 13º proporcional bruto (Lei 4.090/62 art.1º; fração ≥15 dias trabalhados = mês integral)
+  const bruto=(sal/12)*meses;
+
+  // 1ª parcela (adiantamento): se nada foi informado, usa o padrão de 50% sem descontos
+  const primeiraParcelaPadrao=bruto/2;
+  if(!adto) adto=primeiraParcelaPadrao;
+  adto=Math.min(adto,bruto); // nunca pode exceder o valor bruto total
+
+  // Descontos incidem sobre o valor bruto TOTAL do 13º, recolhidos junto com a 2ª parcela
+  const inss=calcINSS(bruto);
+  const {irrf,al,ded,base:baseIR}=calcIRRF(bruto-inss,dep);
+  const pensao=bruto*pctPensao;
+
+  const segundaParcela=Math.max(0,bruto-adto-inss-irrf-pensao);
+  const liquidoTotal=bruto-inss-irrf-pensao;
+
+  let rows=hSec('13º Salário Proporcional');
+  rows+=hRow('Salário bruto mensal','',fmt(sal),'n');
+  rows+=hRow('Meses trabalhados no ano','fração ≥15 dias = mês integral',meses+'/12','n');
+  rows+=hRow('13º bruto proporcional',`${fmt(sal)} ÷ 12 × ${meses}`,fmt(bruto),'p');
+  rows+=hSec('1ª Parcela — Adiantamento (até 30/11, sem descontos)');
+  rows+=hRow('Valor da 1ª parcela','',fmt(adto),'p');
+  rows+=hSec('2ª Parcela — até 20/12 (descontos sobre o valor bruto integral)');
+  rows+=hRow('INSS sobre o 13º integral','tabela progressiva 2026',fmt(inss),'m');
+  rows+=hRow(`IRRF sobre o 13º (alíq. ${pct(al)}, ded ${fmt(ded)})`,`base ${fmt(baseIR)}`,fmt(irrf),'m');
+  if(pensao>0)rows+=hRow('Pensão alimentícia',`${(pctPensao*100).toFixed(1)}% sobre o bruto`,fmt(pensao),'m');
+  rows+=hRow('(−) Valor já adiantado (1ª parcela)','',fmt(adto),'m');
+  rows+=hRow('= 2ª parcela líquida a pagar','',fmt(segundaParcela),segundaParcela>0?'p':'n');
+  rows+=hSec('Resumo');
+  rows+=hRow('13º bruto total','',fmt(bruto),'n');
+  rows+=hRow('(−) Total de descontos'+(pensao>0?' (INSS + IRRF + pensão)':' (INSS + IRRF)'),'',fmt(inss+irrf+pensao),'m');
+  const tots=hTot('13º líquido total (1ª + 2ª parcela)',fmt(liquidoTotal),'liq');
+  hole('dt-result',rows,tots,`13º Salário — ${nome}`,`Lei 4.090/62 · Lei 4.749/65 · ${getComp()}`);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // 4. AVISO PRÉVIO
 // ═══════════════════════════════════════════════════════════════════════════
 function calcAviso(){
@@ -4218,7 +4296,7 @@ function calcPrecificacao(){
 // MOBILE — Drawer + Bottom Nav
 // ═══════════════════════════════════════════════════════════════════════════
 
-const PANEL_NAMES={'holerite': '• Holerite CLT', 'rescisao': '• Rescisão', 'ferias': '• Férias', 'aviso': '• Aviso Prévio', 'horas': '• Horas Extras', 'jornada': '• Jornada Noturna', 'intermitente': '• Intermitente', 'seguro': '• Seg. Desemprego', 'custo': '• Custo Empregado', 'prolabore': '• Pró-Labore', 'rpa': '• RPA', 'aluguel': '• IR Aluguel', 'mei': '• MEI', 'presumido': '• L. Presumido', 'real': '• L. Real', 'simples': '• Simples Nacional', 'irpfm': '• IR Dividendos', 'precificacao': '• Precificação', 'tabelas': '• Tabelas 2026', 'reformatrib': '• Reforma Trib.','cnae-consulta':'• Consulta CNAE','sim-mensal':'• Sim. Fator R','rel-cliente':'• Rel. Cliente','auditoria-nf':'• Auditoria NF'};
+const PANEL_NAMES={'holerite': '• Holerite CLT', 'rescisao': '• Rescisão', 'ferias': '• Férias', '13sal': '• 13º Salário', 'aviso': '• Aviso Prévio', 'horas': '• Horas Extras', 'jornada': '• Jornada Noturna', 'intermitente': '• Intermitente', 'seguro': '• Seg. Desemprego', 'custo': '• Custo Empregado', 'prolabore': '• Pró-Labore', 'rpa': '• RPA', 'aluguel': '• IR Aluguel', 'mei': '• MEI', 'presumido': '• L. Presumido', 'real': '• L. Real', 'simples': '• Simples Nacional', 'fatorr': '• Fator R', 'irpfm': '• IR Dividendos', 'precificacao': '• Precificação', 'tabelas': '• Tabelas 2026', 'reformatrib': '• Reforma Trib.','cnae-consulta':'• Consulta CNAE','sim-mensal':'• Sim. Fator R','rel-cliente':'• Rel. Cliente','auditoria-nf':'• Auditoria NF'};
 // IDs que têm atalho direto na bottom nav
 const MOB_NAV_IDS = ['holerite','rescisao','prolabore','simples','tabelas'];
 
@@ -5321,9 +5399,16 @@ function buscarCNAESimples(){
   const fimSimples=new Date(2026,9,15,23,59,59);   // 15/out/2026
   const fimRegimeReg=new Date(2026,9,30,23,59,59); // 30/out/2026
   const partes=[];
+  let urgente=false;
   if(hoje<=fimSimples){
-    const dias=Math.ceil((fimSimples-hoje)/86400000);
-    partes.push(`<strong>Opção pelo Simples Nacional 2027:</strong> até 15/10/2026 — faltam <strong>${dias} dia${dias!==1?'s':''}</strong>.`);
+    const mesmoDia=hoje.toDateString()===fimSimples.toDateString();
+    if(mesmoDia){
+      partes.push(`<strong>🚨 ÚLTIMO DIA — Opção pelo Simples Nacional 2027:</strong> o prazo (Resolução CGSN nº 194/2026) encerra HOJE às 23h59. Quem ainda não solicitou precisa formalizar a opção no Portal do Simples Nacional agora.`);
+      urgente=true;
+    } else {
+      const dias=Math.ceil((fimSimples-hoje)/86400000);
+      partes.push(`<strong>Opção pelo Simples Nacional 2027:</strong> até 15/10/2026 — faltam <strong>${dias} dia${dias!==1?'s':''}</strong>.`);
+    }
   } else {
     partes.push(`<strong>Opção pelo Simples Nacional 2027:</strong> prazo (até 15/10/2026) encerrado.`);
   }
@@ -5333,7 +5418,8 @@ function buscarCNAESimples(){
   } else {
     partes.push(`<strong>Opção pelo regime regular/híbrido do IBS/CBS:</strong> prazo (até 30/10/2026) encerrado.`);
   }
-  el.innerHTML = `<div class="wbox">⏰ ${partes.join(' ')}</div>`;
+  const cls=urgente?'ebox':'wbox';
+  el.innerHTML = `<div class="${cls}">⏰ ${partes.join(' ')}</div>`;
 })();
 
 function analisarRegimeHibrido(){
