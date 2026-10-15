@@ -230,6 +230,11 @@ select.inp{cursor:pointer;-webkit-appearance:none;background-image:url("data:ima
 @media print{#sb,#mobnav,#mob-more,#mob-ov,.ov,#gsearch,#toast,.ib,.btn-g{display:none!important}#main{overflow:visible}.card{break-inside:avoid}body{background:#fff;color:#000;font-size:12px}}
 @supports(padding-bottom:env(safe-area-inset-bottom)){#mobnav{padding-bottom:env(safe-area-inset-bottom)}#main{padding-bottom:calc(env(safe-area-inset-bottom) + 60px)}}
 </style>
+<!-- Firebase (login de clientes) — config em firebase-config.js. Enquanto não configurado, nada abaixo é usado. -->
+<script src="firebase-config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 <!-- ACESSO POR CNPJ -->
@@ -272,6 +277,44 @@ select.inp{cursor:pointer;-webkit-appearance:none;background-image:url("data:ima
           <div style="font-size:14px;font-weight:700;color:var(--ac)">CNPJ conectado!</div>
           <div style="font-size:11.5px;color:var(--t2);margin-top:4px" id="gb-sm">Carregando dados...</div>
           <div id="gb-di" style="margin-top:12px;display:flex;flex-direction:column;gap:6px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN (acesso de assinante — Firebase) -->
+<div id="login-ov" class="ov hidden">
+  <div class="gcard">
+    <div class="ghdr">
+      <div style="display:flex;align-items:center;gap:9px">
+        <span style="font-size:20px">☀️</span>
+        <div><div style="font-size:17px;font-weight:800;color:#fff;letter-spacing:-.02em">Solari para MEI</div><div style="font-size:10.5px;color:rgba(255,255,255,.68)">Acesso de assinante</div></div>
+      </div>
+    </div>
+    <div class="gbody">
+      <div id="login-loading" style="text-align:center;padding:20px 0">
+        <div class="spin sl" style="margin:0 auto 14px"></div>
+        <div style="font-size:12.5px;color:var(--t2)">Verificando sessão...</div>
+      </div>
+      <div id="login-form" class="hidden">
+        <div style="margin-bottom:14px">
+          <div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:3px">Entrar na sua conta</div>
+          <div style="font-size:12px;color:var(--t2)">Acesso liberado pela Solari Contabilidade para clientes com assinatura ativa do Solari para MEI.</div>
+        </div>
+        <div id="login-err" class="ie hidden" style="margin-bottom:10px"></div>
+        <div class="ig">
+          <label class="il">E-mail</label>
+          <input class="ginp" id="li-email" type="email" placeholder="seu@email.com" autocomplete="username" onkeydown="if(event.key==='Enter'){event.preventDefault();$('li-pass').focus();}">
+        </div>
+        <div class="ig" style="margin-bottom:8px">
+          <label class="il">Senha</label>
+          <input class="ginp" id="li-pass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter'){event.preventDefault();doLogin();}">
+        </div>
+        <div style="text-align:right;margin-bottom:12px"><button onclick="doResetPassword()" style="background:none;border:none;color:var(--t3);font-size:11px;cursor:pointer;font-family:var(--fn);text-decoration:underline">Esqueci minha senha</button></div>
+        <button class="gbtn gbp" onclick="doLogin()" id="li-btn">Entrar →</button>
+        <div style="margin-top:14px;padding:9px 11px;background:rgba(19,81,180,.07);border:1px solid rgba(19,81,180,.18);border-radius:7px;font-size:11px;color:var(--t2);line-height:1.65">
+          🔒 Ainda não tem acesso? Fale com a Solari Contabilidade para ativar sua assinatura do Solari para MEI.
         </div>
       </div>
     </div>
@@ -334,6 +377,7 @@ select.inp{cursor:pointer;-webkit-appearance:none;background-image:url("data:ima
         </div>
       </div>
       <div style="display:flex;gap:9px;margin-top:4px"><button class="btn btn-a" onclick="saveST()" style="flex:1">✓ Salvar</button><button class="btn btn-g" onclick="closeST()">Cancelar</button></div>
+      <div id="st-logout-row" class="hidden" style="margin-top:8px"><button class="btn btn-g" style="width:100%;color:var(--rd)" onclick="logout()">🚪 Sair da conta</button></div>
       <div style="margin-top:11px;padding:8px 11px;background:var(--bg);border-radius:7px;border:1px solid var(--bd);font-size:10.5px;color:var(--t3);line-height:1.65">🔒 Chaves salvas apenas no <strong style="color:var(--t2)">localStorage</strong>. Para produção use backend com env vars e OAuth server-side.</div>
     </div>
   </div>
@@ -2083,7 +2127,7 @@ let _rt;
 window.addEventListener('resize',()=>{clearTimeout(_rt);_rt=setTimeout(()=>{const mob=window.innerWidth<=768;const sb=$('sb'),mn=$('mobnav');if(sb)sb.style.display=mob?'none':'';if(mn)mn.style.display=mob?'flex':'none';if(DEV.ios)document.documentElement.style.setProperty('--real-vh',window.innerHeight*.01+'px');},100);});
 
 // INIT
-window.addEventListener('DOMContentLoaded',()=>{
+function bootApp(){
   loadCFG();
   if(CFG.gov){
     GOV=CFG.gov;
@@ -2098,13 +2142,93 @@ window.addEventListener('DOMContentLoaded',()=>{
   }
   if(DEV.mob){const sb=$('sb'),mn=$('mobnav');if(sb)sb.style.display='none';if(mn)mn.style.display='flex';}
   console.log(`%c☀️ Solari para MEI%c v3.1 | ${DEV.mob?'📱 Mobile':'🖥️ Desktop'} | ${DEV.br} | iOS: ${DEV.ios}`,'color:#F59E0B;font-weight:800;font-size:13px','color:#94A3B8;font-size:11px');
+  if(FIREBASE_READY){const row=$('st-logout-row');if(row)row.classList.remove('hidden');}
   if(CFG.ok){hide('govbr-ov');applySession();setTimeout(checkNotifs,800);return;}
   show('govbr-ov');setTimeout(()=>{
     // Pré-preencher CNPJ se já houver dado salvo
     if(CFG.cnpj&&$('gb-cnpj'))$('gb-cnpj').value=CFG.cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5');
     $('gb-cnpj')?.focus();
   },200);
-});
+}
+
+// ===== GATE DE LOGIN (Firebase Auth + Firestore) =====
+// FIREBASE_CONFIG vem de firebase-config.js. Enquanto estiver com os
+// placeholders "SUBSTITUA_AQUI", o app abre direto (comportamento
+// antigo), sem exigir login — para nunca travar ninguém por engano
+// antes de o Firebase ser configurado.
+const FIREBASE_READY=(()=>{
+  try{
+    return typeof FIREBASE_CONFIG!=='undefined' && !!FIREBASE_CONFIG && !!FIREBASE_CONFIG.apiKey && !/SUBSTITUA_AQUI/.test(FIREBASE_CONFIG.apiKey) && typeof firebase!=='undefined';
+  }catch{return false;}
+})();
+let fbUser=null,fbIsAdmin=false;
+
+function showLoginForm(msg){
+  hide('login-loading');show('login-form');show('login-ov');
+  const e=$('login-err');
+  if(e){if(msg){e.textContent=msg;e.classList.remove('hidden');}else{e.classList.add('hidden');}}
+}
+async function doLogin(){
+  const email=gv('li-email'),pass=gv('li-pass');
+  const errEl=$('login-err'),btn=$('li-btn');
+  if(!email||!pass){if(errEl){errEl.textContent='Informe e-mail e senha.';errEl.classList.remove('hidden');}return;}
+  if(errEl)errEl.classList.add('hidden');
+  if(btn){btn.disabled=true;btn.innerHTML='Entrando...';}
+  try{
+    await firebase.auth().signInWithEmailAndPassword(email,pass);
+    // onAuthStateChanged cuida do resto (checar Firestore e abrir o app)
+  }catch(e){
+    let m='Não foi possível entrar. Verifique e-mail e senha.';
+    if(e&&e.code==='auth/too-many-requests')m='Muitas tentativas. Aguarde alguns minutos e tente de novo.';
+    if(e&&e.code==='auth/invalid-email')m='E-mail inválido.';
+    if(errEl){errEl.textContent=m;errEl.classList.remove('hidden');}
+  }finally{
+    if(btn){btn.disabled=false;btn.innerHTML='Entrar →';}
+  }
+}
+async function doResetPassword(){
+  const email=gv('li-email');
+  if(!email){toast('Informe seu e-mail para redefinir a senha','warn');return;}
+  try{
+    await firebase.auth().sendPasswordResetEmail(email);
+    toast('Enviamos um link de redefinição de senha para seu e-mail','ok');
+  }catch(e){
+    toast('Não foi possível enviar o e-mail de redefinição. Confira o e-mail digitado.','err');
+  }
+}
+function logout(){
+  if(!FIREBASE_READY){toast('Login não está configurado neste ambiente','warn');return;}
+  firebase.auth().signOut().finally(()=>location.reload());
+}
+function initAuthGate(){
+  if(!FIREBASE_READY){bootApp();return;}
+  try{
+    firebase.initializeApp(FIREBASE_CONFIG);
+  }catch(e){
+    console.warn('Firebase não inicializou — seguindo sem gate de login',e);
+    bootApp();return;
+  }
+  show('login-ov');
+  firebase.auth().onAuthStateChanged(async(user)=>{
+    if(!user){fbUser=null;fbIsAdmin=false;showLoginForm();return;}
+    fbUser=user;
+    try{
+      const adminSnap=await firebase.firestore().collection('admins').doc(user.uid).get();
+      fbIsAdmin=adminSnap.exists;
+      if(fbIsAdmin){hide('login-ov');bootApp();return;}
+      const cliSnap=await firebase.firestore().collection('clientes').doc(user.uid).get();
+      if(cliSnap.exists && cliSnap.data().ativo===true){
+        hide('login-ov');bootApp();return;
+      }
+      await firebase.auth().signOut();
+      showLoginForm('Seu acesso ainda não foi liberado ou está inativo. Fale com a Solari Contabilidade.');
+    }catch(e){
+      console.error(e);
+      showLoginForm('Não foi possível verificar seu acesso agora. Tente novamente em instantes.');
+    }
+  });
+}
+window.addEventListener('DOMContentLoaded',initAuthGate);
 </script>
 </body>
 </html>

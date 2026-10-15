@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Admin — Solari para MEI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0F1A;--sf:#111827;--sf2:#162032;--hv:#1a2538;--bd:#1e2d45;--bd2:#2a3f5f;
+  --ac:#00C896;--acd:rgba(0,200,150,.12);
+  --bl:#3B82F6;
+  --am:#F59E0B;--amd:rgba(245,158,11,.12);
+  --rd:#EF4444;--rdd:rgba(239,68,68,.1);
+  --t1:#F1F5F9;--t2:#94A3B8;--t3:#4B6280;
+  --fn:'Plus Jakarta Sans',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:var(--bg);color:var(--t1);font-family:var(--fn);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--bl)}
+button,input{font-family:var(--fn)}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:10px;flex-wrap:wrap}
+.hdr h1{font-size:19px;font-weight:800;letter-spacing:-.02em}
+.hdr .sub{font-size:11.5px;color:var(--t3);margin-top:2px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:20px 22px;margin-bottom:18px}
+.card-title{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ig{margin-bottom:12px}
+.il{font-size:10.5px;color:var(--t3);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.inp{width:100%;background:var(--bg);border:1.5px solid var(--bd);border-radius:9px;padding:10px 12px;color:var(--t1);font-size:13.5px;outline:none;transition:border-color .15s}
+.inp:focus{border-color:#2670E8}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+.btn{padding:11px 16px;border-radius:9px;border:none;font-size:13.5px;font-weight:700;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn-p{background:linear-gradient(135deg,#1351B4,#2670E8);color:#fff}
+.btn-p:hover:not(:disabled){filter:brightness(1.1)}
+.btn-p:disabled{opacity:.5;cursor:not-allowed}
+.btn-g{background:var(--bd);color:var(--t1)}
+.btn-sm{padding:6px 11px;font-size:11.5px;border-radius:7px}
+.msg{font-size:12px;padding:9px 11px;border-radius:8px;margin-bottom:12px}
+.msg-err{background:var(--rdd);border:1px solid rgba(239,68,68,.3);color:#FCA5A5}
+.msg-ok{background:var(--acd);border:1px solid rgba(0,200,150,.3);color:var(--ac)}
+.hidden{display:none!important}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;background:var(--bg);border:1px solid var(--bd);border-radius:9px;margin-bottom:7px;flex-wrap:wrap}
+.row .nm{font-size:13px;font-weight:600}
+.row .em{font-size:11px;color:var(--t3)}
+.badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px}
+.badge-on{background:var(--acd);color:var(--ac)}
+.badge-off{background:var(--rdd);color:#FCA5A5}
+.loadbox{text-align:center;padding:40px 0;color:var(--t2);font-size:13px}
+.spin{width:30px;height:30px;border-radius:50%;border:3px solid var(--bd);border-top-color:var(--ac);animation:sp .7s linear infinite;margin:0 auto 12px}
+@keyframes sp{to{transform:rotate(360deg)}}
+#login-box{max-width:380px;margin:80px auto 0}
+</style>
+<script src="firebase-config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="not-configured" class="hidden" style="margin-top:80px">
+    <div class="card">
+      <div class="card-title">⚙️ Firebase ainda não configurado</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.7">
+        Este painel só funciona depois que o arquivo <code>firebase-config.js</code> for preenchido com os dados do seu projeto Firebase. Veja as instruções dentro do próprio arquivo, ou peça o passo-a-passo para a Solari Contabilidade.
+      </div>
+    </div>
+  </div>
+
+  <div id="login-box" class="hidden">
+    <div class="card">
+      <div class="card-title">🔐 Painel Admin — Solari para MEI</div>
+      <div id="login-msg" class="msg msg-err hidden"></div>
+      <div class="ig"><label class="il">E-mail</label><input class="inp" id="ad-email" type="email" placeholder="seu@email.com" autocomplete="username"></div>
+      <div class="ig"><label class="il">Senha</label><input class="inp" id="ad-pass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')adminLogin()"></div>
+      <button class="btn btn-p" style="width:100%" onclick="adminLogin()" id="ad-login-btn">Entrar →</button>
+    </div>
+  </div>
+
+  <div id="checking-box" class="hidden">
+    <div class="loadbox"><div class="spin"></div>Verificando acesso...</div>
+  </div>
+
+  <div id="no-access-box" class="hidden" style="margin-top:80px">
+    <div class="card">
+      <div class="card-title">🚫 Sem acesso de administrador</div>
+      <div style="font-size:13px;color:var(--t2)">Esta conta não tem permissão para acessar o painel admin.</div>
+      <button class="btn btn-g" style="margin-top:14px" onclick="firebase.auth().signOut().then(()=>location.reload())">Sair e tentar com outra conta</button>
+    </div>
+  </div>
+
+  <div id="panel" class="hidden">
+    <div class="hdr">
+      <div>
+        <h1>☀️ Painel Admin</h1>
+        <div class="sub">Solari para MEI — gestão de acesso de clientes</div>
+      </div>
+      <button class="btn btn-g btn-sm" onclick="firebase.auth().signOut().then(()=>location.reload())">🚪 Sair</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">➕ Criar login de cliente</div>
+      <div id="create-msg" class="hidden"></div>
+      <div class="g2">
+        <div class="ig"><label class="il">Nome do cliente</label><input class="inp" id="nc-nome" placeholder="Nome da empresa / cliente"></div>
+        <div class="ig"><label class="il">E-mail do cliente</label><input class="inp" id="nc-email" type="email" placeholder="cliente@email.com"></div>
+      </div>
+      <div class="ig">
+        <label class="il">Senha provisória</label>
+        <div style="display:flex;gap:8px">
+          <input class="inp" id="nc-senha" type="text" placeholder="Mín. 6 caracteres">
+          <button class="btn btn-g btn-sm" onclick="gerarSenha()" style="white-space:nowrap">🎲 Gerar</button>
+        </div>
+        <div style="font-size:10.5px;color:var(--t3);margin-top:4px">Passe essa senha ao cliente — ele pode trocá-la depois usando "Esqueci minha senha" na tela de login.</div>
+      </div>
+      <button class="btn btn-p" onclick="criarCliente()" id="nc-btn">Criar acesso</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">👥 Clientes cadastrados</div>
+      <div id="clientes-loading" class="loadbox"><div class="spin"></div>Carregando...</div>
+      <div id="clientes-vazio" class="hidden" style="font-size:12.5px;color:var(--t3)">Nenhum cliente cadastrado ainda.</div>
+      <div id="clientes-list"></div>
+      <button class="btn btn-g btn-sm" style="margin-top:8px" onclick="carregarClientes()">↻ Atualizar lista</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const gv=id=>{const e=$(id);return e?e.value.trim():''};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+const FIREBASE_READY=(()=>{
+  try{
+    return typeof FIREBASE_CONFIG!=='undefined' && !!FIREBASE_CONFIG && !!FIREBASE_CONFIG.apiKey && !/SUBSTITUA_AQUI/.test(FIREBASE_CONFIG.apiKey) && typeof firebase!=='undefined';
+  }catch{return false;}
+})();
+
+function showOnly(id){
+  ['not-configured','login-box','checking-box','no-access-box','panel'].forEach(x=>{
+    const e=$(x); if(e) e.classList.toggle('hidden', x!==id);
+  });
+}
+
+function msg(id,text,type){
+  const e=$(id); if(!e) return;
+  e.textContent=text;
+  e.className='msg '+(type==='ok'?'msg-ok':'msg-err');
+  e.classList.remove('hidden');
+}
+
+async function adminLogin(){
+  const email=gv('ad-email'),pass=gv('ad-pass');
+  const btn=$('ad-login-btn');
+  $('login-msg').classList.add('hidden');
+  if(!email||!pass){ msg('login-msg','Informe e-mail e senha.'); return; }
+  if(btn){btn.disabled=true;btn.innerHTML='Entrando...';}
+  try{
+    await firebase.auth().signInWithEmailAndPassword(email,pass);
+  }catch(e){
+    msg('login-msg','Não foi possível entrar. Verifique e-mail e senha.');
+  }finally{
+    if(btn){btn.disabled=false;btn.innerHTML='Entrar →';}
+  }
+}
+
+function gerarSenha(){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+  let s='';
+  for(let i=0;i<10;i++) s+=chars[Math.floor(Math.random()*chars.length)];
+  $('nc-senha').value=s;
+}
+
+function getSecondaryApp(){
+  try{ return firebase.app('Secondary'); }
+  catch(e){ return firebase.initializeApp(FIREBASE_CONFIG,'Secondary'); }
+}
+
+async function criarCliente(){
+  const nome=gv('nc-nome'),email=gv('nc-email'),senha=gv('nc-senha');
+  const box=$('create-msg'),btn=$('nc-btn');
+  box.classList.add('hidden');
+  if(!nome||!email||!senha){ box.className='msg msg-err'; box.textContent='Preencha nome, e-mail e senha.'; box.classList.remove('hidden'); return; }
+  if(senha.length<6){ box.className='msg msg-err'; box.textContent='A senha precisa ter pelo menos 6 caracteres.'; box.classList.remove('hidden'); return; }
+  if(btn){btn.disabled=true;btn.innerHTML='Criando...';}
+  const secApp=getSecondaryApp();
+  try{
+    const cred=await secApp.auth().createUserWithEmailAndPassword(email,senha);
+    const uid=cred.user.uid;
+    await firebase.firestore().collection('clientes').doc(uid).set({
+      nome, email, ativo:true,
+      criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    await secApp.auth().signOut();
+    box.className='msg msg-ok';
+    box.textContent=`Login criado! Envie ao cliente: e-mail "${email}" e a senha provisória.`;
+    box.classList.remove('hidden');
+    $('nc-nome').value='';$('nc-email').value='';$('nc-senha').value='';
+    carregarClientes();
+  }catch(e){
+    let m='Não foi possível criar o login.';
+    if(e&&e.code==='auth/email-already-in-use')m='Já existe uma conta com esse e-mail.';
+    if(e&&e.code==='auth/invalid-email')m='E-mail inválido.';
+    if(e&&e.code==='auth/weak-password')m='Senha muito fraca (mín. 6 caracteres).';
+    box.className='msg msg-err'; box.textContent=m; box.classList.remove('hidden');
+  }finally{
+    if(btn){btn.disabled=false;btn.innerHTML='Criar acesso';}
+  }
+}
+
+async function toggleCliente(uid,ativoAtual){
+  try{
+    await firebase.firestore().collection('clientes').doc(uid).update({ativo: !ativoAtual});
+    carregarClientes();
+  }catch(e){
+    alert('Não foi possível atualizar este cliente.');
+  }
+}
+
+async function carregarClientes(){
+  $('clientes-loading').classList.remove('hidden');
+  $('clientes-vazio').classList.add('hidden');
+  $('clientes-list').innerHTML='';
+  try{
+    const snap=await firebase.firestore().collection('clientes').get();
+    $('clientes-loading').classList.add('hidden');
+    if(snap.empty){ $('clientes-vazio').classList.remove('hidden'); return; }
+    const rows=[];
+    snap.forEach(doc=>{
+      const d=doc.data();
+      rows.push({uid:doc.id, nome:d.nome||'(sem nome)', email:d.email||'—', ativo: d.ativo===true});
+    });
+    rows.sort((a,b)=>a.nome.localeCompare(b.nome));
+    $('clientes-list').innerHTML=rows.map(r=>`
+      <div class="row">
+        <div>
+          <div class="nm">${esc(r.nome)}</div>
+          <div class="em">${esc(r.email)}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="badge ${r.ativo?'badge-on':'badge-off'}">${r.ativo?'Ativo':'Inativo'}</span>
+          <button class="btn btn-g btn-sm" onclick="toggleCliente('${r.uid}',${r.ativo})">${r.ativo?'Desativar':'Ativar'}</button>
+        </div>
+      </div>
+    `).join('');
+  }catch(e){
+    $('clientes-loading').classList.add('hidden');
+    $('clientes-list').innerHTML='<div style="font-size:12px;color:var(--rd)">Erro ao carregar clientes.</div>';
+  }
+}
+
+function init(){
+  if(!FIREBASE_READY){ showOnly('not-configured'); return; }
+  try{ firebase.initializeApp(FIREBASE_CONFIG); }
+  catch(e){ showOnly('not-configured'); return; }
+  showOnly('checking-box');
+  firebase.auth().onAuthStateChanged(async(user)=>{
+    if(!user){ showOnly('login-box'); return; }
+    showOnly('checking-box');
+    try{
+      const adminSnap=await firebase.firestore().collection('admins').doc(user.uid).get();
+      if(!adminSnap.exists){ showOnly('no-access-box'); return; }
+      showOnly('panel');
+      carregarClientes();
+    }catch(e){
+      showOnly('no-access-box');
+    }
+  });
+}
+window.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
