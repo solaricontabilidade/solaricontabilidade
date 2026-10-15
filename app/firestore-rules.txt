@@ -1,0 +1,42 @@
+// ============================================================
+// Regras de Segurança do Firestore — Solari para MEI
+// ============================================================
+// Onde colar: Firebase Console → Firestore Database → aba "Regras"
+// → apague o conteúdo atual → cole tudo abaixo → clique em "Publicar".
+//
+// O que elas fazem:
+// - Um cliente só consegue LER o próprio documento em /clientes/{uid}
+//   (nunca o de outro cliente).
+// - Ninguém consegue CRIAR ou EDITAR documentos em /clientes/{uid}
+//   pelo app (nem o próprio cliente) — só um admin pode, e isso é
+//   feito pelo painel admin.html.
+// - A coleção /admins/{uid} não pode ser lida nem escrita por
+//   ninguém a partir do app ou do navegador — só é criada manualmente
+//   por você, direto no Firebase Console (veja o passo-a-passo que
+//   te enviei para criar sua própria conta de admin).
+// ============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    match /clientes/{uid} {
+      allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+      allow write: if isAdmin();
+    }
+
+    match /admins/{uid} {
+      allow read, write: if false; // só editável pelo Console do Firebase
+    }
+
+    // Qualquer outra coleção fica bloqueada por padrão
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

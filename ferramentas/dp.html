@@ -2032,8 +2032,8 @@ select option{background:var(--bg2)}
 <div id="p-sim-mensal" class="panel">
 <div class="panel-title">📅 Simulador Reforma Tributária &amp; Simples Nacional</div>
 <div>
-  <div class="section-head">🧩 Módulo 1 — Regime Híbrido do Simples Nacional (IBS/CBS por fora)</div>
-  <div class="ibox">A Reforma Tributária (LC 214/2025 · Resolução CGSN 190/2026) permite às empresas do Simples Nacional optar entre o <strong>regime regular</strong> (IBS e CBS continuam embutidos na alíquota do Anexo, dentro do DAS) e o <strong>regime híbrido</strong> (IBS e CBS saem do DAS — que é recalculado com dedução correspondente — e passam a ser apurados separadamente pelo regime não cumulativo, com direito a crédito integral das entradas e crédito integral repassado aos clientes PJ). Informe o CNAE e o perfil de vendas para obter uma recomendação.</div>
+  <div class="section-head">🧩 Módulo 1 — Regime Único × Regime Híbrido do Simples Nacional (IBS/CBS)</div>
+  <div class="ibox">A Reforma Tributária (LC 214/2025 · Resolução CGSN 190/2026 e 194/2026) dá às empresas do Simples Nacional duas opções para IBS/CBS: o <strong>Regime Único</strong> — modelo padrão, automático, sem necessidade de optar — em que IBS e CBS continuam embutidos na alíquota do Anexo e recolhidos dentro do DAS; e o <strong>Regime Híbrido</strong> — opcional, formalizado nas janelas de opção do CGSN — em que IBS e CBS saem do DAS (que é recalculado com dedução da parcela correspondente) e passam a ser apurados separadamente pelas regras do <em>regime regular</em> (sistema não cumulativo, o mesmo usado por Lucro Presumido/Real), com direito a crédito integral das entradas e crédito integral repassado aos clientes PJ. <strong>Nenhuma opção é obrigatória</strong> — quem não optar permanece automaticamente no Regime Único. Informe os dados abaixo para comparar os dois modelos lado a lado.</div>
   <div id="simh-prazo"></div>
 
   <div class="card" style="margin-bottom:1.5rem">
@@ -2045,6 +2045,17 @@ select option{background:var(--bg2)}
       </div>
       <div class="fg"><label>Receita mensal média (R$)</label>
         <input id="simh-rec" class="money" placeholder="50.000,00" oninput="mm(this)"></div>
+      <div class="fg"><label>Anexo do Simples Nacional</label>
+        <select id="simh-anx">
+          <option value="I">Anexo I — Comércio</option>
+          <option value="II">Anexo II — Indústria</option>
+          <option value="III" selected>Anexo III — Serviços</option>
+          <option value="IV">Anexo IV — Serviços (sem CPP no DAS)</option>
+          <option value="V">Anexo V — Serviços (Fator R)</option>
+        </select>
+      </div>
+    </div>
+    <div class="g3">
       <div class="fg"><label>Ano de referência da simulação</label>
         <select id="simh-ano">
           <option value="2027" selected>2027 — início da cobrança plena de CBS</option>
@@ -2056,14 +2067,13 @@ select option{background:var(--bg2)}
           <option value="2033">2033 — sistema pleno</option>
         </select>
       </div>
-    </div>
-    <div class="g2f">
       <div class="fg"><label>% das vendas para empresas (B2B, que aproveitam crédito)</label>
         <input id="simh-b2b" type="number" min="0" max="100" step="5" value="20"></div>
       <div class="fg"><label>% das compras/insumos com direito a crédito de CBS/IBS</label>
         <input id="simh-credito" type="number" min="0" max="100" step="5" value="20"></div>
     </div>
-    <button class="btn" onclick="analisarRegimeHibrido()">Analisar Regime Recomendado</button>
+    <div class="ibox" style="font-size:.7rem">A Receita Bruta dos últimos 12 meses (RBT12) usada no cálculo do DAS é estimada como <strong>receita mensal informada × 12</strong>. Para uma apuração exata, use a calculadora <strong>Simples Nacional</strong> com o RBT12 real da empresa.</div>
+    <button class="btn" onclick="analisarRegimeHibrido()">Comparar Regime Único × Híbrido</button>
     <div id="simh-result" style="margin-top:1rem"></div>
   </div>
 
@@ -2117,7 +2127,7 @@ select option{background:var(--bg2)}
         <tbody id="sim-tbody"></tbody>
       </table>
     </div>
-    <p style="font-size:.68rem;color:var(--muted);margin-top:.5rem">DAS estimado = receita mensal × alíquota efetiva do Anexo III ou V para o RBT12 acumulado · Base: Res. CGSN 140/2018 · Tabelas LC 123/2006<br><sup>†</sup> CBS+IBS estimado = receita mensal × alíquota efetiva do ano/CNAE informados no Módulo 1 (botão "Analisar Regime Recomendado"). No regime <strong>híbrido</strong>, esse valor passa a ser apurado separadamente (com direito a crédito) e o DAS é reduzido na parcela correspondente; no regime <strong>regular</strong>, ele já está embutido na alíquota do Anexo mostrada na coluna "DAS estimado".</p>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:.5rem">DAS estimado = receita mensal × alíquota efetiva do Anexo III ou V para o RBT12 acumulado · Base: Res. CGSN 140/2018 · Tabelas LC 123/2006<br><sup>†</sup> CBS+IBS estimado = receita mensal × alíquota efetiva do ano/CNAE informados no Módulo 1 (botão "Comparar Regime Único × Híbrido"). No Regime <strong>Híbrido</strong>, esse valor passa a ser apurado separadamente (com direito a crédito) e o DAS é reduzido na parcela correspondente; no Regime <strong>Único</strong> (padrão), ele já está embutido na alíquota do Anexo mostrada na coluna "DAS estimado".</p>
   </div>
 </div>
 </div>
@@ -5425,9 +5435,11 @@ function buscarCNAESimples(){
 function analisarRegimeHibrido(){
   const rec=pm(document.getElementById('simh-rec').value);
   const ano=+document.getElementById('simh-ano').value;
+  const anx=document.getElementById('simh-anx').value;
   const b2bPct=+document.getElementById('simh-b2b').value||0;
   const credPct=+document.getElementById('simh-credito').value||0;
   if(!rec){ alert('Informe a receita mensal média.'); return; }
+  if(rec*12>4800000){document.getElementById('simh-result').innerHTML=`<div class="wbox">⚠️ RBT12 estimado (receita × 12 = ${fmt(rec*12)}) acima do limite do Simples Nacional (R$ 4.800.000). Para esse porte de receita a comparação Único × Híbrido deixa de fazer sentido — avalie Lucro Presumido/Real nas calculadoras correspondentes.</div>`;return}
 
   const fator = SIMH_CNAE_SEL ? SIMH_CNAE_SEL[4] : 1;
   const grupo = SIMH_CNAE_SEL ? SIMH_CNAE_SEL[2] : null;
@@ -5440,11 +5452,31 @@ function analisarRegimeHibrido(){
   const aliqEf=(fase.cbs+fase.ibs)*fator;
   const cbsIbsMes=rec*aliqEf;
 
-  // Heurística de recomendação — favorece híbrido quando há forte perfil B2B
-  // e volume relevante de créditos de entrada; favorece regular no caso oposto.
+  // ── DAS no Regime Único (padrão — IBS/CBS embutidos no Anexo, dentro do DAS) ──
+  // RBT12 estimado a partir da receita mensal informada (ver aviso na tela).
+  const rbt12Est=rec*12;
+  const tabela=SN[anx];
+  let al_nom=0,ded_sn=0;
+  for(const f of tabela.faixas){ if(rbt12Est<=f.ate){ al_nom=f.al; ded_sn=f.ded; break; } }
+  const al_ef_unico = rbt12Est>0 ? Math.max(0,(rbt12Est*al_nom-ded_sn)/rbt12Est) : 0;
+  const dasUnico = rec*al_ef_unico;
+
+  // ── Regime Híbrido ── DAS recalculado (deduzida a parcela de IBS/CBS) +
+  // IBS/CBS apurado separadamente (não cumulativo), com crédito das entradas informadas.
+  const dasHibridoBruto=Math.max(0,dasUnico-cbsIbsMes);
+  const creditoEntradas=cbsIbsMes*(credPct/100);
+  const cbsIbsLiquido=Math.max(0,cbsIbsMes-creditoEntradas);
+  const custoTotalHibrido=dasHibridoBruto+cbsIbsLiquido;
+  const custoTotalUnico=dasUnico; // no Único, IBS/CBS já está embutido — não há parcela separada a somar
+  const economiaMes=custoTotalUnico-custoTotalHibrido;
+  const alertaEstim = cbsIbsMes>dasUnico;
+
+  // Heurística de recomendação — considera a economia direta de custo apurada acima
+  // e o perfil de vendas B2B (crédito repassado ao cliente é uma vantagem competitiva
+  // que não aparece no custo direto da própria empresa).
   let score=0;
+  if(economiaMes>0) score+= economiaMes> dasUnico*0.02 ? 2 : 1;
   if(b2bPct>=50) score+=2; else if(b2bPct>=20) score+=1;
-  if(credPct>=40) score+=2; else if(credPct>=15) score+=1;
   const gruposB2B=['Indústria alimentos','Indústria farmacêutica','Agronegócio','Profissões Regulamentadas'];
   const gruposB2C=['Saúde','Educação','Alimentação','Arte e Cultura'];
   if(grupo && gruposB2B.includes(grupo)) score+=1;
@@ -5453,10 +5485,10 @@ function analisarRegimeHibrido(){
   let veredito,corV,explic;
   if(score>=3){
     veredito='Regime HÍBRIDO provavelmente vantajoso'; corV='var(--green)';
-    explic='Perfil com forte proporção de vendas B2B e/ou créditos de entrada relevantes. No híbrido, o crédito é repassado integralmente aos clientes PJ (mais competitivo nessas vendas) e a empresa recupera o crédito de suas próprias compras — o que compensa a maior complexidade de apurar IBS/CBS separadamente.';
+    explic='A economia direta de custo apurada acima, somada a um perfil com forte proporção de vendas B2B, favorece o híbrido: o crédito é repassado integralmente aos clientes PJ (mais competitivo nessas vendas) e a empresa recupera o crédito de suas próprias compras — o que compensa a maior complexidade de apurar IBS/CBS separadamente.';
   } else if(score<=0){
-    veredito='Regime REGULAR (Simples puro) provavelmente melhor'; corV='var(--amber)';
-    explic='Perfil predominantemente B2C e/ou com poucas entradas creditáveis. Nesse caso, o benefício do crédito integral do híbrido é pequeno e não compensa a complexidade adicional de apurar IBS/CBS fora do DAS — o Simples Nacional tradicional tende a ser mais simples e igualmente vantajoso.';
+    veredito='Regime ÚNICO (padrão) provavelmente melhor'; corV='var(--amber)';
+    explic='Perfil predominantemente B2C e/ou com poucas entradas creditáveis — a economia de custo do híbrido é pequena ou nula e não compensa a complexidade adicional de apurar IBS/CBS fora do DAS. Permanecer no Regime Único (não é preciso fazer nada) tende a ser mais simples e igualmente vantajoso.';
   } else {
     veredito='Indiferente — avaliar caso a caso'; corV='var(--muted)';
     explic='O perfil informado não indica claramente qual regime é mais vantajoso. Recomenda-se simular os dois cenários com os números reais da empresa antes de decidir (ou aguardar mais um período de apuração para reavaliar).';
@@ -5464,18 +5496,29 @@ function analisarRegimeHibrido(){
 
   let rows=hSec(`Atividade — ${nomeCnae}`);
   rows+=hRow('Ano de referência','Cronograma de transição LC 214/2025',String(ano),'n');
+  rows+=hRow('Anexo do Simples Nacional','',`Anexo ${anx}`,'n');
+  rows+=hRow('RBT12 estimado',`${fmt(rec)} × 12`,fmt(rbt12Est),'n');
   rows+=hRow('Alíquota efetiva CBS+IBS','após redução setorial',fmtPct(aliqEf),'n');
-  rows+=hRow('CBS+IBS estimado no mês','receita × alíquota efetiva',fmt(cbsIbsMes),'m');
+  rows+=hSec('① Regime Único — padrão, tudo no DAS');
+  rows+=hRow('Alíquota efetiva do Anexo',`Anexo ${anx}`,fmtPct(al_ef_unico),'n');
+  rows+=hRow('DAS único (inclui IBS/CBS embutido)','',fmt(dasUnico),'m');
+  rows+=hSec('② Regime Híbrido — IBS/CBS apurado por fora');
+  rows+=hRow('DAS híbrido (reduzido)',`${fmt(dasUnico)} − ${fmt(cbsIbsMes)}`,fmt(dasHibridoBruto),'n');
+  rows+=hRow('(−) Crédito sobre entradas',`${fmt(cbsIbsMes)} × ${credPct.toFixed(0)}%`,fmt(creditoEntradas),'p');
+  rows+=hRow('CBS/IBS líquido a recolher por fora','',fmt(cbsIbsLiquido),'m');
+  rows+=hRow('Custo total no híbrido','DAS híbrido + CBS/IBS líquido',fmt(custoTotalHibrido),'m');
+  rows+=hSec('Comparativo — custo direto para a empresa');
+  rows+=hRow('Custo total — Regime Único','',fmt(custoTotalUnico),'n');
+  rows+=hRow('Custo total — Regime Híbrido','',fmt(custoTotalHibrido),'n');
+  rows+=hRow(economiaMes>=0?'Economia mensal no híbrido':'Custo extra mensal no híbrido','',fmt(Math.abs(economiaMes)),economiaMes>=0?'p':'m');
+  if(alertaEstim)rows+=`<div class="hole-row"><span class="d" style="color:var(--warning)">⚠️ O CBS/IBS estimado superou o DAS único calculado — revise os dados informados (RBT12 estimado por receita×12 pode não refletir a realidade da empresa).</span></div>`;
   rows+=hSec('Perfil informado');
-  rows+=hRow('Vendas para empresas (B2B)','aproveitam crédito integral',`${b2bPct.toFixed(0)}%`,'n');
-  rows+=hRow('Compras/insumos com crédito','reduz o CBS/IBS a recolher',`${credPct.toFixed(0)}%`,'n');
-  rows+=hSec('Mecânica do regime híbrido (Res. CGSN 190/2026)');
-  rows+=hRow('Base de cálculo do Simples','IBS e CBS apurados no híbrido são excluídos da receita bruta do Simples','—','n');
-  rows+=hRow('DAS no híbrido','recalculado com dedução da parcela de IBS/CBS','DAS reduzido','n');
-  rows+=hRow('Créditos no híbrido','entradas geram crédito integral, aproveitável e repassável ao cliente PJ','não cumulativo','p');
+  rows+=hRow('Vendas para empresas (B2B)','aproveitam crédito integral repassado pelo híbrido',`${b2bPct.toFixed(0)}%`,'n');
+  rows+=hRow('Compras/insumos com crédito','usado no cálculo do crédito sobre entradas acima',`${credPct.toFixed(0)}%`,'n');
+  rows+=`<div class="hole-row"><span class="d" style="grid-column:1/-1;font-size:.72rem;color:var(--muted);line-height:1.6">⚠️ Estimativa para apoiar a decisão — não reproduz as tabelas oficiais de composição de IBS/CBS por Anexo (LC 214/2025, Anexos XVIII a XXII), que a Receita Federal/CGSN ainda deve detalhar. Confirme os valores finais com a apuração oficial antes de orientar o cliente.</span></div>`;
 
-  const tots=hTot(veredito,fmtPct(aliqEf),'liq');
-  hole('simh-result',rows,tots,'Regime Simples Nacional',`${ano} · Análise`);
+  const tots=hTot(veredito,fmt(custoTotalHibrido),'liq');
+  hole('simh-result',rows,tots,'Regime Único × Híbrido — Simples Nacional',`${ano} · Anexo ${anx}`);
   const resEl=document.getElementById('simh-result');
   if(resEl) resEl.insertAdjacentHTML('afterbegin',`<div class="sbox" style="border-color:${corV};color:${corV};margin-bottom:.75rem"><strong>${veredito}</strong><br><span style="font-size:.75rem">${explic}</span></div>`);
 }
