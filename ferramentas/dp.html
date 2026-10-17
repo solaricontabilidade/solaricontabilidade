@@ -786,6 +786,7 @@ select option{background:var(--bg2)}
     <div class="fg"><label>Dependentes</label><input id="h-dep" type="number" min="0" value="0"></div>
   </div>
   <!-- Horas extras por quantidade -->
+  <div id="ec141-aviso-h" style="margin-bottom:.6rem"></div>
   <div class="ibox" style="margin-bottom:.6rem;font-size:.73rem">⏱ Horas extras calculadas automaticamente: valor da hora = Salário ÷ Jornada mensal × (1 + adicional%). CLT art. 59.</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem">
     <div class="fg"><label>Qtd horas extras</label><input id="h-he-qtd" type="number" min="0" step="0.5" value="0" oninput="calcHorasExtrasAuto()"></div>
@@ -797,8 +798,9 @@ select option{background:var(--bg2)}
     </div>
     <div class="fg"><label>Jornada mensal (h)</label>
       <select id="h-he-jorn" onchange="calcHorasExtrasAuto()">
-        <option value="220">220h (44h/sem)</option>
-        <option value="200">200h (40h/sem)</option>
+        <option value="220">220h (44h/sem — até 15/12/2026)</option>
+        <option value="210">210h (42h/sem — transição EC 141/2026)</option>
+        <option value="200">200h (40h/sem — regra plena EC 141/2026)</option>
         <option value="180">180h (36h/sem)</option>
         <option value="160">160h (32h/sem)</option>
       </select>
@@ -988,11 +990,13 @@ select option{background:var(--bg2)}
 <div class="g2">
 <div class="card">
   <div class="card-title">Dados</div>
+  <div id="ec141-aviso-he" style="margin-bottom:.6rem"></div>
   <div class="fg"><label>Salário mensal (R$)</label><input id="he-sal" class="money" placeholder="3.000,00" oninput="mm(this)"></div>
   <div class="fg"><label>Jornada mensal (horas)</label>
     <select id="he-jorn">
-      <option value="220">220h (44h/semana)</option>
-      <option value="200">200h (40h/semana)</option>
+      <option value="220">220h (44h/semana — até 15/12/2026)</option>
+      <option value="210">210h (42h/semana — transição EC 141/2026)</option>
+      <option value="200">200h (40h/semana — regra plena EC 141/2026)</option>
       <option value="180">180h (36h/semana)</option>
       <option value="120">120h (30h/semana médico)</option>
     </select>
@@ -1026,9 +1030,21 @@ select option{background:var(--bg2)}
 <div class="g2">
 <div class="card">
   <div class="card-title">Horários da Jornada</div>
+  <div id="ec141-aviso-jn" style="margin-bottom:.6rem"></div>
   <div class="ibox">Hora noturna reduzida = 52min30s (CLT art.73 §1º). Período noturno: 22h às 5h.</div>
   <div class="fg"><label>Nome do funcionário</label><input id="jn-nome" placeholder="Nome"></div>
-  <div class="fg"><label>Salário mensal (R$)</label><input id="jn-sal" class="money" placeholder="3.000,00" oninput="mm(this)"></div>
+  <div class="g2f">
+    <div class="fg"><label>Salário mensal (R$)</label><input id="jn-sal" class="money" placeholder="3.000,00" oninput="mm(this)"></div>
+    <div class="fg"><label>Jornada mensal (h)</label>
+      <select id="jn-jorn">
+        <option value="220">220h (44h/sem — até 15/12/2026)</option>
+        <option value="210">210h (42h/sem — transição EC 141/2026)</option>
+        <option value="200">200h (40h/sem — regra plena EC 141/2026)</option>
+        <option value="180">180h (36h/sem)</option>
+        <option value="160">160h (32h/sem)</option>
+      </select>
+    </div>
+  </div>
   <div class="g2f">
     <div class="fg"><label>Hora de entrada</label><input id="jn-ent" type="time" value="20:00"></div>
     <div class="fg"><label>Hora de saída</label><input id="jn-sai" type="time" value="04:00"></div>
@@ -1066,6 +1082,7 @@ select option{background:var(--bg2)}
   </div>
   <div class="fg"><label>Adicional noturno (horas noturnas)</label><input id="si-not" type="number" min="0" step="0.5" value="0"></div>
   <div class="fg"><label>Dependentes (IRRF)</label><input id="si-dep" type="number" min="0" value="0"></div>
+  <div class="ibox" style="font-size:.7rem">⚠️ O DSR abaixo é calculado como 1/6 do valor apurado (proporção tradicional de 6 dias úteis + 1 de repouso). A EC 141/2026 (fim da escala 6x1) instituiu 2 dias de repouso semanal como regra geral, mas até o momento não há regulamentação específica para o contrato intermitente — acompanhe atualizações antes de aplicar a clientes com esse regime.</div>
   <button class="btn" onclick="calcIntermitente()">Calcular</button>
 </div>
 <div id="si-result">
@@ -1484,6 +1501,17 @@ select option{background:var(--bg2)}
       <tr><td>R$ 1,8M–3,6M</td><td class="aq">14,30%</td><td class="aq">21,00%</td><td class="aq">23,00%</td></tr>
     </tbody>
   </table></div>
+  <p class="card-title" style="margin-bottom:.5rem;margin-top:1rem">Jornada de Trabalho — EC 141/2026 <span class="tag b">Fim da Escala 6x1</span></p>
+  <div id="ec141-aviso-tab" style="margin-bottom:.5rem"></div>
+  <div class="tref"><table>
+    <thead><tr><th>Período</th><th>Jornada máx.</th><th>Repouso semanal</th></tr></thead>
+    <tbody>
+      <tr><td>Até 15/12/2026</td><td class="aq">44h/semana (220h/mês)</td><td class="aq">1 dia</td></tr>
+      <tr><td>16/12/2026 a 15/12/2027</td><td class="aq">42h/semana (210h/mês)</td><td class="aq">2 dias*</td></tr>
+      <tr><td>A partir de 16/12/2027</td><td class="aq">40h/semana (200h/mês)</td><td class="aq">2 dias*</td></tr>
+    </tbody>
+  </table></div>
+  <div class="ibox" style="margin-top:.5rem;font-size:.7rem">* Um dos 2 dias de repouso deve ser, preferencialmente, aos domingos. Sem redução salarial (nominal ou proporcional) em nenhuma fase. EC 141/2026 (ex-PEC 221/2019), promulgada em 16/10/2026 — DOU Edição Extra. Casos especiais (12x36, intermitente, doméstico, categorias com jornada diferenciada) ainda dependem de regulamentação específica — consulte a convenção coletiva da categoria do seu cliente.</div>
 </div>
 </div>
 </div>
@@ -3436,6 +3464,7 @@ function calcJornada(){
   const saiStr=document.getElementById('jn-sai').value;
   const intMin=+document.getElementById('jn-int').value||0;
   const diasMes=+document.getElementById('jn-dias').value||22;
+  const jornMensal=+document.getElementById('jn-jorn').value||220;
   if(!sal||!entStr||!saiStr){alert('Preencha todos os campos.');return}
 
   const toMin=t=>{const[h,m]=t.split(':');return+h*60+(+m||0)};
@@ -3455,7 +3484,7 @@ function calcJornada(){
   const horasDiu=minDiu/60;
   const horasTotFictas=horasDiu+horasFictas;
 
-  const valHoraDiu=sal/220; // base 220h
+  const valHoraDiu=sal/jornMensal; // base conforme jornada mensal selecionada (EC 141/2026)
   const adicAN=valHoraDiu*0.20;
   const valorAN=adicAN*(minNot/60); // adicional sobre horas naturais
 
@@ -5292,6 +5321,63 @@ const FASES_REFORMA = [
   {ano:2033, cbs:AL_CBS_REF, ibs:AL_IBS_REF,      pctIBS:100, nota:'Sistema pleno: IBS 100% do valor de referência. Extinção definitiva do ICMS e do ISS.'},
 ];
 function getFaseReforma(ano){ return FASES_REFORMA.find(f=>f.ano===+ano) || FASES_REFORMA[FASES_REFORMA.length-1]; }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// EC 141/2026 — Fim da Escala 6x1 (PEC 221/2019, promulgada em 16/10/2026)
+// ═══════════════════════════════════════════════════════════════════════════
+// Texto oficial (DOU Edição Extra, 16/10/2026): jornada normal não superior a
+// 8h diárias e 40h semanais; repouso semanal remunerado de 2 dias, um deles
+// preferencialmente aos domingos; SEM redução salarial (nominal/proporcional).
+// Implantação progressiva a partir da data de promulgação:
+//   a) 2 meses após 16/10/2026 (16/12/2026): jornada máx. não excede 42h/semana.
+//   b) 1 ano após o fim do prazo "a" (16/12/2027): jornada máx. não excede 40h/semana.
+// O divisor de 210h (fase de transição) é uma extrapolação proporcional — mesma
+// lógica já usada pelo sistema para 220h/44h, 200h/40h, 180h/36h e 160h/32h — e
+// ainda não tem fonte oficial expressa; o de 200h/40h já é pacífico (Súmula 431
+// do TST). Casos especiais (12x36, intermitente, doméstico — LC150/2015, setores
+// com jornada diferenciada) não são tratados explicitamente pela EC e dependem de
+// lei complementar/ordinária ou de CCT/ACT — trate com cautela e confirme com a
+// convenção coletiva da categoria do cliente.
+const EC141_F2=new Date(2026,11,16,0,0,0);  // 16/12/2026 — início da fase de 42h
+const EC141_F3=new Date(2027,11,16,0,0,0);  // 16/12/2027 — início da fase de 40h (plena)
+function faseEC141(d){
+  d=d||new Date();
+  if(d<EC141_F2) return {fase:1,horas:44,divisor:220,proxima:EC141_F2,
+    label:'até 44h/semana — regra anterior à EC 141/2026 (ainda vigente)'};
+  if(d<EC141_F3) return {fase:2,horas:42,divisor:210,proxima:EC141_F3,
+    label:'42h/semana — fase de transição da EC 141/2026'};
+  return {fase:3,horas:40,divisor:200,proxima:null,
+    label:'40h/semana — regra plena da EC 141/2026'};
+}
+// Renderiza o aviso dinâmico da EC 141/2026 num elemento alvo (reutilizado em
+// vários painéis). Mostra a fase atual e a contagem regressiva para a próxima.
+function renderEC141Aviso(elId){
+  const el=document.getElementById(elId);
+  if(!el) return;
+  const hoje=new Date();
+  const f=faseEC141(hoje);
+  let msg=`⏰ <strong>Fim da Escala 6x1 (EC 141/2026):</strong> regra vigente agora — <strong>${f.label}</strong>.`;
+  let cls='wbox';
+  if(f.proxima){
+    const dias=Math.ceil((f.proxima-hoje)/86400000);
+    const prox=faseEC141(new Date(f.proxima.getTime()+1));
+    msg+=` A partir de ${f.proxima.toLocaleDateString('pt-BR')} (faltam <strong>${dias} dia${dias!==1?'s':''}</strong>), passa a valer: <strong>${prox.label}</strong>.`;
+    if(dias<=60) cls='ebox';
+  } else {
+    msg+=` Transição concluída — 2 dias de repouso remunerado por semana, um deles preferencialmente aos domingos, sem redução salarial.`;
+  }
+  el.innerHTML=`<div class="${cls}">${msg}</div>`;
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  ['ec141-aviso-h','ec141-aviso-he','ec141-aviso-jn','ec141-aviso-tab'].forEach(renderEC141Aviso);
+  // Pré-seleciona, em cada seletor de jornada mensal, o divisor correspondente
+  // à fase vigente da EC 141/2026 (o usuário pode trocar manualmente depois).
+  const divisorAtual=String(faseEC141().divisor);
+  ['h-he-jorn','he-jorn','jn-jorn'].forEach(id=>{
+    const sel=document.getElementById(id);
+    if(sel && sel.querySelector(`option[value="${divisorAtual}"]`)) sel.value=divisorAtual;
+  });
+});
 
 // Localiza uma atividade no CNAE_DB por código ou descrição (busca simples, somente leitura)
 function acharCNAE(q){
