@@ -1254,6 +1254,7 @@ select option{background:var(--bg2)}
 <div class="card">
   <div class="card-title">Dados do MEI</div>
   <div class="ibox">Cálculo da renda tributável do MEI para verificar obrigatoriedade da DIRPF 2026. Limite: R$ 35.584,00 de rendimentos tributáveis anuais.</div>
+  <div class="sbox" style="margin-bottom:.6rem">✅ <strong>LC 238/2026:</strong> o teto de faturamento do MEI continua R$ 81.000,00 em 2026. Sobe para R$ 110.000,00 em 2027 e R$ 140.000,00 em 2028, e a lei perdoa dívidas tributárias federais do MEI constituídas até 13/10/2026 (condição: DAS em dia pelos 6 meses seguintes). Veja a tabela completa em "Tabelas Vigentes 2026".</div>
   <div class="fg"><label>Atividade principal do MEI</label>
     <select id="mei-ativ">
       <option value="comercio">Comércio / Indústria / Transporte de carga (presunção 8%)</option>
@@ -1463,7 +1464,7 @@ select option{background:var(--bg2)}
   </table></div>
 </div>
 <div>
-  <p class="card-title" style="margin-bottom:.5rem">Salário Mínimo e Tetos 2026 — Portaria MTE 3.659/2025</p>
+  <p class="card-title" style="margin-bottom:.5rem">Salário Mínimo e Tetos 2026 — Decreto nº 12.797/2025</p>
   <div class="tref"><table>
     <thead><tr><th>Item</th><th>Valor</th></tr></thead>
     <tbody>
@@ -1774,6 +1775,22 @@ select option{background:var(--bg2)}
       </tbody>
     </table></div>
     <p style="font-size:.73rem;color:var(--muted);margin-top:.5rem">Base legal: LC 214/2025 art. 348 + Resolução CGSN nº 183/2025 + LC 123/2006 (alterada).</p>
+  </div>
+
+  <!-- MEI — NOVO LIMITE DE FATURAMENTO — LC 238/2026 -->
+  <div class="card" style="margin-bottom:1.2rem">
+    <div class="card-title">🏪 MEI — Novo Limite de Faturamento <span class="tag b">LC 238/2026</span></div>
+    <div class="sbox" style="margin-bottom:.7rem">✅ <strong>Lei Complementar nº 238/2026</strong>, sancionada em 21/10/2026 (ex-PLP 186/2026), eleva em etapas o teto de faturamento anual do MEI e perdoa dívidas tributárias federais de MEIs em débito. <strong>Para o ano-calendário 2026, o limite continua em R$ 81.000,00</strong> — a mudança de valor só começa a valer em 2027.</div>
+    <div class="tref"><table>
+      <thead><tr><th>Ano-calendário</th><th>Limite de faturamento anual</th><th>Limite mensal (proporcional, abertura no ano)</th></tr></thead>
+      <tbody>
+        <tr><td class="aq">2026 <span class="tag b">Atual</span></td><td>R$ 81.000,00 <span style="color:var(--muted)">(inalterado)</span></td><td>R$ 6.750,00</td></tr>
+        <tr><td class="aq">2027</td><td>R$ 110.000,00</td><td>R$ 9.166,67</td></tr>
+        <tr><td class="aq">2028 em diante</td><td>R$ 140.000,00</td><td>R$ 11.666,67</td></tr>
+      </tbody>
+    </table></div>
+    <div class="wbox" style="margin-top:.7rem">⚠️ <strong>Remissão de dívidas:</strong> a LC 238/2026 perdoa débitos tributários federais do MEI (contribuições, multas e juros) constituídos até 13/10/2026, inclusive os já em Dívida Ativa ou parcelados. Condição: manter as guias DAS em dia pelos 6 meses seguintes à vigência da lei (a partir de 01/01/2027); quem tiver ação judicial sobre a dívida precisa desistir dela. A remissão <strong>não gera direito a restituição</strong> de valores já pagos.</div>
+    <p style="font-size:.73rem;color:var(--muted);margin-top:.5rem">Base legal: LC nº 238/2026 (DOU 22/10/2026) — altera a LC 123/2006, art. 18-A. Valores de 2027/2028 ainda sujeitos a regulamentação complementar da Receita Federal/CGSN.</p>
   </div>
 
   <!-- PRAZOS URGENTES — RESOLUÇÃO CGSN 194/2026 -->
@@ -2970,20 +2987,20 @@ function calcHorasExtrasAuto(){
   }
 }
 
-// — Portaria MTE 3.659/2025 | IN RFB 2.141/2023 | Portaria MF 3/2025
-const SM=1621.00;        // Salário mínimo 2026 (Portaria MTE 3.659/2025 — vigência 01/01/2026)
-const TETO_INSS=8475.55; // Portaria MPS/MF nº 13/2026 // Teto INSS 2026 (Portaria MF 3/2025)
-const DED_DEP=189.59;    // Dedução IRRF por dependente (Portaria MF 3/2025)
+// — Decreto nº 12.797/2025 (salário mínimo) | Portaria Interministerial MPS/MF nº 13/2026 (INSS) | Lei 9.250/1995 (dedução dependente)
+const SM=1621.00;        // Salário mínimo 2026 (Decreto nº 12.797/2025 — vigência 01/01/2026)
+const TETO_INSS=8475.55; // Teto INSS 2026 (Portaria Interministerial MPS/MF nº 13/2026, DOU 12/01/2026)
+const DED_DEP=189.59;    // Dedução IRRF por dependente (Lei 9.250/1995 art.4º, II — valor inalterado)
 const TETO_SD=2518.65; // Portaria SD vigência 01/01/2026   // Teto seguro desemprego 2026
 const LIMITE_IR_OBRIG=35584.00; // Limite rendimento tributável para obrigatoriedade DIRPF 2026
 
-// INSS Empregado — faixas progressivas 2026 (Portaria MF 3/2025)
+// INSS Empregado — faixas progressivas 2026 (Portaria Interministerial MPS/MF nº 13/2026)
 // Faixa 1: até R$ 1.621,00 → 7,5% (ajustada ao SM 2026)
 // Faixa 2: R$ 1.621,01 a R$ 2.902,84 → 9%
 // Faixa 3: R$ 2.902,85 a R$ 4.354,27 → 12%
 // Faixa 4: R$ 4.354,28 a R$ 8.475,55 → 14%
 const INSS_FAIXAS=[
-  {ate:1621.00,al:.075}, // até R$ 1.621,00  → 7,5%  | Portaria MPS/MF nº 13/2026
+  {ate:1621.00,al:.075}, // até R$ 1.621,00  → 7,5%  | Portaria Interministerial MPS/MF nº 13/2026
   {ate:2902.84,al:.09},  // até R$ 2.902,84  → 9,0%
   {ate:4354.27,al:.12},  // até R$ 4.354,27  → 12,0%
   {ate:8475.55,al:.14}   // até R$ 8.475,55  → 14,0% ← teto
@@ -3874,7 +3891,8 @@ function calcMEI(){
   const outrRend=pm(document.getElementById('mei-outr').value);
   if(!rec){alert('Informe a receita bruta anual.');return}
 
-  // Limite MEI 2026: R$ 81.000,00/ano (LC 123/2006 art. 18-A, §1º — inalterado; PLP 186/2026 propõe elevação futura, ainda sem sanção)
+  // Limite MEI 2026: R$ 81.000,00/ano (LC 123/2006 art. 18-A, §1º — inalterado em 2026).
+  // LC 238/2026 (sancionada 21/10/2026) eleva o limite para R$ 110.000 em 2027 e R$ 140.000 em 2028 — ver painel "Tabelas Vigentes 2026".
   const LIMITE_MEI=81000;
 
   // Percentual de presunção (parcela isenta) por atividade
@@ -3900,7 +3918,7 @@ function calcMEI(){
 
   let rows=hSec('Receita Bruta Anual');
   rows+=hRow('Receita bruta total do MEI','',fmt(rec),'p');
-  if(acimaMEI) rows+=`<div class="hole-row"><span class="d" style="color:var(--danger)">⚠️ Receita acima do limite MEI (R$ 81.000,00) — risco de desenquadramento do SIMEI</span></div>`;
+  if(acimaMEI) rows+=`<div class="hole-row"><span class="d" style="color:var(--danger)">⚠️ Receita acima do limite MEI 2026 (R$ 81.000,00) — risco de desenquadramento do SIMEI. A partir de 2027 o limite sobe para R$ 110.000,00 (LC 238/2026).</span></div>`;
   rows+=hSec('Apuração da Parcela Isenta — Base Legal: RIR/2018 art. 67');
   rows+=hRow('Atividade',nomeAtiv,pct(pctPresuncao),'n');
   rows+=hRow('Parcela isenta (presunção de lucro)',`${fmt(rec)} × ${pct(pctPresuncao)}`,fmt(parcelaIsenta),'p');
