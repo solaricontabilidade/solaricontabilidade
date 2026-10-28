@@ -486,6 +486,7 @@ const EMPTY_DATA={
   dasValor:0,dasComp:'—',dasVenc:'—',dasSit:'—',
   dasPagos:[],lancamentos:[],notas:[],clientes:[],
   extrato:[],ofConectado:false,
+  dasnEntregas:[], // Declaração Anual do Simples Nacional - MEI (DASN-SIMEI), registrada manualmente após entrega no Portal do Simples Nacional
   svcs:[]
 };
 
@@ -539,6 +540,7 @@ function saveCFG(){
       notas:MEI_DATA.notas||[],
       clientes:MEI_DATA.clientes||[],
       dasPagos:MEI_DATA.dasPagos||[],
+      dasnEntregas:MEI_DATA.dasnEntregas||[],
       extrato:MEI_DATA.extrato||[],
       fatAno:MEI_DATA.fatAno||0,
       prolabore:MEI_DATA.prolabore||0,
@@ -1731,10 +1733,71 @@ function rDAS(root){
   const iss=D.atividade==='servicos'?5:0;
   const icms=D.atividade==='comercio'?1:0;
   const dasTotal=(parseFloat(inss)+iss+icms).toFixed(2);
+  const urlPGMEI='https://www8.receita.fazenda.gov.br/SimplesNacional/Aplicacoes/ATBHE/pgmei.app/Identificacao';
+  const dasn=dasnStatus();
   root.innerHTML=`<div class="page">
-  <div class="ph"><h1 class="pt">DAS-MEI / Guias</h1><p class="pd">Documento de Arrecadação do Simples Nacional · Res. CGSN 140/2018, Art. 122${GOV?' · Dados via CNPJ':''}</p></div>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:${GOV?'14':'20'}px;flex-wrap:wrap;gap:10px">
+    <div class="ph" style="margin-bottom:0"><h1 class="pt">DAS-MEI / Guias</h1><p class="pd">Documento de Arrecadação do Simples Nacional · Res. CGSN 140/2018, Art. 122${GOV?' · Dados via CNPJ':''}</p></div>
+    <button class="btn btn-a" onclick="toggleEl('das-form')">+ Registrar DAS pago</button>
+  </div>
   ${!GOV?`<div class="alert alert-am"><span class="ai2">⚠️</span><div class="ab2"><div class="at" style="color:var(--am)">CNPJ necessário</div><div class="axt">Conecte seu CNPJ para carregar o DAS real diretamente do PGMEI.</div></div><button class="btn btn-gov btn-sm" onclick="reconnectGov()" style="flex-shrink:0">🏢 Conectar CNPJ</button></div>`:''}
   ${GOV?`<div class="alert alert-gov" style="margin-bottom:14px"><span class="ai2">🇧🇷</span><div class="ab2"><div class="at" style="color:#4A90D9">Dados via CNPJ</div><div class="axt">CNPJ ${esc(cnpj)} · Situação: ${esc(GOV.sit||'—')} · LC 123/2006, Art. 18-A · Consultado em ${esc(GOV.ts)}</div></div></div>`:''}
+
+  <!-- Guia passo a passo — login é sempre feito pelo próprio MEI no site oficial -->
+  <div class="card" style="margin-bottom:14px;border-left:3px solid #4A90D9">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;cursor:pointer" onclick="toggleEl('das-guia')">
+      <div style="font-size:13px;font-weight:700;color:var(--t1)">📋 Como consultar e pagar o DAS pelo PGMEI</div>
+      <span style="font-size:11px;color:var(--t3)">▼ expandir</span>
+    </div>
+    <div id="das-guia" style="display:none">
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+        ${[
+          ['1','Acesse o PGMEI','Clique em <strong>"PGMEI — Portal do Simples Nacional"</strong> abaixo — será aberto o site oficial da Receita Federal em nova aba.'],
+          ['2','Login com gov.br','Entre com <strong>sua própria conta gov.br</strong> (CPF e senha, nível Prata ou Ouro). Este app nunca pede ou guarda sua senha.'],
+          ['3','Consulte o DAS','No PGMEI, gere a guia da competência do mês e confira o valor, vencimento e eventuais débitos em aberto.'],
+          ['4','Pague','Pague o DAS pelo código de barras ou Pix gerado no próprio PGMEI.'],
+          ['5','Registre aqui','Volte e clique em <strong>"+ Registrar DAS pago"</strong> para manter seu histórico e o Financeiro atualizados.'],
+        ].map(([n,t,d])=>`
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="min-width:24px;height:24px;border-radius:50%;background:#4A90D9;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">${n}</div>
+          <div><div style="font-size:12.5px;font-weight:700;color:var(--t1)">${t}</div><div style="font-size:11.5px;color:var(--t2);margin-top:2px;line-height:1.6">${d}</div></div>
+        </div>`).join('')}
+      </div>
+      <a href="${urlPGMEI}" target="_blank" rel="noopener" class="btn btn-g" style="text-decoration:none;display:inline-flex">🇧🇷 PGMEI — Portal do Simples Nacional ↗</a>
+      <div style="margin-top:10px;padding:9px 12px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.22);border-radius:8px;font-size:11px;color:var(--am);line-height:1.65">
+        ⚠️ <strong>Importante:</strong> o pagamento oficial do DAS ocorre <em>exclusivamente</em> no PGMEI. Este app só controla seu histórico — não emite nem paga a guia por você.
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulário de registro do DAS pago -->
+  <div id="das-form" class="card ab" style="margin-bottom:14px;display:none">
+    <div class="ct">🧾 Registrar DAS Pago</div>
+    <div style="padding:7px 10px;background:rgba(19,81,180,.07);border:1px solid rgba(19,81,180,.18);border-radius:7px;font-size:11px;color:var(--t2);margin-bottom:12px;line-height:1.6">
+      🔗 Já pagou o DAS no <strong>PGMEI (gov.br)</strong>? Registre aqui para manter seu histórico e lançar a saída automaticamente no Financeiro.
+    </div>
+    <div id="das-ok" class="hidden" style="text-align:center;padding:18px 0">
+      <div style="width:52px;height:52px;border-radius:50%;background:rgba(0,200,150,.14);border:2px solid var(--ac);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px">✅</div>
+      <div style="font-size:14px;font-weight:700;color:var(--ac)">DAS registrado com sucesso!</div>
+      <div style="font-size:11.5px;color:var(--t2);margin-top:4px">Pagamento adicionado ao histórico · Saída lançada no Financeiro automaticamente</div>
+    </div>
+    <div id="das-fields">
+      <div class="gf">
+        <div class="ig"><label class="il">Competência (mês/ano) *</label><input class="inp" id="das-comp" type="month" value="${new Date().toISOString().slice(0,7)}"></div>
+        <div class="ig"><label class="il">Valor pago (R$) *</label><input class="inp" id="das-val" type="number" min="0.01" step="0.01" value="${dasTotal}"></div>
+      </div>
+      <div class="gf">
+        <div class="ig"><label class="il">Data do pagamento</label><input class="inp" id="das-data" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:4px">
+        <button class="btn btn-a" id="btn-dase" onclick="dasRegistrarPago()">💾 Registrar DAS pago</button>
+        <a href="${urlPGMEI}" target="_blank" rel="noopener" class="btn btn-g" style="text-decoration:none">🇧🇷 PGMEI ↗</a>
+        <button class="btn btn-g" onclick="hideEl('das-form')">Cancelar</button>
+        <span id="das-st" style="font-size:11.5px;color:var(--t3);font-style:italic"></span>
+      </div>
+    </div>
+  </div>
+
   ${temDAS?`<div class="card amberb" style="margin-bottom:14px">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap">
       <div>
@@ -1755,6 +1818,19 @@ function rDAS(root){
     ${dasPagos.length?dasPagos.map(h=>`
     <div class="das-row"><div style="display:flex;align-items:center;gap:9px"><div style="width:7px;height:7px;border-radius:50%;background:var(--ac);flex-shrink:0"></div><div><div style="font-size:12.5px;font-weight:500">DAS ${esc(h.comp||h.c||'—')}</div><div style="font-size:10.5px;color:var(--t3)">Pago em ${esc(h.data||h.d||'—')}</div></div></div><div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span style="font-weight:700;color:var(--t2);font-family:var(--mo);font-size:12.5px">${brl(h.valor||h.v||0)}</span><span class="badge ba">pago</span></div></div>`).join(''):`<div style="text-align:center;padding:22px;color:var(--t3)">${GOV?'Nenhum pagamento registrado ou dados ainda sendo carregados do PGMEI.':'Faça login gov.br para carregar o histórico real do PGMEI.'}</div>`}
   </div>
+  <div class="card" style="margin-bottom:14px;${dasn.atrasada?'border-color:var(--rd)':dasn.entregue?'':'border-color:var(--am)'}">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="badge ${dasn.entregue?'ba':dasn.atrasada?'br':'bam'}">${dasn.entregue?'Em dia':dasn.atrasada?'Atrasada':'A entregar'}</span><span style="font-size:13px;font-weight:600">Declaração Anual — DASN-SIMEI ${dasn.anoRef}</span></div>
+        <div style="font-size:11.5px;color:var(--t2)">${dasn.entregue?`Entregue em ${esc((dasn.entregas.find(e=>e.anoRef===dasn.anoRef)||{}).data||'—')}`:`Prazo: até ${dasn.prazo.toLocaleDateString('pt-BR')} · referente ao ano-calendário ${dasn.anoRef}`}</div>
+        <div style="font-size:10.5px;color:var(--t3);margin-top:3px">Base: LC 123/2006, Art. 25 · Resolução CGSN 140/2018 · entregue no Portal do Simples Nacional (gov.br)</div>
+      </div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <a href="${urlPGMEI}" target="_blank" rel="noopener" class="btn btn-g btn-sm" style="text-decoration:none">🇧🇷 Portal ↗</a>
+        ${!dasn.entregue?`<button class="btn btn-a btn-sm" onclick="dasnRegistrarEntrega()">✓ Já entreguei</button>`:''}
+      </div>
+    </div>
+  </div>
   <div class="card"><div class="ct">📖 Composição do DAS ${new Date().getFullYear()}</div>
     <div style="font-size:12px;color:var(--t2);line-height:1.8">
       <strong style="color:var(--t1)">INSS — Previdência Social:</strong> 5% do salário mínimo vigente — alíquota reduzida específica do MEI (R$ ${salMin.toLocaleString('pt-BR')} × 5% = R$ ${inss}/mês). Garante aposentadoria, auxílio-doença, salário-maternidade. Base: Art. 21, §2º, II da Lei 8.212/91 com redação dada pela LC 128/2008; LC 123/2006, Art. 18-A, §1º, I.<br><br>
@@ -1774,6 +1850,60 @@ async function gerarPix(){
   const area=$('das-pix');
   if(area)area.innerHTML=`<div style="background:var(--bg);border:1px solid var(--acg);border-radius:9px;padding:13px 14px;text-align:center;max-width:300px"><div style="font-size:10.5px;color:var(--t3);margin-bottom:6px">Pix Copia e Cola — DAS Maio/2025</div><div class="pix">${payload}</div><div style="font-size:10.5px;color:var(--ac);margin-top:7px">✅ Válido por 30 min · BCB Circular 3.962/2019</div><button onclick="navigator.clipboard?.writeText('${payload}').then(()=>toast('📋 Código Pix copiado!'))" class="btn btn-g btn-sm" style="margin-top:7px">📋 Copiar</button></div>`;
   toast('✅ Código Pix gerado!');
+}
+async function dasRegistrarPago(){
+  const comp=gv('das-comp'); // input type="month" -> "AAAA-MM"
+  if(!comp){toast('Informe a competência do DAS','err');return;}
+  const val=gv('das-val');
+  const valorNum=parseFloat(val);
+  if(!val||!isFinite(valorNum)||valorNum<=0){toast('Informe um valor válido maior que zero','err');return;}
+  const btn=$('btn-dase'),st=$('das-st');
+  if(btn)btn.disabled=true;
+  if(st)st.textContent='Salvando registro...';
+  await sleep(300);
+  const[ay,am]=comp.split('-');
+  const compLabel=`${MESES[parseInt(am)-1]}/${ay}`;
+  const dataInput=$('das-data')?.value;
+  let dataPg;
+  if(dataInput){const[y,m,d]=dataInput.split('-');dataPg=`${d}/${m}/${y}`;}
+  else{dataPg=new Date().toLocaleDateString('pt-BR');}
+  if(!MEI_DATA.dasPagos)MEI_DATA.dasPagos=[];
+  // Evita duplicar registro da mesma competência (atualiza em vez de duplicar)
+  MEI_DATA.dasPagos=MEI_DATA.dasPagos.filter(p=>(p.comp||p.c||'')!==compLabel);
+  MEI_DATA.dasPagos.unshift({comp:compLabel,valor:valorNum,data:dataPg});
+  // Lançar saída automaticamente no Financeiro
+  if(!MEI_DATA.lancamentos)MEI_DATA.lancamentos=[];
+  MEI_DATA.lancamentos.unshift({data:dataPg,desc:`DAS ${compLabel} — PGMEI`,tipo:'d',v:valorNum,cat:'Impostos'});
+  saveCFG();
+  hide('das-fields');show('das-ok');
+  if(st)st.textContent='';
+  toast(`✅ DAS ${compLabel} registrado! Saída de ${brl(valorNum)} lançada no Financeiro.`);
+  setTimeout(()=>{
+    hideEl('das-form');hide('das-ok');show('das-fields');if(btn)btn.disabled=false;
+    go('das');
+  },2500);
+}
+// DASN-SIMEI — Declaração Anual do Simples Nacional do MEI (LC 123/2006, Art. 25).
+// Sempre referente ao ano-calendário ANTERIOR ao atual, com prazo até 31/maio do ano corrente.
+// O app não entrega a declaração — isso só é feito pelo próprio MEI no Portal do Simples
+// Nacional (gov.br). Aqui só registramos a confirmação de entrega para controle de prazos.
+function dasnStatus(){
+  const now=new Date();
+  const anoRef=now.getFullYear()-1;
+  const prazo=new Date(now.getFullYear(),4,31); // mês 4 = maio (0-indexado)
+  const entregas=MEI_DATA.dasnEntregas||[];
+  const entregue=entregas.some(e=>e.anoRef===anoRef);
+  const atrasada=!entregue&&now>prazo;
+  return{anoRef,prazo,entregue,atrasada,entregas};
+}
+function dasnRegistrarEntrega(){
+  const{anoRef}=dasnStatus();
+  if(!MEI_DATA.dasnEntregas)MEI_DATA.dasnEntregas=[];
+  MEI_DATA.dasnEntregas=MEI_DATA.dasnEntregas.filter(e=>e.anoRef!==anoRef);
+  MEI_DATA.dasnEntregas.unshift({anoRef,data:new Date().toLocaleDateString('pt-BR')});
+  saveCFG();
+  toast(`✅ DASN-SIMEI ${anoRef} marcada como entregue!`);
+  go('das');
 }
 
 // Relatórios
@@ -2116,10 +2246,14 @@ function checkNotifs(){
   const dasPago=pagos.some(p=>(p.comp||p.c||'').toLowerCase().startsWith(mesNome.toLowerCase()+'/'+anoAtual));
   const temDASPendente=(MEI_DATA.dasValor||0)>0&&!dasPago;
   if(temDASPendente)n++;
+  // DASN-SIMEI atrasada (prazo 31/maio já passou e a entrega não foi registrada)
+  const dasn=dasnStatus();
+  if(dasn.atrasada)n++;
   const dot=$('notif-d');if(dot){dot.textContent=n;dot.style.display=n?'flex':'none';}
   // Sincroniza os indicadores visuais de "pendência" do menu DAS (antes ficavam
   // permanentemente visíveis no HTML, piscando aviso mesmo sem nenhuma pendência real)
-  ['nav-das-dot','mob-das-dot'].forEach(id=>{const e=$(id);if(e)e.classList.toggle('hidden',!temDASPendente);});
+  const temAlertaDAS=temDASPendente||dasn.atrasada;
+  ['nav-das-dot','mob-das-dot'].forEach(id=>{const e=$(id);if(e)e.classList.toggle('hidden',!temAlertaDAS);});
 }
 
 // Resize
