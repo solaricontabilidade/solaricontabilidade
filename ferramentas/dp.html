@@ -566,10 +566,11 @@ select option{background:var(--bg2)}
   .metric{background:#fafafa!important;border:1px solid #ddd!important;padding:5pt 7pt!important}
   .metric .ml{color:#666!important;font-size:6.5pt!important}
   .metric .mv{color:#111!important;font-size:9pt!important}
-  /* Inputs ocultos — mostrar como texto */
+  /* Inputs ocultos — mostrar como texto (o texto é injetado por exportPDF() em .print-val) */
   input,select{display:none!important}
   .fg{margin-bottom:3pt!important}
   label{font-size:7pt!important;color:#666!important;display:block!important}
+  .print-val{display:block!important;font-size:8.5pt!important;font-weight:600!important;color:#111!important;margin-top:1pt!important}
   /* Tags */
   .tag{background:#eee!important;color:#555!important;font-size:6pt!important}
   /* Forçar uma página */
@@ -2954,12 +2955,39 @@ function exportPDF(){
     `;
     activePanel&&activePanel.insertBefore(lh,activePanel.firstChild);
   }
+  // Injeta o valor atual de cada input/select como texto visível na impressão.
+  // O CSS de @media print oculta <input>/<select> (input,select{display:none!important})
+  // para não imprimir caixas de formulário — mas sem isto o relatório saía só com os
+  // rótulos (nome, datas, salário, motivo etc. ficavam em branco no PDF exportado).
+  const PRINT_SKIP=['h-he-qtd','h-he-adic','h-he-jorn','h-he-info']; // campos técnicos já ocultos explicitamente no CSS de impressão
+  const printVals=[];
+  if(activePanel){
+    activePanel.querySelectorAll('.fg').forEach(fg=>{
+      const field=fg.querySelector('input,select,textarea');
+      if(!field||PRINT_SKIP.includes(field.id)||field.type==='hidden')return;
+      let text;
+      if(field.tagName==='SELECT'){
+        const opt=field.options[field.selectedIndex];
+        text=opt?opt.text:'';
+      }else if(field.type==='date'){
+        text=field.value?field.value.split('-').reverse().join('/'):'';
+      }else{
+        text=field.value;
+      }
+      const val=document.createElement('div');
+      val.className='print-val';
+      val.textContent=(text===''||text===null||text===undefined)?'—':text;
+      fg.appendChild(val);
+      printVals.push(val);
+    });
+  }
   const prevTitle=document.title;
   document.title=`Solari Contabilidade — ${titulo}${comp?' · '+comp:''}`;
   window.print();
   setTimeout(()=>{
     document.title=prevTitle;
     lh&&lh.parentNode&&lh.parentNode.removeChild(lh);
+    printVals.forEach(el=>el.parentNode&&el.parentNode.removeChild(el));
   },800);
 }
 
