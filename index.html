@@ -748,6 +748,84 @@
         }
 
         /* ---------- Cards ---------- */
+        /* ---------- Profile selector (personalização) ---------- */
+        .profile-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .profile-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.75rem 1.3rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-gold);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--off-white);
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .profile-chip i { color: var(--gold); transition: color 0.2s ease; }
+
+        .profile-chip:hover {
+            border-color: rgba(212, 160, 23, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .profile-chip.active {
+            background: var(--gold);
+            color: var(--navy);
+            border-color: var(--gold);
+        }
+
+        .profile-chip.active i { color: var(--navy); }
+
+        .profile-result {
+            display: flex;
+            align-items: center;
+            gap: 1.4rem;
+            flex-wrap: wrap;
+            background: rgba(212, 160, 23, 0.06);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 1.6rem 1.8rem;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .profile-result[hidden] { display: none; }
+
+        .profile-result-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(212, 160, 23, 0.12);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .profile-result-text { flex: 1; min-width: 240px; }
+        .profile-result-text h3 { font-size: 1.05rem; margin-bottom: 0.4rem; color: var(--off-white); }
+        .profile-result-text p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+
+        @media (max-width: 640px) {
+            .profile-result { flex-direction: column; text-align: center; }
+            .profile-chip { font-size: 0.82rem; padding: 0.65rem 1.05rem; }
+        }
+
         .card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-gold);
@@ -1414,6 +1492,32 @@
 
     <main id="conteudo">
 
+        <section class="profile-section" id="perfil">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="eyebrow">Personalize</span>
+                    <h2 class="section-title">Qual dessas opções descreve você?</h2>
+                    <p class="section-sub">Escolha seu perfil e veja como a Solari pode ajudar especificamente o seu negócio.</p>
+                </div>
+                <div class="profile-chips reveal" role="group" aria-label="Escolha seu perfil">
+                    <button type="button" class="profile-chip" data-perfil="mei"><i class="fas fa-user" aria-hidden="true"></i> Sou MEI</button>
+                    <button type="button" class="profile-chip" data-perfil="micro"><i class="fas fa-store" aria-hidden="true"></i> Simples Nacional / microempresa</button>
+                    <button type="button" class="profile-chip" data-perfil="servico"><i class="fas fa-briefcase" aria-hidden="true"></i> Presto serviços</button>
+                    <button type="button" class="profile-chip" data-perfil="trocar"><i class="fas fa-arrows-rotate" aria-hidden="true"></i> Quero trocar de contador</button>
+                </div>
+                <div class="profile-result reveal" id="profileResult" hidden>
+                    <div class="profile-result-icon" id="profileResultIcon" aria-hidden="true"><i class="fas fa-star"></i></div>
+                    <div class="profile-result-text">
+                        <h3 id="profileResultTitle"></h3>
+                        <p id="profileResultBody"></p>
+                    </div>
+                    <a href="#" id="profileResultCta" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer">
+                        Falar sobre o meu caso <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <section class="services-section" id="servicos">
             <div class="container">
                 <div class="section-head reveal">
@@ -1747,6 +1851,65 @@
                     toggle.setAttribute('aria-expanded', 'false');
                 });
             });
+
+            var PERFIS = {
+                mei: {
+                    icon: 'fa-user',
+                    title: 'Para você que é MEI',
+                    body: 'Cuidamos do seu DAS, da sua declaração anual (DASN-SIMEI) e ficamos de olho no limite de faturamento — inclusive nas mudanças da LC 238/2026. Clientes MEI também contam com o Solari para MEI: notas fiscais, DAS e IA Contadora disponível 24h.',
+                    cta: 'Olá, sou MEI e quero saber mais sobre os serviços da Solari para o meu negócio.'
+                },
+                micro: {
+                    icon: 'fa-store',
+                    title: 'Para quem tem Simples Nacional ou microempresa',
+                    body: 'Cuidamos da apuração do Simples Nacional, do Fator R (para quem presta serviço) e da transição da Reforma Tributária — tudo acompanhado de perto, sem surpresas no seu DAS.',
+                    cta: 'Olá, minha empresa está no Simples Nacional e quero entender melhor minha situação tributária.'
+                },
+                servico: {
+                    icon: 'fa-briefcase',
+                    title: 'Para prestadores de serviço',
+                    body: 'Pró-labore bem definido, Fator R calculado com precisão e folha de pagamento em dia — organizamos a parte financeira para que você foque em atender seus clientes.',
+                    cta: 'Olá, presto serviços e quero entender melhor minha contabilidade e tributação.'
+                },
+                trocar: {
+                    icon: 'fa-arrows-rotate',
+                    title: 'Para quem quer trocar de contador',
+                    body: 'A troca pode ser feita a qualquer momento do ano, sem multas ou carência. Cuidamos de toda a transição — solicitação de arquivos e procurações ao contador anterior, conferência da situação fiscal e migração dos sistemas — sem interrupção nas suas obrigações.',
+                    cta: 'Olá, quero trocar de contador e gostaria de saber como funciona a transição para a Solari.'
+                }
+            };
+
+            var profileChips = document.querySelectorAll('.profile-chip');
+            var profileResult = document.getElementById('profileResult');
+            var profileResultIcon = document.getElementById('profileResultIcon');
+            var profileResultTitle = document.getElementById('profileResultTitle');
+            var profileResultBody = document.getElementById('profileResultBody');
+            var profileResultCta = document.getElementById('profileResultCta');
+
+            function applyPerfil(key) {
+                var p = PERFIS[key];
+                if (!p || !profileResult) return;
+                profileChips.forEach(function (c) {
+                    c.classList.toggle('active', c.getAttribute('data-perfil') === key);
+                });
+                profileResultIcon.innerHTML = '<i class="fas ' + p.icon + '" aria-hidden="true"></i>';
+                profileResultTitle.textContent = p.title;
+                profileResultBody.textContent = p.body;
+                profileResultCta.href = 'https://wa.me/5563991078032?text=' + encodeURIComponent(p.cta);
+                profileResult.hidden = false;
+                try { localStorage.setItem('solariPerfil', key); } catch (e) {}
+            }
+
+            profileChips.forEach(function (chip) {
+                chip.addEventListener('click', function () {
+                    applyPerfil(chip.getAttribute('data-perfil'));
+                });
+            });
+
+            try {
+                var savedPerfil = localStorage.getItem('solariPerfil');
+                if (savedPerfil && PERFIS[savedPerfil]) applyPerfil(savedPerfil);
+            } catch (e) {}
 
             if ('IntersectionObserver' in window) {
                 var observer = new IntersectionObserver(function (entries) {
