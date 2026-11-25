@@ -1703,11 +1703,11 @@ select option{background:var(--bg2)}
       <tbody>
         <tr><td>Teste / informativa</td><td class="aq">2026</td><td><strong style="color:var(--accent3)">0,9% — sem recolhimento efetivo</strong></td></tr>
         <tr><td>Início cobrança plena</td><td class="aq">2027</td><td>PIS e COFINS extintos; CBS entra em vigor</td></tr>
-        <tr><td>Alíquota de referência</td><td class="aq">2027–2028</td><td>≈ 8,8–9,21% (estimativa CGIBS nº 14/2026; fixada pelo Senado até 15/dez/2026)</td></tr>
+        <tr><td>Alíquota de referência</td><td class="aq">2027</td><td>11,3% (calculada pelo TCU — Acórdão 28/10/2026); Senado pode confirmar ou alterar até 15/dez/2026</td></tr>
         <tr><td>Extinção PIS/COFINS</td><td class="aq">01/01/2027</td><td>PIS e COFINS extintos. CBS vigora em alíquota cheia.</td></tr>
       </tbody>
     </table></div>
-    <div class="wbox" style="margin-top:.6rem;margin-bottom:0">⚠️ Em 2026: CBS calculada, destacada na NF-e e compensável com PIS/COFINS (art. 348 LC 214/2025). Empresas do Simples Nacional: isentas das alíquotas de teste 2026 (art. 348, III, "c" LC 214/2025) — entram em 2027. <strong>⚡ Atualização 15/09/2026:</strong> Receita Federal entregou ao TCU a proposta de alíquota-referência da CBS para 2027. TCU tem até 30/out para homologar; Senado fixa até 15/dez/2026.</div>
+    <div class="wbox" style="margin-top:.6rem;margin-bottom:0">⚠️ Em 2026: CBS calculada, destacada na NF-e e compensável com PIS/COFINS (art. 348 LC 214/2025). Empresas do Simples Nacional: isentas das alíquotas de teste 2026 (art. 348, III, "c" LC 214/2025) — entram em 2027. <strong>⚡ Atualização 28/10/2026:</strong> o TCU aprovou e calculou oficialmente a alíquota de referência da CBS em <strong>11,3%</strong> para 2027 (Acórdão no processo TC 006.529/2026-7) e enviou o cálculo ao Senado. O Senado tem até <strong>15/dez/2026</strong> para fixar o percentual padrão por resolução — se não deliberar, vigora provisoriamente os 11,3% calculados pelo TCU.</div>
   </div>
 
   <!-- IBS -->
@@ -1870,10 +1870,10 @@ select option{background:var(--bg2)}
   <div class="panel-title" style="font-size:.95rem;margin-bottom:.75rem">🧮 Simulador CBS / IBS — 2026 e 2027</div>
 
   <div class="sbox" style="margin-bottom:1rem">
-    <strong>⚡ Status 15/09/2026:</strong> Receita Federal entregou proposta ao TCU hoje (prazo legal: 14/set).
-    TCU homologa até 30/out → Senado fixa alíquota até 15/dez/2026.
-    Estimativa CGIBS nº 14 (31/jul/2026): CBS ≈ 9,21% + IBS ≈ 18,70% = 27,91% combinado.
-    Teto legal LC 214/2025: 26,5%. <strong>Alíquota definitiva ainda não publicada.</strong>
+    <strong>⚡ Status 28/10/2026:</strong> o TCU calculou e aprovou a alíquota de referência oficial da CBS em <strong>11,3%</strong> para 2027 (Acórdão, processo TC 006.529/2026-7) e enviou o resultado ao Senado.
+    Senado tem até <strong>15/dez/2026</strong> para fixar o percentual por resolução — se não deliberar, vigoram provisoriamente os 11,3% do TCU.
+    Estimativa anterior do Comitê Gestor (CGIBS nº 14, 31/jul/2026): CBS ≈ 9,21% + IBS ≈ 18,70% = 27,91% combinado — já superada pelo cálculo do TCU para a CBS.
+    Teto legal LC 214/2025: 26,5% combinado. A soma de 11,3% (CBS/TCU) + 18,70% (IBS/estimativa CGIBS) ultrapassaria esse teto — o Senado e o Comitê Gestor ainda podem ajustar os números antes da vigência. <strong>Alíquota definitiva ainda não publicada.</strong>
   </div>
 
   <div class="g2">
@@ -1896,8 +1896,8 @@ select option{background:var(--bg2)}
       <label>Fase de simulação</label>
       <select id="cbs-fase">
         <option value="2026">2026 — Fase de testes (CBS 0,9% + IBS 0,1%)</option>
-        <option value="2027">2027 — Estimativa (CBS ≈8,8% + IBS 0,1% transitório)</option>
-        <option value="2027est">2027+ — Projeção CGIBS (CBS 9,21% + IBS 18,70%)</option>
+        <option value="2027">2027 — Referência TCU (CBS 11,3% + IBS 0,1% transitório)</option>
+        <option value="2027est">2027+ — Projeção CGIBS pré-TCU (CBS 9,21% + IBS 18,70%)</option>
         <option value="custom">Personalizado — inserir alíquota manualmente</option>
       </select>
     </div>
@@ -1935,7 +1935,7 @@ select option{background:var(--bg2)}
       <thead><tr><th>Ano</th><th>CBS (Federal)</th><th>IBS (Est./Mun.)</th><th>Eventos</th></tr></thead>
       <tbody>
         <tr><td class="aq">2026</td><td>0,9% (teste)</td><td>0,1% (teste)</td><td style="font-size:.72rem;color:var(--muted)">Fase teste. Simples isento. NF-e com campos CBS/IBS. Recolhimento compensável.</td></tr>
-        <tr><td class="aq">2027</td><td>≈ 8,8% (ref.) ⚡</td><td>0,1% estadual + 0,05% municipal</td><td style="font-size:.72rem;color:var(--muted)">PIS e COFINS extintos. Imposto Seletivo inicia. Simples entra no sistema.</td></tr>
+        <tr><td class="aq">2027</td><td>11,3% (ref. TCU) ⚡</td><td>0,1% estadual + 0,05% municipal</td><td style="font-size:.72rem;color:var(--muted)">PIS e COFINS extintos. Imposto Seletivo inicia. Simples entra no sistema.</td></tr>
         <tr><td class="aq">2028</td><td>Cheia</td><td>0,1% + 0,05% (transitório)</td><td style="font-size:.72rem;color:var(--muted)">CBS plena. IBS ainda em fase de testes ampliada.</td></tr>
         <tr><td class="aq">2029</td><td>Cheia</td><td>10% da alíquota final</td><td style="font-size:.72rem;color:var(--muted)">Início redução ICMS/ISS: −90% em 2029.</td></tr>
         <tr><td class="aq">2030</td><td>Cheia</td><td>20% da alíquota final</td><td style="font-size:.72rem;color:var(--muted)">ICMS/ISS reduzidos a 80% da alíquota anterior.</td></tr>
@@ -1944,7 +1944,7 @@ select option{background:var(--bg2)}
         <tr style="background:rgba(16,185,129,.06)"><td class="aq" style="color:var(--accent2)"><strong>2033</strong></td><td style="color:var(--accent2)"><strong>Plena</strong></td><td style="color:var(--accent2)"><strong>100% (≈18,7% est.)</strong></td><td style="font-size:.72rem;color:var(--success)"><strong>Sistema tributário completamente reformado. CBS + IBS + IS substituem todos os 5 tributos.</strong></td></tr>
       </tbody>
     </table></div>
-    <p style="font-size:.68rem;color:var(--muted);margin-top:.5rem">⚡ Alíquota CBS 2027: proposta entregue ao TCU em 14/09/2026. TCU homologa até 30/out. Senado fixa até 15/dez/2026. Fonte: LC 214/2025 arts.343-347 · LC 227/2026 · Resolução CGIBS nº 14/2026 · EC 132/2023.</p>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:.5rem">⚡ Alíquota CBS 2027: calculada pelo TCU em 11,3% (Acórdão de 28/10/2026, TC 006.529/2026-7), enviada ao Senado. Senado fixa por resolução até 15/dez/2026 — se não deliberar, vigora provisoriamente 11,3%. Fonte: LC 214/2025 arts.343-347 · LC 227/2026 · Resolução CGIBS nº 14/2026 · EC 132/2023.</p>
   </div>
 </div>
 
@@ -2740,12 +2740,12 @@ function gerarRelatorio(){
       ${cnae_html}${fr_html}
 
       <div style="font-size:.72rem;color:var(--muted);line-height:1.7;padding-top:.75rem;border-top:1px solid var(--border)">
-        Este relatório é informativo e baseado na legislação vigente até 15/09/2026. 
-        A alíquota definitiva da CBS para 2027 ainda será fixada pelo Senado Federal (prazo: 15/dez/2026). 
+        Este relatório é informativo e baseado na legislação vigente até 28/10/2026.
+        A alíquota de referência da CBS para 2027 foi calculada pelo TCU em 11,3%; a alíquota definitiva ainda será fixada (ou confirmada) pelo Senado Federal (prazo: 15/dez/2026).
         Recomendamos revisão com o contador antes de reprecificar produtos/serviços.
       </div>
 
-      <button class="btn" onclick="window.print()" style="margin-top:1rem;background:var(--bg3);color:var(--text);border:1px solid var(--border2)">🖨️ Imprimir / Salvar PDF</button>
+      <button class="btn" onclick="exportPDF()" style="margin-top:1rem;background:var(--bg3);color:var(--text);border:1px solid var(--border2)">🖨️ Imprimir / Salvar PDF</button>
     </div>
   `;
 }
@@ -2849,7 +2849,7 @@ function simularCNAE(idx){
         ⚠️ <strong>Importante:</strong> O enquadramento não depende apenas do CNAE. 
         Para profissões do art.127 (redução 30%), é necessário verificar composição societária, 
         habilitação dos sócios e objeto social. Consulte um contador especializado antes de 
-        parametrizar os documentos fiscais. Alíquota CBS 2027 ainda não definida — Senado fixa até 15/dez/2026.<br>
+        parametrizar os documentos fiscais. Alíquota CBS 2027: referência de 11,3% calculada pelo TCU (28/10/2026) — Senado confirma ou altera até 15/dez/2026.<br>
         Fontes: ${art} · EC 132/2023 · LC 214/2025 · LC 227/2026.
       </p>
     </div>
@@ -5339,14 +5339,14 @@ function simularFatorR(){
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CBS / IBS — Reforma Tributária (LC 214/2025 + LC 227/2026)
-// Dados: 15/09/2026 — proposta alíquota CBS entregue ao TCU hoje
+// Dados: 28/10/2026 — TCU calculou e aprovou a alíquota de referência da CBS em 11,3% (Acórdão, TC 006.529/2026-7), enviada ao Senado (prazo p/ fixar: 15/dez/2026)
 // ═══════════════════════════════════════════════════════════════════════════
 
-// Alíquotas por fase (LC 214/2025 arts.343,346; Res. CGIBS nº 14/2026)
+// Alíquotas por fase (LC 214/2025 arts.343,346; TCU — Acórdão 28/10/2026, TC 006.529/2026-7; Res. CGIBS nº 14/2026)
 const CBS_FASES = {
   '2026':    { cbs: 0.009, ibs: 0.001, label: '2026 — teste', nota: 'Valores compensáveis com PIS/COFINS. Simples isento.' },
-  '2027':    { cbs: 0.088, ibs: 0.001, label: '2027 — estimativa conservadora', nota: 'CBS estimada ≈8,8%. IBS transitório 0,1% (art.344 LC214). Alíquota a ser fixada pelo Senado até 15/dez/2026.' },
-  '2027est': { cbs: 0.0921,ibs: 0.187, label: '2027+ — projeção CGIBS', nota: 'Estimativa CGIBS nº 14/2026: CBS 9,21% + IBS 18,70% = 27,91%. Teto legal: 26,5%. NÃO é alíquota definitiva.' },
+  '2027':    { cbs: 0.113, ibs: 0.001, label: '2027 — referência TCU', nota: 'CBS calculada pelo TCU em 11,3% (Acórdão 28/10/2026, TC 006.529/2026-7). IBS transitório 0,1% (art.344 LC214). Senado confirma ou altera por resolução até 15/dez/2026 — se não deliberar, vigora provisoriamente 11,3%.' },
+  '2027est': { cbs: 0.0921,ibs: 0.187, label: '2027+ — projeção CGIBS (pré-TCU)', nota: 'Estimativa anterior do Comitê Gestor (CGIBS nº 14/2026, 31/jul/2026): CBS 9,21% + IBS 18,70% = 27,91%. Já superada pelo cálculo do TCU para a CBS (11,3%). Teto legal: 26,5%. NÃO é alíquota definitiva.' },
   'custom':  { cbs: null, ibs: null, label: 'Personalizado', nota: 'Use para simular cenários específicos.' }
 };
 
@@ -5757,8 +5757,8 @@ function calcCBSIBS(){
 // ── CNAE/IBS/FATOR R — funções da nova ferramenta ──
 
 // ═══════════════════════════════════════════════════════════════════════════
-// CONSTANTES — Alíquotas de referência (estimativa 2027, não definitiva)
-// LC 214/2025 · Res. CGIBS nº 14/2026 · Status 15/09/2026
+// CONSTANTES — Alíquotas de referência (CBS: TCU 28/10/2026, 11,3%; IBS: estimativa, não definitiva)
+// LC 214/2025 · Res. CGIBS nº 14/2026 · TCU Acórdão TC 006.529/2026-7 (28/10/2026) · Status 28/10/2026
 // ═══════════════════════════════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════════════════════════════════════
