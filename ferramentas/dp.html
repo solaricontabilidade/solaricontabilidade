@@ -499,6 +499,7 @@ select option{background:var(--bg2)}
   .sidebar,.btn,.comp-wrap,.pdf-btn,.nav-btn,header .logo p,
   .ibox,.wbox,.sbox,.ebox,.ph,.btn.sec,.radio-group,
   #h-he-qtd,#h-he-adic,#h-he-jorn,#h-he-info,
+  .natal-banner,.natal-snow,
   .metrics{display:none!important}
   /* card-title visível no PDF */
   .card-title{display:block!important;font-size:9pt!important;font-weight:700!important;
@@ -597,6 +598,37 @@ select option{background:var(--bg2)}
 </style>
 </head>
 <body>
+
+<!-- NATAL 2026 — INÍCIO (remover este bloco após as festas) -->
+<style>
+  .natal-banner{position:relative;z-index:1001;display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;text-align:center;padding:.5rem 1rem;background:linear-gradient(90deg,#7a1b26,#1f5c3f);color:#fdf6e3;font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.2px}
+  .natal-banner strong{color:#ffd966}
+  .natal-banner .natal-close{background:none;border:none;color:#fdf6e3;opacity:.75;cursor:pointer;font-size:1rem;line-height:1;padding:2px 6px;margin-left:4px}
+  .natal-banner .natal-close:hover{opacity:1}
+  @media (max-width:640px){.natal-banner{font-size:.7rem;padding:.45rem .7rem}}
+  @media print{.natal-banner{display:none!important}}
+</style>
+<div class="natal-banner" id="natalBanner">
+    🎄 <span><strong>Boas Festas!</strong> As ferramentas seguem atualizadas com a base legal 2026 durante as festas.</span>
+    <button class="natal-close" id="natalClose" aria-label="Fechar aviso de boas-festas" title="Fechar">✕</button>
+</div>
+<script>
+  (function () {
+    try {
+      if (localStorage.getItem('solariNatalBannerClosed') === '1') {
+        var b0 = document.getElementById('natalBanner');
+        if (b0) b0.style.display = 'none';
+      }
+    } catch (e) {}
+    var btn = document.getElementById('natalClose');
+    if (btn) btn.addEventListener('click', function () {
+      var b = document.getElementById('natalBanner');
+      if (b) b.style.display = 'none';
+      try { localStorage.setItem('solariNatalBannerClosed', '1'); } catch (e) {}
+    });
+  })();
+</script>
+<!-- NATAL 2026 — FIM DO BANNER -->
 
 <!-- ═══════════════════════════════════════════════════════════
      MOBILE: Bottom navigation + Drawer
@@ -5825,5 +5857,44 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 </script>
+
+<!-- NATAL 2026 — NEVE DISCRETA (remover este bloco após as festas) -->
+<style>
+  .natal-snow{position:fixed;inset:0;pointer-events:none;z-index:9998;overflow:hidden}
+  .natal-flake{position:absolute;top:-10px;color:rgba(212,160,23,.4);font-size:.8rem;user-select:none;animation:natalFall linear infinite;will-change:transform}
+  @keyframes natalFall{
+    0%{transform:translateY(-5vh) translateX(0) rotate(0deg);opacity:0}
+    8%{opacity:1}
+    100%{transform:translateY(105vh) translateX(var(--drift,20px)) rotate(360deg);opacity:.6}
+  }
+  @media (prefers-reduced-motion: reduce){.natal-snow{display:none}}
+  @media print{.natal-snow{display:none!important}}
+</style>
+<div class="natal-snow" id="natalSnow" aria-hidden="true"></div>
+<script>
+  (function () {
+    var wrap = document.getElementById('natalSnow');
+    if (!wrap) return;
+    var count = window.innerWidth < 640 ? 10 : 18;
+    for (var i = 0; i < count; i++) {
+      var f = document.createElement('span');
+      f.className = 'natal-flake';
+      f.textContent = '❄';
+      var left = Math.random() * 100;
+      var duration = 10 + Math.random() * 12;
+      var delay = Math.random() * 14;
+      var size = 0.6 + Math.random() * 0.9;
+      var drift = (Math.random() * 60 - 30) + 'px';
+      f.style.left = left + 'vw';
+      f.style.fontSize = size + 'rem';
+      f.style.animationDuration = duration + 's';
+      f.style.animationDelay = '-' + delay + 's';
+      f.style.setProperty('--drift', drift);
+      wrap.appendChild(f);
+    }
+  })();
+</script>
+<!-- NATAL 2026 — FIM DA NEVE -->
+
 </body>
 </html>
